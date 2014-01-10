@@ -5,6 +5,5 @@ rescue LoadError
 end
 
 APP_RAKEFILE = File.expand_path "../spec/dummy/Rakefile", __FILE__
-load "lib/tasks/auther_tasks.rake"
 
 Bundler::GemHelper.install_tasks
