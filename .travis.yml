@@ -1,5 +1,13 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1.0
+- 2.0.0
+- 2.1.0
+gemfile:
+- gemfiles/rails-4.0.x.gemfile
+before_install: gem install minitest -v "~> 4.7"
 script: bundle exec rspec spec
+notifications:
+  email: false
+  campfire:
+    rooms:
+      secure: BmY22afnPcilrF7AfZ7h4vZdxT9nxG96Y7Kx9YsxUxwT6E1EGSMIUigMkn0GBsaPbGk+1lMAGkrdtzqV1dJg1Go5wj6Qv7etxv53FzJ4CQIEJ6FURYK58+BuujXPGyQNhOdDXrfTu2X+VthcG0EWElqyBLU2bFjYQepGvvQUG/g=
