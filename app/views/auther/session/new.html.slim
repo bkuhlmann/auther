@@ -1,0 +1,19 @@
+= form_tag "/auther/session", class: "auther-form"
+  .row
+    h1.title Authorization
+
+  .row
+    .label
+      = label_tag :login, "Login:"
+    .input
+      = text_field_tag :login, nil
+
+  .row
+    .label
+      = label_tag :password, "Password:"
+    .input
+      = password_field_tag :password, nil
+
+  .row
+    .actions
+      = submit_tag "Login", class: "btn btn-primary"

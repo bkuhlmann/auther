@@ -1,0 +1,45 @@
+.auther-form {
+  font-family: "Helvetica","Times New Roman","Georgia","Serif";
+  background-color: rgba(198,198,198,1);
+  border: solid black 0.1em;
+  width: 20em;
+  margin: 0 auto;
+  padding: 1em;
+  -webkit-border-radius: 0.5em; -moz-border-radius: 0.5em; border-radius: 0.5em;
+
+  .row {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  .title {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .label {
+    margin: 0 0 1em 0;
+    float: left;
+  }
+
+  .input {
+    margin: 0 0 1em 0;
+    float: right;
+    input {
+      width: 15em;
+    }
+  }
+
+  .actions {
+    text-align: center;
+    input {
+      color: rgba(255,255,255,1);
+      background-color: rgba(0,140,186,1);
+      width: 15em;
+    }
+  }
+}
+
