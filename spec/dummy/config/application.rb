@@ -16,10 +16,10 @@ module Dummy
           name: "test",
           login: "test@test.com",
           password: "password",
-          secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
           paths: ["/portal"]
         }
       ],
+      secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
       auth_url: "/session/new"
     }
   end

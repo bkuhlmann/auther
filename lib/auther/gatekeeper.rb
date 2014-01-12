@@ -42,7 +42,7 @@ module Auther
     def authenticated? env, account
       session = env.fetch "rack.session"
       keymaster = Auther::Keymaster.new account.fetch(:name)
-      cipher = Auther::Cipher.new account.fetch(:secret)
+      cipher = Auther::Cipher.new settings.fetch(:secret)
 
       begin
         session_login = cipher.decrypt session[keymaster.login_key]

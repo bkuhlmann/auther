@@ -36,7 +36,7 @@ class Auther::SessionController < ApplicationController
 
   def store_credentials account, login, password
     keymaster = Auther::Keymaster.new account[:name]
-    cipher = Auther::Cipher.new account[:secret]
+    cipher = Auther::Cipher.new settings.fetch(:secret)
     session[keymaster.login_key] = cipher.encrypt login
     session[keymaster.password_key] = cipher.encrypt password
   end

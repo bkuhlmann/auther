@@ -14,6 +14,7 @@ describe Auther::Gatekeeper do
     ->(env) { [200, env, ["OK"]] }
   end
 
+  let(:secret) { "b%?A9mfswnd%PAXiKHcmR6WXz4(UG2t9W9sxkat7#uNBws}[s9Tuc;gDVfPV" }
   let(:auth_url) { "/login" }
 
   describe "single account" do
@@ -27,13 +28,13 @@ describe Auther::Gatekeeper do
             name: "public",
             login: login,
             password: password,
-            secret: "b%?A9mfswnd%PAXiKHcmR6WXz4(UG2t9W9sxkat7#uNBws}[s9Tuc;gDVfPV",
             paths: [
               "/admin",
               "/member"
             ]
           }
         ],
+        secret: secret,
         auth_url: auth_url
       }
     end
@@ -129,10 +130,10 @@ describe Auther::Gatekeeper do
   end
 
   describe "multiple accounts" do
-    let(:public_login) { "bFRSRi9GdVh3YUxMY2Q2TGo1NWlhRmlZTmZsMmZXWnhrcmRQRS9DSlFZVT0tLWtLU3EzclJBcXdRQ1hPVG1EU0k3SHc9PQ==--331d8fda2272f4754de3e3180dabba81d83cd763" }
-    let(:public_password) { "b2ZKOEtrQWx1YnVoQUV0d2R2dmF2aVVkNUJSNUQxb21KMjdFaDhhSGlOMD0tLWdvWFdPYjdoazA2TWRzVWxxaE5zRmc9PQ==--dc2518aeff63f613b337485307c069467c1bcc19" }
-    let(:member_login) { "dkpFMUVpM3lvS3Jla2tNTTFZR2h4R0M5cU1kQWVZSGs0U0lMOUNFUjBJRT0tLXBVMzhIZGFaOG9Yd3NwTEp6T0lWVXc9PQ==--c406e10e0deaac891ca9b0c447b3b6a31e166fd0" }
-    let(:member_password) { "T2l3QnB4RFpxT1puNXFDSnZ2b0Y1T29GS1BmSW1nMmJYelRlUit1SHRURT0tLWxBNERqS2R6NThLaWprNWE4TDZaZHc9PQ==--3bb5576fa6c2c83368add1e092928ae656a6acbd" }
+    let(:public_login) { "Yk5hMUdMdk10WWxQMUtsZFUyR2VEYzBWUm9hbHVsWndqVFNtM3ZCMWpOcz0tLWMvQjF2dlJ2OWo4VkkvYXlYMTYwUlE9PQ==--f53729f459527e944d20987c8159a06b56e4a736" }
+    let(:public_password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
+    let(:member_login) { "NGUzT2JIWUgybWwrc215UlpBUjBjcnRhS1g2SC8xQ0JkdkgvaXU0cERraz0tLVdLNGhqNnllMVZyTWFoZ3Btc3FiNFE9PQ==--57811a8a72d3c7ab8a6f95c8cea3aba6ac480749" }
+    let(:member_password) { "UjFtVnJKVVlHQUR1WTlwaUNCR2JsQ3d4MWZ2Q2MvdnhhQ2ZWaU05SHVDaz0tLVV6TnRyek9td21GZ2w1MWhONmpYdlE9PQ==--0611996b09391cb22dd034f7f2046ca266eb0f65" }
 
     subject do
       Auther::Gatekeeper.new app, {
@@ -141,7 +142,6 @@ describe Auther::Gatekeeper do
             name: "public",
             login: public_login,
             password: public_password,
-            secret: "%[4DWtyxW7Y[GieQZdv}e9WEcxyN6FftUiVb7WWGc3Xf+3TVX4LR/qKVW]*a",
             paths: [
               "/admin",
               "/member"
@@ -151,13 +151,13 @@ describe Auther::Gatekeeper do
             name: "member",
             login: member_login,
             password: member_password,
-            secret: "^mQ2dd7$2TJcEsA?Yax2Asr(WGkrFycT.HU4hk,h@uZ$Db7fAvn2wNH3wZDR",
             paths: [
               "/admin",
               "/contests/january"
             ]
           }
         ],
+        secret: secret,
         auth_url: auth_url
       }
     end
