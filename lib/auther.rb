@@ -1,4 +1,5 @@
 require "slim-rails"
+require "auther/cipher"
 require "auther/keymaster"
 require "auther/gatekeeper"
 require "auther/engine"
