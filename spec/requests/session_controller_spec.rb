@@ -24,7 +24,7 @@ describe Auther::SessionController do
     let(:cipher) { Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
 
     it "redirects to root path with valid credentials" do
-      post "/auther/session", name: "test", login: login, password: password
+      post "/auther/session", account: {name: "test", login: login, password: password}
 
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
@@ -33,7 +33,7 @@ describe Auther::SessionController do
     end
 
     it "redirects with invalid credentials" do
-      post "/auther/session", name: "test", login: login, password: "bogus"
+      post "/auther/session", account: {name: "test", login: login, password: "bogus"}
 
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq("bogus")
@@ -44,7 +44,7 @@ describe Auther::SessionController do
 
     it "requires authorization and redirects to original path when credentials are valid" do
       get "/portal"
-      post "/auther/session", name: "test", login: login, password: password
+      post "/auther/session", account: {name: "test", login: login, password: password}
 
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
@@ -54,7 +54,7 @@ describe Auther::SessionController do
 
     it "requires authorization and redirects when credentials are invalid" do
       get "/portal"
-      post "/auther/session", name: "test", login: login, password: "bogus"
+      post "/auther/session", account: {name: "test", login: login, password: "bogus"}
 
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq("bogus")
@@ -64,7 +64,7 @@ describe Auther::SessionController do
 
   describe "#destroy" do
     it "destroys credentials and redirects to new action" do
-      post "/auther/session", login: "test@test.com", password: "password"
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
       delete "/auther/session", name: "test"
 
       expect(session.has_key? :auther_test_login).to eq(false)

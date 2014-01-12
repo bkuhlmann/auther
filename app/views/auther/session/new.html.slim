@@ -1,19 +1,25 @@
-= form_tag "/auther/session", class: "auther-form"
+= form_for @account, as: :account, url: "/auther/session", html: {class: "auther-form"} do |form|
   .row
     h1.title Authorization
 
   .row
     .label
-      = label_tag :login, "Login:"
+      = form.label :login, "Login:"
     .input
-      = text_field_tag :login, nil
+      = form.text_field :login
 
   .row
     .label
-      = label_tag :password, "Password:"
+      = form.label :password, "Password:"
     .input
-      = password_field_tag :password, nil
+      = form.password_field :password
+
+  .row
+    .label
+      = form.label :name, "Account:"
+    .input
+      = form.select :name, @name_options
 
   .row
     .actions
-      = submit_tag "Login", class: "btn btn-primary"
+      = form.submit "Login"
