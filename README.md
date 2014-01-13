@@ -9,9 +9,10 @@ HTTP Basic Authentication and/or want to be compatible with password managers.
 
 # Features
 
+* Encrypted session account credentials.
 * Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
 * Multiple account support with account specific blacklisted paths.
-* Auto-redirection to blacklisted path (once credentials have been verified).
+* Auto-redirection to requested path (once credentials have been verified).
 * Customizable session view.
 * Customizable session controller.
 
@@ -35,12 +36,11 @@ Add the following to your Gemfile:
 
     gem "auther"
 
-# Usage
-
 Edit your routes.rb as follows:
 
     Rails.application.routes.draw do
       mount Auther::Engine => "/auther"
+      get "/login", to: "auther/session#new"
     end
 
 Edit your application.rb as follows:
@@ -51,15 +51,39 @@ Edit your application.rb as follows:
           accounts: [
             {
               name: "test",
-              login: "test@test.com",
-              password: "password",
+              login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
+              password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
               paths: ["/admin"]
             }
           ],
-          auth_url: "/auther/session/new"
+          secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
+          auth_url: "/login"
         }
       end
     end
+
+NOTE: The decrypted account credentials, for example above, are as follows:
+
+* login: test@test.com
+* password: password
+
+# Usage
+
+Using the setup examples, from above, launch your Rails application and visit either of the following routes:
+
+    http://localhost:3000/login
+    http://localhost:3000/admin # Will redirect to /login if not authorized.
+
+To encrypt/decrypt account credentials, launch a rails console and type the following:
+
+    # Best if more than 150 characters and gibberish to read. Must be the same as defined in auther settings.
+    cipher = Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb"
+
+    # Do this to encrypt an unecrypted value.
+    cipher.encrypt "test@test.com"
+
+    # Do this to decrypt an encrypted value.
+    cipher.decrypt "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331"
 
 # Customization
 
