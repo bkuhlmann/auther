@@ -57,13 +57,11 @@ describe Auther::Gatekeeper do
       end
 
       it "adds request path as request url to session" do
-        pending "Test redirect url" do
-          path = "/admin"
-          env["PATH_INFO"] = path
+        path = "/admin"
+        env["PATH_INFO"] = path
 
-          result = subject.call env
-          expect(result[1]["rack.session"]["auther_redirect_url"]).to eq(path)
-        end
+        result = subject.call env
+        expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
       end
     end
 
