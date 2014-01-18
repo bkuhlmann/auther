@@ -1,5 +1,6 @@
 class Auther::SessionController < Auther::BaseController
   layout "auther/auth"
+  before_filter :load_title, :load_label
   before_filter :name_options, only: [:new, :create]
 
   private

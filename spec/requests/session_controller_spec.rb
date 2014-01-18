@@ -16,6 +16,20 @@ describe Auther::SessionController do
       expect(response.body).to include("Login:")
       expect(response.body).to include("Password:")
     end
+
+    it "renders page title" do
+      get "/auther/session/new"
+
+      expect(response.status).to eq 200
+      expect(response.body).to include("<title>Dummy</title>")
+    end
+
+    it "renders page label" do
+      get "/auther/session/new"
+
+      expect(response.status).to eq 200
+      expect(response.body).to include(">Dummy</h1>")
+    end
   end
 
   describe "#create" do

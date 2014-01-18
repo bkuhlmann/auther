@@ -11,6 +11,8 @@ require "auther"
 module Dummy
   class Application < Rails::Application
     config.auther_settings = {
+      title: "Dummy",
+      label: "Dummy",
       accounts: [
         {
           name: "test",

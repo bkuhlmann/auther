@@ -1,7 +1,9 @@
+- content_for(:title) { @title }
+
 = form_for @account, as: :account, url: "/auther/session", html: {class: "auther-form"} do |form|
   .small-12
     .row
-      h1.text-center Authorization
+      h1.text-center = @label
 
     .row
       .small-8
