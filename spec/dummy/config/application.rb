@@ -16,8 +16,8 @@ module Dummy
       accounts: [
         {
           name: "test",
-          login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
-          password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
+          login: "WWNhTlk3VGU4dXc1bjFmU2FZYmM5UmxZYXEzSyt6TDlITmlXQ3MxcXk4RT0tLUlVRXRlWE81T3dLc1lrOCtUbDdYeVE9PQ==--81991e25d072d0904af97b9d114d4e543b6bcbe2",
+          password: "VEtiVGwrYko0eXdhL1dnZ0d0MFFhWmI4UEkrL3A4NUNoNnZPNlBtQkwwZz0tLVpxSUwvYkV4NWVUNERuSzJBNFNkWmc9PQ==--9028c12deb299b659d1eaeac5b2ff46136138f7c",
           paths: ["/portal"]
         }
       ],

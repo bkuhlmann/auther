@@ -9,13 +9,11 @@ module Auther
     end
 
     def create
-      account_params = params.fetch(:account)
-      @account = Auther::Account.new find_account(account_params.fetch(:name))
-
-      if @account.valid?
-        store_credentials @account, account_params.fetch(:login), account_params.fetch(:password)
+      if account.valid?
+        store_credentials
         redirect_to session["auther_redirect_url"] || '/'
       else
+        remove_credentials account.name
         render template: new_template_path
       end
     end
@@ -27,16 +25,28 @@ module Auther
 
     private
 
-    def settings
-      Rails.application.config.auther_settings
-    end
-
     def load_title
       @title = settings[:title]
     end
 
     def load_label
       @label = settings[:label]
+    end
+
+    def settings
+      Rails.application.config.auther_settings
+    end
+
+    def account
+      account_params = params.fetch :account
+      account_settings = find_account account_params.fetch(:name)
+
+      @account ||= Auther::Account.new name: account_params.fetch(:name),
+        login: account_params.fetch(:login),
+        secure_login: account_settings.fetch(:login),
+        password: account_params.fetch(:password),
+        secure_password: account_settings.fetch(:password),
+        secret: settings.fetch(:secret)
     end
 
     def name_options
@@ -54,11 +64,10 @@ module Auther
       settings.fetch(:accounts).select { |account| account.fetch(:name) == name }.first
     end
 
-    def store_credentials account, login, password
+    def store_credentials
       keymaster = Auther::Keymaster.new account.name
-      cipher = Auther::Cipher.new settings.fetch(:secret)
-      session[keymaster.login_key] = cipher.encrypt login
-      session[keymaster.password_key] = cipher.encrypt password
+      session[keymaster.login_key] = account.secure_login
+      session[keymaster.password_key] = account.secure_password
     end
 
     def remove_credentials name
