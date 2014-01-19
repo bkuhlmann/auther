@@ -1,30 +1,41 @@
 module Auther
   class Gatekeeper
-    attr_reader :application, :settings
+    attr_reader :application, :environment, :settings
 
     def initialize application, settings = []
       @application = application
       @settings = settings
     end
 
-    def call env
-      session = env.fetch "rack.session"
-      request_path = env["PATH_INFO"]
+    def call environment
+      @environment = environment
 
-      if authorized?(env, request_path)
-        application.call env
+      if authorized?(request.path)
+        application.call environment
       else
-        session[Auther::Keymaster.redirect_url_key] = request_path
-        response = Rack::Response.new
-        response.redirect settings[:auth_url]
-        response.finish
+        session[Auther::Keymaster.redirect_url_key] = request.path
+        denied_response = response
+        denied_response.redirect settings[:auth_url]
+        denied_response.finish
       end
     end
 
     private
 
-    def find_account env
-      session = env.fetch "rack.session"
+    def session
+      environment.fetch "rack.session"
+    end
+
+    def request
+      Rack::Request.new environment
+    end
+
+    def response
+      status, headers, body = application.call environment
+      Rack::Response.new body, status, headers
+    end
+
+    def find_account
       session["auther_init"] = true # Force session to initialize.
       account_name = Auther::Keymaster.get_account_name session
       settings.fetch(:accounts).select { |account| account.fetch(:name) == account_name }.first
@@ -39,8 +50,7 @@ module Auther
       account.fetch(:paths).include? path
     end
 
-    def authenticated? env, account
-      session = env.fetch "rack.session"
+    def authenticated? account
       keymaster = Auther::Keymaster.new account.fetch(:name)
       cipher = Auther::Cipher.new settings.fetch(:secret)
 
@@ -56,10 +66,10 @@ module Auther
       end
     end
 
-    def authorized? env, path
+    def authorized? path
       if blacklisted_path?(path)
-        account = find_account env
-        account && authenticated?(env, account) && !blacklisted_account?(account, path)
+        account = find_account
+        account && authenticated?(account) && !blacklisted_account?(account, path)
       else
         true
       end
