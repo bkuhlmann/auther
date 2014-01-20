@@ -9,8 +9,11 @@ HTTP Basic Authentication and/or want to be compatible with password managers.
 
 # Features
 
-* Encrypted session account credentials.
 * Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
+
+[![Screenshot](https://github.com/bkuhlmann/auther/raw/master/screenshot.png)](https://github.com/bkuhlmann/auther)
+
+* Encrypted session account credentials.
 * Multiple account support with account specific blacklisted paths.
 * Auto-redirection to requested path (once credentials have been verified).
 * Customizable session view.
@@ -47,18 +50,20 @@ Edit your application.rb as follows:
 
     module Example
       class Application < Rails::Application
+
         config.auther_settings = {
+          title: "Authorization",
+          label: "Authorization",
           accounts: [
-            {
-              name: "test",
-              login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
-              password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
-              paths: ["/admin"]
-            }
+            name: "admin",
+            login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
+            password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
+            paths: ["/admin"]
           ],
           secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
           auth_url: "/login"
         }
+
       end
     end
 
@@ -87,10 +92,43 @@ To encrypt/decrypt account credentials, launch a rails console and type the foll
 
 # Customization
 
-Don't like the default authorization form? No problem, simply create the following file within your Rails application
-to override the form provided by this engine and customize as you see fit:
+## Model
+
+The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveRecord validations
+to aid in form/credential validation. This model could potentially be replaced with a database-backed object if
+desired (would require controller customization)...but, if this neccessary, you might want to question if you have
+outgrown the use of this gem and require a different solution altogether.
+
+## Views
+
+The view can be customized by creating the following file within your Rails application (assumes that the
+default Auther::SessionController implementation is sufficient):
 
     app/views/auther/session/new.html
+
+## Controller
+
+The [Auther::SessionController](app/controllers/auther/session_controller.rb) inherits from the
+[Auther::BaseController](app/controllers/auther/base_controller.rb). To customize, it is recommended that
+you add a controller to your app that inherit from the Auther::BaseController. Example:
+
+    # Example Path:  app/controllers/session_controller.rb
+    class SessionController < Auther::BaseController
+      layout "example_site_layout"
+    end
+
+This allows complete customization of session controller behavior to serve any special business needs. See the
+Auther::BaseController for additional details or the Auther::SessionController for default implementation.
+
+## Routes
+
+As mentioned in the setup above, the routes can also be customized. Example:
+
+    Rails.application.routes.draw do
+      mount Auther::Engine => "/auther"
+      get "/login", to: "auther/session#new"
+      delete "/logout", to: "auther/session#destroy"
+    end
 
 # Tests
 

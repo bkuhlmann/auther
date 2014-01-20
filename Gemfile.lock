@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auther (0.2.0)
+    auther (0.3.0)
       foundation-rails (~> 5.0)
       jquery-rails (~> 3.0)
       modernizr-rails (~> 2.7)
