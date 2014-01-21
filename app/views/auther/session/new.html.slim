@@ -1,36 +1,37 @@
 - content_for(:title) { @title }
 
-= form_for @account, as: :account, url: "/auther/session", html: {class: "auther-form"} do |form|
-  .small-12
-    .row
-      h1.text-center = @label
+.authorization
+  = form_for @account, as: :account, url: "/auther/session" do |form|
+    .small-12
+      .row
+        h1.authorization-label = @label
 
-    .row
-      .small-8
-        .row
-          .small-6.columns
-            = form.label :login, "Login:", class: "inline right"
-          .small-6.columns
-            = form.text_field :login
+      .row
+        .small-8
+          .row
+            .small-6.columns
+              = form.label :login, "Login:", class: "inline right"
+            .small-6.columns
+              = form.text_field :login
 
-    .row
-      .small-8
-        .row
-          .small-6.columns
-            = form.label :password, "Password:", class: "inline right"
-          .small-6.columns
-            = form.password_field :password
+      .row
+        .small-8
+          .row
+            .small-6.columns
+              = form.label :password, "Password:", class: "inline right"
+            .small-6.columns
+              = form.password_field :password
 
-    .row
-      .small-8
-        .row
-          .small-6.columns
-            = form.label :name, "Account:", class: "inline right"
-          .small-6.columns
-            = form.select :name, @name_options
+      .row
+        .small-8
+          .row
+            .small-6.columns
+              = form.label :name, "Account:", class: "inline right"
+            .small-6.columns
+              = form.select :name, @name_options
 
-    .row
-      .small-8
-        .row
-          .small-6.right
-            = form.submit "Login", class: "button round expand"
+      .row
+        .small-8
+          .row
+            .small-6.right
+              = form.submit "Login", class: "button round expand"
