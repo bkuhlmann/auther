@@ -69,10 +69,16 @@ Edit your application.rb as follows:
       end
     end
 
-NOTE: The decrypted account credentials, for example above, are as follows:
+The purpose of each setting is as follows:
 
-* login: test@test.com
-* password: password
+* *title* - The HTML page title (as rendered within a browser tab).
+* *label* - The page label (what would appear above the form).
+* *accounts* - The array of accounts with different or similar access to the application.
+    * *login* - The encrypted account login. For example, the above decrypts to: *test@test.com*.
+    * *password* - The encrypted account password. For example, the above decrypts to: *password*.
+    * *paths* - The array of blacklisted paths for which only this account has access to.
+* *secret* - The secret passphrase used to encrypt/decrypt account credentials.
+* *auth_url* - The URL to redirect to when enforcing authentication to a blacklisted path.
 
 # Usage
 
@@ -99,7 +105,7 @@ To encrypt/decrypt account credentials, launch a rails console and type the foll
 The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveRecord validations
 to aid in form/credential validation. This model could potentially be replaced with a database-backed object
 (would require controller customization)...but you might want to question if you have outgrown the use of this
-gem and need a different solution altogether.
+gem and need a different solution altogether if it comes to that.
 
 ## Views
 
@@ -108,14 +114,14 @@ default Auther::SessionController implementation is sufficient):
 
     app/views/auther/session/new.html
 
-The form can also be customized by attaching new styles to the .authorization class (see
+The form can be stylized by attaching new styles to the .authorization class (see
 [auther.scss](app/assets/stylesheets/auther/auther.scss) for details).
 
 ## Controller
 
 The [Auther::SessionController](app/controllers/auther/session_controller.rb) inherits from the
 [Auther::BaseController](app/controllers/auther/base_controller.rb). To customize, it is recommended that
-you add a controller to your app that inherit from the Auther::BaseController. Example:
+you add a controller to your app that inherits from the Auther::BaseController. Example:
 
     # Example Path:  app/controllers/session_controller.rb
     class SessionController < Auther::BaseController
