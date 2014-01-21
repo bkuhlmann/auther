@@ -95,9 +95,9 @@ To encrypt/decrypt account credentials, launch a rails console and type the foll
 ## Model
 
 The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveRecord validations
-to aid in form/credential validation. This model could potentially be replaced with a database-backed object if
-desired (would require controller customization)...but, if this neccessary, you might want to question if you have
-outgrown the use of this gem and require a different solution altogether.
+to aid in form/credential validation. This model could potentially be replaced with a database-backed object
+(would require controller customization)...but you might want to question if you have outgrown the use of this
+gem and need a different solution altogether.
 
 ## Views
 
@@ -105,6 +105,9 @@ The view can be customized by creating the following file within your Rails appl
 default Auther::SessionController implementation is sufficient):
 
     app/views/auther/session/new.html
+
+The form can also be customized by attaching new styles to the .authorization class (see
+[auther.scss](app/assets/stylesheets/auther/auther.scss) for details).
 
 ## Controller
 
