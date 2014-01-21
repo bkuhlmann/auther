@@ -1,11 +1,13 @@
 # Overview
 
-Provides simple, form-based authentication for apps that need security but don't want to use the clunky UI of
-HTTP Basic Authentication and/or want to be compatible with password managers.
-
 [![Gem Version](https://badge.fury.io/rb/auther.png)](http://badge.fury.io/rb/auther)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.png)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.png)](http://travis-ci.org/bkuhlmann/auther)
+
+Provides simple, form-based authentication for apps that need security but don't want to deal with the clunky UI
+of HTTP Basic Authentication or something as heavyweight as [Devise](https://github.com/plataformatec/devise). It
+doesn't require a database and is compatible with password managers like [1Password](https://agilebits.com/onepassword)
+making for a pleasent user experience.
 
 # Features
 
@@ -13,11 +15,11 @@ HTTP Basic Authentication and/or want to be compatible with password managers.
 
 [![Screenshot](https://github.com/bkuhlmann/auther/raw/master/screenshot.png)](https://github.com/bkuhlmann/auther)
 
-* Encrypted session account credentials.
+* Encrypted account credentials.
 * Multiple account support with account specific blacklisted paths.
 * Auto-redirection to requested path (once credentials have been verified).
-* Customizable session view.
-* Customizable session controller.
+* Customizable view.
+* Customizable controller.
 
 # Requirements
 
