@@ -17,6 +17,7 @@ making for a pleasent user experience.
 
 * Encrypted account credentials.
 * Multiple account support with account specific blacklisted paths.
+* Log filtering for account credentials (login and password).
 * Auto-redirection to requested path (once credentials have been verified).
 * Customizable view.
 * Customizable controller.
