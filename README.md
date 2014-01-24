@@ -13,7 +13,8 @@ making for a pleasent user experience.
 
 * Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
 
-[![Screenshot](https://github.com/bkuhlmann/auther/raw/master/screenshot.png)](https://github.com/bkuhlmann/auther)
+[![Screenshot - Clean](https://github.com/bkuhlmann/auther/raw/master/screenshot-clean.png)](https://github.com/bkuhlmann/auther)
+[![Screenshot - Error](https://github.com/bkuhlmann/auther/raw/master/screenshot-error.png)](https://github.com/bkuhlmann/auther)
 
 * Encrypted account credentials.
 * Multiple account support with account specific blacklisted paths.
