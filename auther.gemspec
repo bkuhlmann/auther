@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Brooke Kuhlmann"]
   s.email       = ["brooke@redalchemist.com"]
   s.homepage    = "http://www.redalchemist.com"
-  s.summary     = "A Rails Engine with simple, form-based authentication support."
-  s.description = "A Rails Engine with simple, form-based authentication, session, and blacklist route support."
+  s.summary     = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
+  s.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication as a Rails Engine."
   s.license     = "MIT"
 
   unless ENV["TRAVIS"]
