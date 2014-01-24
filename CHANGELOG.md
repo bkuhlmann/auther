@@ -1,3 +1,9 @@
+# v1.0.0
+
+* Added vertical alignment and title spacing to authorization view template.
+* Added error messages to form fields when invalid.
+* Updated gemspec summary and description text.
+
 # v0.3.0
 
 * Refactored the session controller so that it can be easily customized.
