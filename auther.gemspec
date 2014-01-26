@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Brooke Kuhlmann"]
   s.email       = ["brooke@redalchemist.com"]
-  s.homepage    = "http://www.redalchemist.com"
+  s.homepage    = "https://github.com/bkuhlmann/auther"
   s.summary     = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
   s.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication as a Rails Engine."
   s.license     = "MIT"
