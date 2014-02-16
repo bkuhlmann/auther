@@ -6,13 +6,20 @@ ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "/dummy"
 
 require "rspec/rails"
 require "pry"
-require "pry-byebug"
 require "pry-remote"
 require "pry-rescue"
-require "pry-stack_explorer"
 require "pry-vterm_aliases"
-require "pry-git"
-require "pry-doc"
+
+case Gem.ruby_engine
+  when "ruby"
+    require "pry-byebug"
+    require "pry-stack_explorer"
+  when "jruby"
+    require "pry-nav"
+  when "rbx"
+    require "pry-nav"
+    require "pry-stack_explorer"
+end
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

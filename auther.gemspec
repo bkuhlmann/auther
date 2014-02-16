@@ -24,22 +24,30 @@ Gem::Specification.new do |s|
   add_security_key s, "signing_key", File.expand_path("~/.ssh/gem-private.pem")
   add_security_key s, "cert_chain", [File.expand_path("~/.ssh/gem-public.pem")]
 
-  s.required_ruby_version = "~> 2.0"
+  case Gem.ruby_engine
+    when "ruby"
+      s.add_development_dependency "pry-byebug"
+      s.add_development_dependency "pry-stack_explorer"
+    when "jruby"
+      s.add_development_dependency "pry-nav"
+    when "rbx"
+      s.add_development_dependency "pry-nav"
+      s.add_development_dependency "pry-stack_explorer"
+    else
+      raise RuntimeError.new("Unsupported Ruby Engine!")
+  end
+
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "slim-rails", "~> 2.0"
+  s.add_dependency "slim-rails", "~> 2.1"
   s.add_dependency "sass-rails", "~> 4.0"
-  s.add_dependency "jquery-rails", "~> 3.0"
+  s.add_dependency "jquery-rails", "~> 3.1"
   s.add_dependency "modernizr-rails", "~> 2.7"
-  s.add_dependency "foundation-rails", "~> 5.0"
+  s.add_dependency "foundation-rails", "~> 5.1"
   s.add_development_dependency "rake", "~> 10.0"
   s.add_development_dependency "pry"
-  s.add_development_dependency "pry-byebug"
   s.add_development_dependency "pry-remote"
   s.add_development_dependency "pry-rescue"
-  s.add_development_dependency "pry-stack_explorer"
   s.add_development_dependency "pry-vterm_aliases"
-  s.add_development_dependency "pry-git"
-  s.add_development_dependency "pry-doc"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rb-fsevent" # Guard file events for OSX.
   s.add_development_dependency "guard-rspec"

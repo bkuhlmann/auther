@@ -7,14 +7,14 @@ module Auther
     validates :name, presence: true
     validates :paths, presence: {unless: lambda { |account| account.paths.is_a? Array }, message: "must be an array"}
 
-    def initialize name: nil, login: nil, secure_login: nil, password: nil, secure_password: nil, paths: [], secret: nil
-      @name = name
-      @login = login
-      @secure_login = secure_login
-      @password = password
-      @secure_password = secure_password
-      @paths = paths
-      @secret = secret
+    def initialize options = {}
+      @name = options.fetch :name, nil
+      @login = options.fetch :login, nil
+      @secure_login = options.fetch :secure_login, nil
+      @password = options.fetch :password, nil
+      @secure_password = options.fetch :secure_password, nil
+      @paths = options.fetch :paths, []
+      @secret = options.fetch :secret, nil
     end
 
     def valid?

@@ -1,3 +1,8 @@
+# v1.1.0
+
+* Updated gemspec homepage URL to use GitHub project URL.
+* Added JRuby and Rubinius VM support.
+
 # v1.0.0
 
 * Added vertical alignment and title spacing to authorization view template.
