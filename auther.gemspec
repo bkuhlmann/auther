@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", "~> 4.0"
   s.add_dependency "jquery-rails", "~> 3.1"
   s.add_dependency "modernizr-rails", "~> 2.7"
-  s.add_dependency "foundation-rails", "~> 5.1"
+  s.add_dependency "foundation-rails", "~> 5.2"
   s.add_development_dependency "rake", "~> 10.0"
   s.add_development_dependency "pry"
   s.add_development_dependency "pry-remote"
