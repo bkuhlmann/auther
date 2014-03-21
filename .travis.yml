@@ -1,15 +1,13 @@
 language: ruby
 rvm:
 - 2.0.0
-- 2.1.0
-- jruby
-- rbx-2
 gemfile:
 - gemfiles/rails-4.0.x.gemfile
 before_install:
-  - gem install minitest -v "~> 4.7"
-  - rm -f Gemfile.lock
+- gem install minitest -v "~> 4.7"
+- rm -f Gemfile.lock
 script: bundle exec rspec spec
 notifications:
   email: false
-  slack: "VyRfvGh40JLlO3S8lL0FbT2DtMA5RMIVtTPhyqf/TmCkCZLQHXM3wOTEQqj5CWh9aB9BO2u5Ie3lhvSeUPA6IcFDyz+6VaqSsE+XwtzA2pd2k/GvCaO4z8oacgRrtatWrJQxMxR1P4yzVRBtyn1MwL9rjZj51mKGD8g5RBqe1LE="
+  slack:
+    secure: gAFabzaZsZvP9dl8NOlAaaEQJNRbYlLJAYxkFov3fcgPnApTKJjl4zpe86fh77+346P+kxQhptyYwuE6bxPkHCp/aGruxBiBXJiXvHfg+eUmr4SMCqEUsTZQpVdYPEaBL8cuByF/eqrfiEMa0aRILB1TO5kpeuEXvxdZAZ/s4vI=
