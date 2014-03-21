@@ -12,5 +12,4 @@ before_install:
 script: bundle exec rspec spec
 notifications:
   email: false
-  webhooks:
-    secure: "Qieky8TZgXKip5qh3tYtsL7yOKJsvDj2xC2n11kWrMuJJQSNTGjltSoAmYenHAF06EctsfyiGXzC/aebBM+he/lMrVV5UGlhXfgcdP65L+OO5edhH8jZxP8zn82CKbcs2MpdbFT7yFWvzx43mvb2hinoNjWmg46SGhAC8AMvG8s="
+  slack: "VyRfvGh40JLlO3S8lL0FbT2DtMA5RMIVtTPhyqf/TmCkCZLQHXM3wOTEQqj5CWh9aB9BO2u5Ie3lhvSeUPA6IcFDyz+6VaqSsE+XwtzA2pd2k/GvCaO4z8oacgRrtatWrJQxMxR1P4yzVRBtyn1MwL9rjZj51mKGD8g5RBqe1LE="
