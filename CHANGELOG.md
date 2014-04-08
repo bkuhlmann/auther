@@ -1,3 +1,12 @@
+# v1.2.0
+
+* Fixed bug with engine assets not being loaded properly within engine initializer.
+* Updated to MRI 2.1.1.
+* Updated to Rubinius 2.x.x support.
+* Updated RSpec helper to disable GC for all specs in order to improve performance.
+* Added Gemnasium support.
+* Added Coveralls support.
+
 # v1.1.0
 
 * Updated gemspec homepage URL to use GitHub project URL.
