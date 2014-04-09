@@ -1,4 +1,6 @@
 require "bundler/setup"
+require "coveralls"
+Coveralls.wear!
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path "../dummy/config/environment", __FILE__
@@ -8,7 +10,6 @@ require "rspec/rails"
 require "pry"
 require "pry-remote"
 require "pry-rescue"
-require "coveralls"
 
 case Gem.ruby_engine
   when "ruby"
@@ -20,8 +21,6 @@ case Gem.ruby_engine
     require "pry-nav"
     require "pry-stack_explorer"
 end
-
-Coveralls.wear!
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
