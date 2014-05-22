@@ -10,6 +10,7 @@ require "auther"
 
 module Dummy
   class Application < Rails::Application
+    config.assets.initialize_on_precompile = false
     config.auther_settings = {
       title: "Dummy",
       label: "Dummy",
