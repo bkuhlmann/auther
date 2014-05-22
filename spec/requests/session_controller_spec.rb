@@ -79,6 +79,15 @@ describe Auther::SessionController do
       expect(response.location).to include("portal")
     end
 
+    # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined for this test.
+    it "requires blacklisted (trailing slash) path authorization and redirects to requested path with valid credentials" do
+      get "/trailer"
+      post "/auther/session", account: {name: "test", login: login, password: password}
+
+      expect(response.status).to eq 302
+      expect(response.location).to include("trailer")
+    end
+
     it "requires blacklisted path authorization and remembers request path with invalid credentials" do
       get "/portal"
       post "/auther/session", account: {name: "test", login: login, password: "bogus"}

@@ -41,13 +41,21 @@ module Auther
       settings.fetch(:accounts).select { |account| account.fetch(:name) == account_name }.first
     end
 
+    def clean_paths paths
+      paths.map { |path| path.chomp '/' }
+    end
+
     def blacklisted_path? path
-      blacklisted_paths = settings.fetch(:accounts).map {|account| account.fetch :paths }.flatten
+      blacklisted_paths = settings.fetch(:accounts).map do |account|
+        clean_paths account.fetch(:paths)
+      end
+
+      blacklisted_paths.flatten!
       blacklisted_paths.map { |blacklisted_path| path.include? blacklisted_path }.any?
     end
 
     def blacklisted_account? account, path
-      account.fetch(:paths).include? path
+      clean_paths(account.fetch(:paths)).include? path
     end
 
     def authenticated? account

@@ -30,7 +30,8 @@ describe Auther::Gatekeeper do
             password: password,
             paths: [
               "/admin",
-              "/member"
+              "/member",
+              "/trailing_slash/"
             ]
           }
         ],
@@ -58,6 +59,15 @@ describe Auther::Gatekeeper do
 
       it "adds request path as request url to session" do
         path = "/admin"
+        env["PATH_INFO"] = path
+
+        result = subject.call env
+        expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
+      end
+
+      # NOTE: See Gatekeeper settings where trailing slash path is defined for this test.
+      it "adds request (trailing slash) path as request url to session" do
+        path = "/trailing_slash"
         env["PATH_INFO"] = path
 
         result = subject.call env
@@ -160,7 +170,7 @@ describe Auther::Gatekeeper do
       }
     end
 
-    context "non-blacklisted account path" do
+    context "non-blacklisted path" do
       it "allows access with valid account" do
         env["rack.session"]["auther_member_login"] = member_login
         env["rack.session"]["auther_member_password"] = member_password
@@ -171,7 +181,7 @@ describe Auther::Gatekeeper do
       end
     end
 
-    context "blacklisted account path" do
+    context "blacklisted path" do
       it "denies access for invalid account" do
         env["rack.session"]["auther_member_login"] = public_login
         env["rack.session"]["auther_member_password"] = public_password
