@@ -40,20 +40,20 @@ describe Auther::SessionController do
     it "redirects to root path with valid credentials" do
       post "/auther/session", account: {name: "test", login: login, password: password}
 
+      expect(response.status).to eq 302
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.status).to eq 302
-      expect(response.location).to include("www.example.com/")
+      expect(response.location).to include("www.example.com")
     end
 
-    it "renders errors when credentials are missing" do
+    it "renders errors with missing credentials" do
       post "/auther/session", account: {name: "test", login: nil, password: nil}
 
       expect(response.status).to eq 200
       expect(response.body).to include("field_with_errors")
     end
 
-    it "renders errors when credentials are invalid" do
+    it "renders errors with invalid credentials" do
       post "/auther/session", account: {name: "test", login: "bogus@test.com", password: "bogus-password"}
 
       expect(response.status).to eq 200
@@ -61,7 +61,7 @@ describe Auther::SessionController do
       expect(response.body).to include(%(value="bogus@test.com"))
     end
 
-    it "removes session credentials when credentials are missing/invalid" do
+    it "removes session credentials with missing/invalid credentials" do
       post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
 
       expect(response.status).to eq 200
@@ -69,17 +69,17 @@ describe Auther::SessionController do
       expect(session.has_key? :auther_test_password).to eq(false)
     end
 
-    it "requires blacklisted path authorization and redirects to requested path when credentials are valid" do
+    it "requires blacklisted path authorization and redirects to requested path with valid credentials" do
       get "/portal"
       post "/auther/session", account: {name: "test", login: login, password: password}
 
+      expect(response.status).to eq 302
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.status).to eq 302
       expect(response.location).to include("portal")
     end
 
-    it "requires blacklisted path authorization and remembers request path when credentials are invalid" do
+    it "requires blacklisted path authorization and remembers request path with invalid credentials" do
       get "/portal"
       post "/auther/session", account: {name: "test", login: login, password: "bogus"}
 
@@ -95,9 +95,9 @@ describe Auther::SessionController do
       post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
       delete "/auther/session", name: "test"
 
+      expect(response.status).to eq 302
       expect(session.has_key? :auther_test_login).to eq(false)
       expect(session.has_key? :auther_test_password).to eq(false)
-      expect(response.status).to eq 302
     end
   end
 end
