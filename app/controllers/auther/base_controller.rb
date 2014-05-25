@@ -26,11 +26,11 @@ module Auther
     private
 
     def load_title
-      @title = settings[:title]
+      @title = settings.fetch :title, "Authorization"
     end
 
     def load_label
-      @label = settings[:label]
+      @label = settings.fetch :label, "Authorization"
     end
 
     def settings
