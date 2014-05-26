@@ -1,10 +1,11 @@
 module Auther
   class Gatekeeper
-    attr_reader :application, :environment, :settings
+    attr_reader :application, :environment, :settings, :logger
 
     def initialize application, settings = []
       @application = application
       @settings = settings
+      @logger = @settings.fetch :logger, Auther::NullLogger.new(STDOUT)
     end
 
     def call environment
@@ -46,16 +47,28 @@ module Auther
     end
 
     def blacklisted_path? path
-      blacklisted_paths = settings.fetch(:accounts).map do |account|
+      all_paths = settings.fetch(:accounts).map do |account|
         clean_paths account.fetch(:paths)
       end
 
-      blacklisted_paths.flatten!
-      blacklisted_paths.map { |blacklisted_path| path.include? blacklisted_path }.any?
+      all_paths.flatten!.uniq!
+      blacklisted_paths = all_paths.select { |blacklisted_path| path.include? blacklisted_path }
+
+      if blacklisted_paths.any?
+        logger.info %(AUTHER: Requested path "#{request.path}" detected in blacklisted paths: #{all_paths}.)
+        true
+      else
+        false
+      end
     end
 
     def blacklisted_account? account, path
-      clean_paths(account.fetch(:paths)).include? path
+      if clean_paths(account.fetch(:paths)).include?(path)
+        logger.info %(AUTHER: Requested path "#{request.path}" blacklisted for "#{account.fetch :name}" account.)
+        true
+      else
+        false
+      end
     end
 
     def authenticated? account

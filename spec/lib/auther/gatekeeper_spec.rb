@@ -73,6 +73,13 @@ describe Auther::Gatekeeper do
         result = subject.call env
         expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
       end
+
+      it "does not log info message for requested path" do
+        env["PATH_INFO"] = "/this/is/safe"
+
+        expect(subject.logger).to receive(:info).never
+        subject.call env
+      end
     end
 
     context "blacklisted path" do
@@ -134,6 +141,15 @@ describe Auther::Gatekeeper do
         result = subject.call env
         expect(result[1]["Location"]).to eq(auth_url)
       end
+
+      it "logs info message for requested path" do
+        env["PATH_INFO"] = "/admin/nested/path"
+
+        message = %(AUTHER: Requested path "/admin/nested/path" detected in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
+
+        expect(subject.logger).to receive(:info).with(message).once
+        subject.call env
+      end
     end
   end
 
@@ -189,6 +205,31 @@ describe Auther::Gatekeeper do
 
         result = subject.call env
         expect(result[1]["Location"]).to eq(auth_url)
+      end
+
+      it "logs only blacklisted paths for valid account" do
+        env["rack.session"]["auther_member_login"] = member_login
+        env["rack.session"]["auther_member_password"] = member_password
+        env["PATH_INFO"] = "/member"
+
+        blacklist_message = %(AUTHER: Requested path "/member" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = %(AUTHER: Requested path "/member" blacklisted for "member" account.)
+
+        expect(subject.logger).to receive(:info).with(blacklist_message).once
+        subject.call env
+      end
+
+      it "logs blacklisted paths and account for valid account" do
+        env["rack.session"]["auther_member_login"] = member_login
+        env["rack.session"]["auther_member_password"] = member_password
+        env["PATH_INFO"] = "/contests/january"
+
+        blacklist_message = %(AUTHER: Requested path "/contests/january" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = %(AUTHER: Requested path "/contests/january" blacklisted for "member" account.)
+
+        expect(subject.logger).to receive(:info).with(blacklist_message).once
+        expect(subject.logger).to receive(:info).with(account_message).once
+        subject.call env
       end
     end
   end
