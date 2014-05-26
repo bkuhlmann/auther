@@ -145,7 +145,7 @@ describe Auther::Gatekeeper do
       it "logs info message for requested path" do
         env["PATH_INFO"] = "/admin/nested/path"
 
-        message = %(AUTHER: Requested path "/admin/nested/path" detected in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
+        message = %([auther]: Requested path "/admin/nested/path" detected in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
 
         expect(subject.logger).to receive(:info).with(message).once
         subject.call env
@@ -212,8 +212,8 @@ describe Auther::Gatekeeper do
         env["rack.session"]["auther_member_password"] = member_password
         env["PATH_INFO"] = "/member"
 
-        blacklist_message = %(AUTHER: Requested path "/member" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
-        account_message = %(AUTHER: Requested path "/member" blacklisted for "member" account.)
+        blacklist_message = %([auther]: Requested path "/member" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = %([auther]: Requested path "/member" blacklisted for "member" account.)
 
         expect(subject.logger).to receive(:info).with(blacklist_message).once
         subject.call env
@@ -224,8 +224,8 @@ describe Auther::Gatekeeper do
         env["rack.session"]["auther_member_password"] = member_password
         env["PATH_INFO"] = "/contests/january"
 
-        blacklist_message = %(AUTHER: Requested path "/contests/january" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
-        account_message = %(AUTHER: Requested path "/contests/january" blacklisted for "member" account.)
+        blacklist_message = %([auther]: Requested path "/contests/january" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = %([auther]: Requested path "/contests/january" blacklisted for "member" account.)
 
         expect(subject.logger).to receive(:info).with(blacklist_message).once
         expect(subject.logger).to receive(:info).with(account_message).once

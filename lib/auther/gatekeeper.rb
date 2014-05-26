@@ -36,6 +36,11 @@ module Auther
       Rack::Response.new body, status, headers
     end
 
+    def info message
+      id = "[#{Auther::Keymaster.namespace}]"
+      logger.info [id, message].join(": ")
+    end
+
     def find_account
       session["auther_init"] = true # Force session to initialize.
       account_name = Auther::Keymaster.get_account_name session
@@ -47,15 +52,15 @@ module Auther
     end
 
     def blacklisted_path? path
-      all_paths = settings.fetch(:accounts).map do |account|
+      blacklisted_accounts_paths = settings.fetch(:accounts).map do |account|
         clean_paths account.fetch(:paths)
       end
 
-      all_paths.flatten!.uniq!
-      blacklisted_paths = all_paths.select { |blacklisted_path| path.include? blacklisted_path }
+      blacklisted_accounts_paths.flatten!.uniq!
+      blacklisted_matched_paths = blacklisted_accounts_paths.select { |blacklisted_path| path.include? blacklisted_path }
 
-      if blacklisted_paths.any?
-        logger.info %(AUTHER: Requested path "#{request.path}" detected in blacklisted paths: #{all_paths}.)
+      if blacklisted_matched_paths.any?
+        info %(Requested path "#{request.path}" detected in blacklisted paths: #{blacklisted_accounts_paths}.)
         true
       else
         false
@@ -64,7 +69,7 @@ module Auther
 
     def blacklisted_account? account, path
       if clean_paths(account.fetch(:paths)).include?(path)
-        logger.info %(AUTHER: Requested path "#{request.path}" blacklisted for "#{account.fetch :name}" account.)
+        info %(Requested path "#{request.path}" blacklisted for "#{account.fetch :name}" account.)
         true
       else
         false
