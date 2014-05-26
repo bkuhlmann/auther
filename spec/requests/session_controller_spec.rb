@@ -9,6 +9,11 @@ describe Auther::SessionController do
   end
 
   describe "#new" do
+    before :each do
+      Rails.application.config.auther_settings.delete :title
+      Rails.application.config.auther_settings.delete :label
+    end
+
     it "renders login form" do
       get "/auther/session/new"
 
