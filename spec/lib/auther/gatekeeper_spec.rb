@@ -41,56 +41,59 @@ describe Auther::Gatekeeper do
     end
 
     context "non-blacklisted path" do
-      it "allows access with no credentials" do
-        env["PATH_INFO"] = "/some/random/path"
+      context "unauthenticated account" do
+        it "passes authorization with random path" do
+          env["PATH_INFO"] = "/some/random/path"
 
-        result = subject.call env
-        expect(result[1].has_key?("Location")).to eq(false)
+          path_message = %([auther]: Requested path "/some/random/path" not found in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
+          expect(subject.logger).to receive(:info).with(path_message).once
+
+          result = subject.call env
+          expect(result[1].has_key?("Location")).to eq(false)
+        end
+
+        it "adds request path as request url to session" do
+          path = "/admin"
+          env["PATH_INFO"] = path
+
+          result = subject.call env
+          expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
+        end
+
+        # NOTE: See Gatekeeper settings where trailing slash path is defined for this test.
+        it "adds request (trailing slash) path as request url to session" do
+          path = "/trailing_slash"
+          env["PATH_INFO"] = path
+
+          result = subject.call env
+          expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
+        end
       end
 
-      it "allows access with valid credentials" do
-        env["rack.session"]["auther_public_login"] = login
-        env["rack.session"]["auther_public_password"] = password
-        env["PATH_INFO"] = "/some/random/path"
+      context "authenticated account" do
+        it "passes authorization with random path" do
+          env["rack.session"]["auther_public_login"] = login
+          env["rack.session"]["auther_public_password"] = password
+          env["PATH_INFO"] = "/some/random/path"
 
-        result = subject.call env
-        expect(result[1].has_key?("Location")).to eq(false)
-      end
+          path_message = %([auther]: Requested path "/some/random/path" not found in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
+          expect(subject.logger).to receive(:info).with(path_message).once
 
-      it "adds request path as request url to session" do
-        path = "/admin"
-        env["PATH_INFO"] = path
-
-        result = subject.call env
-        expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
-      end
-
-      # NOTE: See Gatekeeper settings where trailing slash path is defined for this test.
-      it "adds request (trailing slash) path as request url to session" do
-        path = "/trailing_slash"
-        env["PATH_INFO"] = path
-
-        result = subject.call env
-        expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
-      end
-
-      it "does not log info message for requested path" do
-        env["PATH_INFO"] = "/this/is/safe"
-
-        expect(subject.logger).to receive(:info).never
-        subject.call env
+          result = subject.call env
+          expect(result[1].has_key?("Location")).to eq(false)
+        end
       end
     end
 
     context "blacklisted path" do
-      it "denies access with no credentials" do
+      it "fails authorization with unknown account" do
         env["PATH_INFO"] = "/admin"
 
         result = subject.call env
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access with encrypted, invalid login" do
+      it "fails authorization with encrypted, invalid login" do
         env["rack.session"]["auther_public_login"] = "d1M3WmE4Zkp5RyttU1R0Q0dPMmhtNGxXY3E5YXRZMlJlTkZXTmFJK01BMD0tLVBSeU9NbjNwazRmUTd0VFNBUHZoTFE9PQ==--7a498efaaca3cee568c56dcc62ae7cd27fead46f"
         env["rack.session"]["auther_public_password"] = password
         env["PATH_INFO"] = "/admin"
@@ -99,7 +102,7 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access with encrypted, invalid password" do
+      it "fails authorization with encrypted, invalid password" do
         env["rack.session"]["auther_public_login"] = login
         env["rack.session"]["auther_public_password"] = "MEVvazdyd3lBellGNWkzdEpyWE5ybWx2V1NZUEozTVBacW9sRzhrRWpYYz0tLVZ5OHphRGRUSTM1UDI3Sm9qdER6QXc9PQ==--12d865675f89334e4ffa9026724b7e62b11bf095"
         env["PATH_INFO"] = "/admin"
@@ -108,7 +111,7 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access with unencrypted login" do
+      it "fails authorization with unencrypted login" do
         env["rack.session"]["auther_public_login"] = "cracker"
         env["rack.session"]["auther_public_password"] = password
         env["PATH_INFO"] = "/admin"
@@ -117,7 +120,7 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access with unencrypted password" do
+      it "fails authorization with unencrypted password" do
         env["rack.session"]["auther_public_login"] = login
         env["rack.session"]["auther_public_password"] = "opensesame"
         env["PATH_INFO"] = "/admin"
@@ -126,7 +129,7 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access with valid credentials" do
+      it "fails authorization with authorized account" do
         env["rack.session"]["auther_public_login"] = login
         env["rack.session"]["auther_public_password"] = password
         env["PATH_INFO"] = "/admin"
@@ -135,20 +138,11 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "denies access to nested path" do
+      it "fails authorization with nested path" do
         env["PATH_INFO"] = "/admin/nested/path"
 
         result = subject.call env
         expect(result[1]["Location"]).to eq(auth_url)
-      end
-
-      it "logs info message for requested path" do
-        env["PATH_INFO"] = "/admin/nested/path"
-
-        message = %([auther]: Requested path "/admin/nested/path" detected in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
-
-        expect(subject.logger).to receive(:info).with(message).once
-        subject.call env
       end
     end
   end
@@ -187,7 +181,7 @@ describe Auther::Gatekeeper do
     end
 
     context "non-blacklisted path" do
-      it "allows access with valid account" do
+      it "passes authorization with authenticated account" do
         env["rack.session"]["auther_member_login"] = member_login
         env["rack.session"]["auther_member_password"] = member_password
         env["PATH_INFO"] = "/member"
@@ -195,10 +189,35 @@ describe Auther::Gatekeeper do
         result = subject.call env
         expect(result[1].has_key?("Location")).to eq(false)
       end
+
+      it "logs requested path, account found, authentication passed, and authorization passed." do
+        env["rack.session"]["auther_member_login"] = member_login
+        env["rack.session"]["auther_member_password"] = member_password
+        env["PATH_INFO"] = "/member"
+
+        path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = "[auther]: Account found."
+        authentication_message = %([auther]: Authentication passed. The "member" account is authenticated.)
+        authorization_message = %([auther]: Authorization passed. Requested path "/member" not found in "member" account blacklist: ["/admin", "/contests/january"].)
+
+        expect(subject.logger).to receive(:info).with(path_message).once
+        expect(subject.logger).to receive(:info).with(account_message).once
+        expect(subject.logger).to receive(:info).with(authentication_message).once
+        expect(subject.logger).to receive(:info).with(authorization_message).once
+
+        subject.call env
+      end
     end
 
     context "blacklisted path" do
-      it "denies access for invalid account" do
+      it "fails authorization with unauthenticated account" do
+        env["PATH_INFO"] = "/member"
+
+        result = subject.call env
+        expect(result[1]["Location"]).to eq(auth_url)
+      end
+
+      it "fails authorization with authenticated account" do
         env["rack.session"]["auther_member_login"] = public_login
         env["rack.session"]["auther_member_password"] = public_password
         env["PATH_INFO"] = "/member"
@@ -207,28 +226,49 @@ describe Auther::Gatekeeper do
         expect(result[1]["Location"]).to eq(auth_url)
       end
 
-      it "logs only blacklisted paths for valid account" do
-        env["rack.session"]["auther_member_login"] = member_login
-        env["rack.session"]["auther_member_password"] = member_password
+      it "logs requested path and account unknown" do
         env["PATH_INFO"] = "/member"
 
-        blacklist_message = %([auther]: Requested path "/member" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
-        account_message = %([auther]: Requested path "/member" blacklisted for "member" account.)
+        path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = "[auther]: Account unknown."
 
-        expect(subject.logger).to receive(:info).with(blacklist_message).once
+        expect(subject.logger).to receive(:info).with(path_message).once
+        expect(subject.logger).to receive(:info).with(account_message).once
+
         subject.call env
       end
 
-      it "logs blacklisted paths and account for valid account" do
+      it "logs requested path, account found, and authentication failed." do
+        env["rack.session"]["auther_member_login"] = member_login
+        env["rack.session"]["auther_member_password"] = "bogus"
+        env["PATH_INFO"] = "/contests/january"
+
+        path_message = %([auther]: Requested path "/contests/january" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = "[auther]: Account found."
+        authentication_message = %([auther]: Authentication failed! Invalid credential(s) for "member" account.)
+
+        expect(subject.logger).to receive(:info).with(path_message).once
+        expect(subject.logger).to receive(:info).with(account_message).once
+        expect(subject.logger).to receive(:info).with(authentication_message).once
+
+        subject.call env
+      end
+
+      it "logs requested path, account found, authentication passed, and authorization failed" do
         env["rack.session"]["auther_member_login"] = member_login
         env["rack.session"]["auther_member_password"] = member_password
         env["PATH_INFO"] = "/contests/january"
 
-        blacklist_message = %([auther]: Requested path "/contests/january" detected in blacklisted paths: ["/admin", "/member", "/contests/january"].)
-        account_message = %([auther]: Requested path "/contests/january" blacklisted for "member" account.)
+        path_message = %([auther]: Requested path "/contests/january" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
+        account_message = "[auther]: Account found."
+        authentication_message = %([auther]: Authentication passed. The "member" account is authenticated.)
+        authorization_message = %([auther]: Authorization failed! Requested path "/contests/january" blacklisted by "member" account blacklist: ["/admin", "/contests/january"].)
 
-        expect(subject.logger).to receive(:info).with(blacklist_message).once
+        expect(subject.logger).to receive(:info).with(path_message).once
         expect(subject.logger).to receive(:info).with(account_message).once
+        expect(subject.logger).to receive(:info).with(authentication_message).once
+        expect(subject.logger).to receive(:info).with(authorization_message).once
+
         subject.call env
       end
     end
