@@ -45,9 +45,6 @@ describe Auther::Gatekeeper do
         it "passes authorization with random path" do
           env["PATH_INFO"] = "/some/random/path"
 
-          path_message = %([auther]: Requested path "/some/random/path" not found in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
-          expect(subject.logger).to receive(:info).with(path_message).once
-
           result = subject.call env
           expect(result[1].has_key?("Location")).to eq(false)
         end
@@ -75,9 +72,6 @@ describe Auther::Gatekeeper do
           env["rack.session"]["auther_public_login"] = login
           env["rack.session"]["auther_public_password"] = password
           env["PATH_INFO"] = "/some/random/path"
-
-          path_message = %([auther]: Requested path "/some/random/path" not found in blacklisted paths: ["/admin", "/member", "/trailing_slash"].)
-          expect(subject.logger).to receive(:info).with(path_message).once
 
           result = subject.call env
           expect(result[1].has_key?("Location")).to eq(false)

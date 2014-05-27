@@ -110,7 +110,6 @@ module Auther
         account = find_account
         account && authenticated?(account) && !blacklisted_account?(account, path)
       else
-        info %(Requested path "#{request.path}" not found in blacklisted paths: #{all_blacklisted_paths}.)
         true
       end
     end
