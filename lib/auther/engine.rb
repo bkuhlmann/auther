@@ -10,6 +10,10 @@ module Auther
       jquery_gem_path = Gem.loaded_specs["jquery-rails"].full_gem_path
       app.config.assets.paths << "#{jquery_gem_path}/vendor/assets/javascripts"
 
+      # Add Modernizr assets.
+      modernizr_gem_path = Gem.loaded_specs["modernizr-rails"].full_gem_path
+      app.config.assets.paths << "#{modernizr_gem_path}/vendor/assets/javascripts"
+
       # Add Zurb Foundation assets.
       foundation_gem_path = Gem.loaded_specs["foundation-rails"].full_gem_path
       app.config.assets.paths << "#{foundation_gem_path}/vendor/assets/stylesheets"
