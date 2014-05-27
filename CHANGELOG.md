@@ -1,3 +1,19 @@
+# v1.3.0
+
+* Fixed bug where defining a blacklisted path with a trailing slash would not be blacklisted.
+* Fixed tilt gem warning related to loading SASS in a non thread-safe way.
+* Fixed log error messages due to Modernizr assets missing from load path.
+* Fixed loading of Coveralls within spec helper.
+* Removed 25% top spacing from .authorization class.
+* Updated to Ruby 2.1.2.
+* Updated to Rails 4.1.1.
+* Updated gem installation trust policy from HighSecurity to MediumSecurity to reduce gem dependency conflicts.
+* Added .coveralls.yml with Travis CI support.
+* Added optional page title and label support.
+* Added optional logging support for blacklisted path/account detection.
+* Added RSpec randomized testing and metadata filtering.
+* Added pass/fail logging for requested path, account, account authentication, and path authorization.
+
 # v1.2.0
 
 * Fixed bug with engine assets not being loaded properly within engine initializer.

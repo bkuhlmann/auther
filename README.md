@@ -20,10 +20,11 @@ making for a pleasent user experience.
 
 * Encrypted account credentials.
 * Multiple account support with account specific blacklisted paths.
-* Log filtering for account credentials (login and password).
 * Auto-redirection to requested path (once credentials have been verified).
-* Customizable view.
-* Customizable controller.
+* Log filtering for account credentials (login and password).
+* Customizable logger support.
+* Customizable view support.
+* Customizable controller support.
 
 # Requirements
 
@@ -73,7 +74,8 @@ Edit your application.rb as follows:
             paths: ["/admin"]
           ],
           secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
-          auth_url: "/login"
+          auth_url: "/login",
+          logger: ActiveSupport::Logger.new("log/#{Rails.env}.log")
         }
 
       end
@@ -81,14 +83,15 @@ Edit your application.rb as follows:
 
 The purpose of each setting is as follows:
 
-* *title* - The HTML page title (as rendered within a browser tab).
-* *label* - The page label (what would appear above the form).
-* *accounts* - The array of accounts with different or similar access to the application.
-    * *login* - The encrypted account login. For example, the above decrypts to: *test@test.com*.
-    * *password* - The encrypted account password. For example, the above decrypts to: *password*.
-    * *paths* - The array of blacklisted paths for which only this account has access to.
-* *secret* - The secret passphrase used to encrypt/decrypt account credentials.
-* *auth_url* - The URL to redirect to when enforcing authentication to a blacklisted path.
+* *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
+* *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
+* *accounts* - Required. The array of accounts with different or similar access to the application.
+    * *login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
+    * *password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
+    * *paths* - Required. The array of blacklisted paths for which only this account has access to.
+* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
+* *auth_url* - Required. The URL to redirect to when enforcing authentication to a blacklisted path.
+* *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
 
 # Usage
 
@@ -150,6 +153,14 @@ As mentioned in the setup above, the routes can also be customized. Example:
       get "/login", to: "auther/session#new"
       delete "/logout", to: "auther/session#destroy"
     end
+
+## Logging
+
+As mentioned in the setup above, the logger can be customized or removed completely. Examples:
+
+    Auther::NullLogger.new # This is the default logger (which is no logging at all).
+    ActiveSupport::Logger.new("log/#{Rails.env}.log") # Can be used to log to the environment log.
+    Logger.new($stdout) # Can be used to log to standard output.
 
 # Tests
 
