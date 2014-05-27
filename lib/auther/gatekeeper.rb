@@ -71,7 +71,7 @@ module Auther
       if blacklisted
         info %(Authorization failed! Requested path "#{request.path}" blacklisted by "#{account.fetch :name}" account blacklist: #{paths}.)
       else
-        info %(Authorization passed. Requested path "#{request.path}" not found in "#{account.fetch :name}" account blacklist: #{paths}.)
+        info %(Authorization passed. Requested path "#{request.path}" allowed for "#{account.fetch :name}" account blacklist: #{paths}.)
       end
 
       blacklisted
@@ -89,9 +89,9 @@ module Auther
         authenticated = session_login == account_login && session_password == account_password
 
         if authenticated
-          info %(Authentication passed. The "#{account.fetch :name}" account is authenticated.)
+          info %(Authentication passed for "#{account.fetch :name}" account.)
         else
-          info %(Authentication failed! Unable to authenticate the "#{account.fetch :name}" account.)
+          info %(Authentication failed for "#{account.fetch :name}" account!)
         end
 
         authenticated
