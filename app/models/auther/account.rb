@@ -2,7 +2,7 @@ module Auther
   class Account
     include ActiveModel::Validations
 
-    attr_accessor :name, :login, :secure_login, :password, :secure_password, :paths
+    attr_accessor :name, :login, :secure_login, :password, :secure_password, :paths, :success_url
 
     validates :name, presence: true
     validates :paths, presence: {unless: lambda { |account| account.paths.is_a? Array }, message: "must be an array"}
@@ -15,6 +15,7 @@ module Auther
       @secure_password = options.fetch :secure_password, nil
       @paths = options.fetch :paths, []
       @secret = options.fetch :secret, nil
+      @success_url = options.fetch :success_url, nil
     end
 
     def valid?

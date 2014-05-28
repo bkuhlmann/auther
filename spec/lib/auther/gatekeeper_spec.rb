@@ -32,7 +32,8 @@ describe Auther::Gatekeeper do
               "/admin",
               "/member",
               "/trailing_slash/"
-            ]
+            ],
+            success_url: "/admin/dashboard"
           }
         ],
         secret: secret,

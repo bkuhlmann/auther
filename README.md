@@ -65,17 +65,14 @@ Edit your application.rb as follows:
       class Application < Rails::Application
 
         config.auther_settings = {
-          title: "Authorization",
-          label: "Authorization",
+          secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
           accounts: [
             name: "admin",
             login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
             password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
             paths: ["/admin"]
           ],
-          secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
-          auth_url: "/login",
-          logger: ActiveSupport::Logger.new("log/#{Rails.env}.log")
+          auth_url: "/login"
         }
 
       end
@@ -85,11 +82,12 @@ The purpose of each setting is as follows:
 
 * *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
 * *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
+* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
 * *accounts* - Required. The array of accounts with different or similar access to the application.
+    * *name* - Required. The account name. The name uniquely identifies each account.
     * *login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
     * *password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
     * *paths* - Required. The array of blacklisted paths for which only this account has access to.
-* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
 * *auth_url* - Required. The URL to redirect to when enforcing authentication to a blacklisted path.
 * *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
 

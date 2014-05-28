@@ -11,7 +11,7 @@ module Auther
     def create
       if account.valid?
         store_credentials
-        redirect_to session["auther_redirect_url"] || '/'
+        redirect_to session["auther_redirect_url"] || account.success_url || '/'
       else
         remove_credentials account.name
         render template: new_template_path
@@ -46,7 +46,8 @@ module Auther
         secure_login: account_settings.fetch(:login),
         password: account_params.fetch(:password),
         secure_password: account_settings.fetch(:password),
-        secret: settings.fetch(:secret)
+        secret: settings.fetch(:secret),
+        success_url: account_settings.fetch(:success_url)
     end
 
     def name_options

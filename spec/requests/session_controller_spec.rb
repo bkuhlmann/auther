@@ -58,13 +58,13 @@ describe Auther::SessionController do
     let(:password) { "itsasecret" }
     let(:cipher) { Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
 
-    it "redirects to root path with valid credentials" do
+    it "redirects to success URL with valid credentials" do
       post "/auther/session", account: {name: "test", login: login, password: password}
 
       expect(response.status).to eq 302
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.location).to include("www.example.com")
+      expect(response.location).to eq("http://www.example.com/portal/dashboard")
     end
 
     it "renders errors with missing credentials" do
@@ -97,7 +97,7 @@ describe Auther::SessionController do
       expect(response.status).to eq 302
       expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
       expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.location).to include("portal")
+      expect(response.location).to eq("http://www.example.com/portal")
     end
 
     # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined for this test.
@@ -106,7 +106,15 @@ describe Auther::SessionController do
       post "/auther/session", account: {name: "test", login: login, password: password}
 
       expect(response.status).to eq 302
-      expect(response.location).to include("trailer")
+      expect(response.location).to eq("http://www.example.com/trailer")
+    end
+
+    it "requires blacklisted path authorization and redirects to root path with valid credentials" do
+      Rails.application.config.auther_settings[:accounts].first[:success_url] = nil
+      post "/auther/session", account: {name: "test", login: login, password: password}
+
+      expect(response.status).to eq 302
+      expect(response.location).to eq("http://www.example.com/")
     end
 
     it "requires blacklisted path authorization and remembers request path with invalid credentials" do
