@@ -47,7 +47,7 @@ module Auther
         password: account_params.fetch(:password),
         secure_password: account_settings.fetch(:password),
         secret: settings.fetch(:secret),
-        success_url: account_settings.fetch(:success_url)
+        success_url: account_settings.fetch(:success_url, nil)
     end
 
     def name_options
