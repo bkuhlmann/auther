@@ -11,7 +11,7 @@ module Auther
     def create
       if account.valid?
         store_credentials
-        redirect_to session["auther_redirect_url"] || account.success_url || '/'
+        redirect_to redirect_url
       else
         remove_credentials account.name
         render template: new_template_path
@@ -59,6 +59,10 @@ module Auther
 
     def new_template_path
       raise NotImplementedError, "The method, #new_template_path, is not implemented."
+    end
+
+    def redirect_url
+      session["auther_redirect_url"] || account.success_url || '/'
     end
 
     def find_account name
