@@ -59,24 +59,20 @@ Edit your routes.rb as follows:
       get "/login", to: "auther/session#new"
     end
 
-Edit your application.rb as follows:
+Add a config/initializers/auther.rb to your application with the following contents:
 
-    module Example
-      class Application < Rails::Application
+    Example::Application.config.auther_settings = {
+      secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
+      accounts: [
+        name: "admin",
+        login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
+        password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
+        paths: ["/admin"]
+      ],
+      auth_url: "/login"
+    }
 
-        config.auther_settings = {
-          secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
-          accounts: [
-            name: "admin",
-            login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
-            password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
-            paths: ["/admin"]
-          ],
-          auth_url: "/login"
-        }
-
-      end
-    end
+*NOTE: Be sure to rename "Example" (in the example above) to the name of your application.*
 
 The purpose of each setting is as follows:
 
