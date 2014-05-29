@@ -192,8 +192,8 @@ describe Auther::Gatekeeper do
 
         path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
         account_message = "[auther]: Account found."
-        authentication_message = %([auther]: Authentication passed for "member" account.)
-        authorization_message = %([auther]: Authorization passed. Requested path "/member" allowed for "member" account blacklist: ["/admin", "/contests/january"].)
+        authentication_message = %([auther]: Authentication passed. Account: "member".)
+        authorization_message = %([auther]: Authorization passed. Account: "member". Blacklist: ["/admin", "/contests/january"]. Request Path: "/member".)
 
         expect(subject.logger).to receive(:info).with(path_message).once
         expect(subject.logger).to receive(:info).with(account_message).once
@@ -256,8 +256,8 @@ describe Auther::Gatekeeper do
 
         path_message = %([auther]: Requested path "/contests/january" found in blacklisted paths: ["/admin", "/member", "/contests/january"].)
         account_message = "[auther]: Account found."
-        authentication_message = %([auther]: Authentication passed for "member" account.)
-        authorization_message = %([auther]: Authorization failed! Requested path "/contests/january" blacklisted by "member" account blacklist: ["/admin", "/contests/january"].)
+        authentication_message = %([auther]: Authentication passed. Account: "member".)
+        authorization_message = %([auther]: Authorization failed! Account: "member". Blacklist: ["/admin", "/contests/january"]. Request Path: "/contests/january".)
 
         expect(subject.logger).to receive(:info).with(path_message).once
         expect(subject.logger).to receive(:info).with(account_message).once

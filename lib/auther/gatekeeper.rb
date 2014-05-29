@@ -36,9 +36,27 @@ module Auther
       Rack::Response.new body, status, headers
     end
 
-    def info message
+    def log_info message
       id = "[#{Auther::Keymaster.namespace}]"
       logger.info [id, message].join(": ")
+    end
+
+    def log_authentication authenticated, account_name
+      if authenticated
+        log_info %(Authentication passed. Account: "#{account_name}".)
+      else
+        log_info %(Authentication failed! Account: "#{account_name}".)
+      end
+    end
+
+    def log_authorization authorized, account_name, blacklist, request_path
+      details = %(Account: "#{account_name}". Blacklist: #{blacklist}. Request Path: "#{request_path}".)
+
+      if authorized
+        log_info %(Authorization failed! #{details})
+      else
+        log_info %(Authorization passed. #{details})
+      end
     end
 
     def find_account
@@ -46,7 +64,7 @@ module Auther
       account_name = Auther::Keymaster.get_account_name session
       account = settings.fetch(:accounts).detect { |account| account.fetch(:name) == account_name }
 
-      account ? info("Account found.") : info("Account unknown.")
+      account ? log_info("Account found.") : log_info("Account unknown.")
       account
     end
 
@@ -64,19 +82,6 @@ module Auther
       paths.select { |blacklisted_path| path.include? blacklisted_path }
     end
 
-    def blacklisted_account? account, path
-      paths = clean_paths account.fetch(:paths)
-      blacklisted = paths.include? path
-
-      if blacklisted
-        info %(Authorization failed! Requested path "#{request.path}" blacklisted by "#{account.fetch :name}" account blacklist: #{paths}.)
-      else
-        info %(Authorization passed. Requested path "#{request.path}" allowed for "#{account.fetch :name}" account blacklist: #{paths}.)
-      end
-
-      blacklisted
-    end
-
     def authenticated? account
       keymaster = Auther::Keymaster.new account.fetch(:name)
       cipher = Auther::Cipher.new settings.fetch(:secret)
@@ -86,19 +91,22 @@ module Auther
         session_password = cipher.decrypt session[keymaster.password_key]
         account_login = cipher.decrypt account.fetch(:login)
         account_password = cipher.decrypt account.fetch(:password)
+
         authenticated = session_login == account_login && session_password == account_password
-
-        if authenticated
-          info %(Authentication passed for "#{account.fetch :name}" account.)
-        else
-          info %(Authentication failed for "#{account.fetch :name}" account!)
-        end
-
+        log_authentication authenticated, account.fetch(:name)
         authenticated
       rescue ActiveSupport::MessageVerifier::InvalidSignature => error
-        info %(Authentication failed! Invalid credential(s) for "#{account.fetch :name}" account.)
+        log_info %(Authentication failed! Invalid credential(s) for "#{account.fetch :name}" account.)
         false
       end
+    end
+
+    def account_authorized? account, path
+      paths = clean_paths account.fetch(:paths)
+
+      authorized = paths.include? path
+      log_authorization authorized, account.fetch(:name), paths, request.path
+      authorized
     end
 
     def authorized? path
@@ -106,9 +114,9 @@ module Auther
       all_blacklisted_paths = blacklisted_paths settings.fetch(:accounts)
 
       if blacklisted_matched_paths(accounts, path).any?
-        info %(Requested path "#{request.path}" found in blacklisted paths: #{all_blacklisted_paths}.)
+        log_info %(Requested path "#{request.path}" found in blacklisted paths: #{all_blacklisted_paths}.)
         account = find_account
-        account && authenticated?(account) && !blacklisted_account?(account, path)
+        account && authenticated?(account) && !account_authorized?(account, path)
       else
         true
       end
