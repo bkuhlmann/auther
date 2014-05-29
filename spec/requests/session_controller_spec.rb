@@ -110,11 +110,17 @@ describe Auther::SessionController do
     end
 
     it "requires blacklisted path authorization and redirects to root path with valid credentials" do
-      Rails.application.config.auther_settings[:accounts].first[:success_url] = nil
+      # Save and clear the success URL for the purposes of this test only.
+      success_url = Rails.application.config.auther_settings[:accounts].first[:success_url]
+      Rails.application.config.auther_settings[:accounts].first[:success_url] = ''
+
       post "/auther/session", account: {name: "test", login: login, password: password}
 
+      # Restore the success URL so that other tests are not affected by the modified configuration.
+      Rails.application.config.auther_settings[:accounts].first[:success_url] = success_url
+
       expect(response.status).to eq 302
-      expect(response.location).to eq("http://www.example.com/")
+      expect(response.location).to eq("http://www.example.com")
     end
 
     it "requires blacklisted path authorization and remembers request path with invalid credentials" do
