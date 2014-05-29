@@ -6,24 +6,33 @@ module Auther
     config.auther_settings = {}
 
     initializer "auther.initialize" do |app|
+      asset_paths = app.config.assets.paths
+
       # Add jQuery assets.
-      jquery_gem_path = Gem.loaded_specs["jquery-rails"].full_gem_path
-      app.config.assets.paths << "#{jquery_gem_path}/vendor/assets/javascripts"
+      add_asset_paths asset_paths, "jquery-rails", "javascripts"
 
       # Add Modernizr assets.
-      modernizr_gem_path = Gem.loaded_specs["modernizr-rails"].full_gem_path
-      app.config.assets.paths << "#{modernizr_gem_path}/vendor/assets/javascripts"
+      add_asset_paths asset_paths, "modernizr-rails", "javascripts"
 
       # Add Zurb Foundation assets.
-      foundation_gem_path = Gem.loaded_specs["foundation-rails"].full_gem_path
-      app.config.assets.paths << "#{foundation_gem_path}/vendor/assets/stylesheets"
-      app.config.assets.paths << "#{foundation_gem_path}/vendor/assets/javascripts"
+      add_asset_paths asset_paths, "foundation-rails", "javascripts"
+      add_asset_paths asset_paths, "foundation-rails", "stylesheets"
 
       # Configure log filter parameters.
       app.config.filter_parameters += [:login, :password]
 
       # Initialize Gatekeeper middleware.
       app.config.app_middleware.use Auther::Gatekeeper, app.config.auther_settings
+    end
+
+    private
+
+    def full_gem_path name
+      Gem.loaded_specs[name].full_gem_path
+    end
+
+    def add_asset_paths paths, name, directory
+      paths << "#{full_gem_path name}/vendor/assets/#{directory}"
     end
   end
 end
