@@ -1,3 +1,10 @@
+# v1.4.0
+
+* Fixed missing highlighting of errors for login and password form fields.
+* Added the success URL account setting.
+* Updated logging message output.
+* Updated documentation to use auther.rb initializer.
+
 # v1.3.0
 
 * Fixed bug where defining a blacklisted path with a trailing slash would not be blacklisted.

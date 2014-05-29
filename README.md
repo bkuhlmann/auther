@@ -59,9 +59,9 @@ Edit your routes.rb as follows:
       get "/login", to: "auther/session#new"
     end
 
-Add a config/initializers/auther.rb to your application with the following contents:
+Add a config/initializers/auther.rb to your application with the following content:
 
-    Example::Application.config.auther_settings = {
+    Rails.application.config.auther_settings = {
       secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
       accounts: [
         name: "admin",
@@ -72,18 +72,21 @@ Add a config/initializers/auther.rb to your application with the following conte
       auth_url: "/login"
     }
 
-*NOTE: Be sure to rename "Example" (in the example above) to the name of your application.*
-
 The purpose of each setting is as follows:
 
 * *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
 * *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
 * *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
 * *accounts* - Required. The array of accounts with different or similar access to the application.
-    * *name* - Required. The account name. The name uniquely identifies each account.
+    * *name* - Required. The account name. The name that uniquely identifies each account.
     * *login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
     * *password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
     * *paths* - Required. The array of blacklisted paths for which only this account has access to.
+    * *success_url* - Optional. The URL to redirect to upon successful authorization. Success redirection works
+      as follows (in the order defined):
+          0. The blacklisted path (if requested prior to authorization but now authorized).
+          0. The success URL (if defined and the blacklisted path wasn't requested).
+          0. The root path (if none of the above).
 * *auth_url* - Required. The URL to redirect to when enforcing authentication to a blacklisted path.
 * *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
 
@@ -132,7 +135,7 @@ you add a controller to your app that inherits from the Auther::BaseController. 
 
     # Example Path:  app/controllers/session_controller.rb
     class SessionController < Auther::BaseController
-      layout "example_site_layout"
+      layout "example"
     end
 
 This allows complete customization of session controller behavior to serve any special business needs. See the
@@ -140,7 +143,7 @@ Auther::BaseController for additional details or the Auther::SessionController f
 
 ## Routes
 
-As mentioned in the setup above, the routes can also be customized. Example:
+As mentioned in the setup above, the routes can be customized as follows:
 
     Rails.application.routes.draw do
       mount Auther::Engine => "/auther"
@@ -150,7 +153,7 @@ As mentioned in the setup above, the routes can also be customized. Example:
 
 ## Logging
 
-As mentioned in the setup above, the logger can be customized or removed completely. Examples:
+As mentioned in the setup above, the logger can be customized as follows:
 
     Auther::NullLogger.new # This is the default logger (which is no logging at all).
     ActiveSupport::Logger.new("log/#{Rails.env}.log") # Can be used to log to the environment log.

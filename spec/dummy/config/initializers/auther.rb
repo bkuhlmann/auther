@@ -1,4 +1,4 @@
-Dummy::Application.config.auther_settings = {
+Rails.application.config.auther_settings = {
   secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
   accounts: [
     {
