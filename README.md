@@ -167,6 +167,12 @@ To test, do the following:
 0. bundle install
 0. bundle exec rspec spec
 
+# Troubleshooting
+
+* If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc. this might
+  cause Auther authentication to fail. Make sure to clear your browser cookies in this situation or use Google
+  Chrome (incognito mode) to verify.
+
 # Resources
 
 * [Simplest Auth](https://github.com/vigetlabs/simplest_auth) - For situations where you need user and email reset
