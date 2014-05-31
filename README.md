@@ -56,7 +56,8 @@ Edit your routes.rb as follows:
 
     Rails.application.routes.draw do
       mount Auther::Engine => "/auther"
-      get "/login", to: "auther/session#new"
+      get "/login", to: "auther/session#new", as: "login"
+      destroy "/logout", to: "auther/session#destroy", as: "logout"
     end
 
 Add a config/initializers/auther.rb to your application with the following content:
