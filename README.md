@@ -85,6 +85,7 @@ The purpose of each setting is as follows:
     * *paths* - Required. The array of blacklisted paths for which only this account has access to.
     * *success_url* - Optional. The URL to redirect to upon successful authorization. Success redirection works
       as follows (in the order defined):
+
           0. The blacklisted path (if requested prior to authorization but now authorized).
           0. The success URL (if defined and the blacklisted path wasn't requested).
           0. The root path (if none of the above).
