@@ -1,3 +1,5 @@
+require "active_model"
+
 module Auther
   class Account
     include ActiveModel::Validations
