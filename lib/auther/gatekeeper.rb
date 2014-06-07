@@ -1,11 +1,12 @@
 module Auther
   class Gatekeeper
-    attr_reader :application, :environment, :settings, :logger
+    attr_reader :application, :environment, :settings
+
+    delegate :logger, to: :settings
 
     def initialize application, settings = {}
       @application = application
-      @settings = settings
-      @logger = @settings.fetch :logger, Auther::NullLogger.new(STDOUT)
+      @settings = Auther::Settings.new settings
     end
 
     def call environment
@@ -16,7 +17,7 @@ module Auther
       else
         session[Auther::Keymaster.redirect_url_key] = request.path
         denied_response = response
-        denied_response.redirect settings[:auth_url]
+        denied_response.redirect settings.auth_url
         denied_response.finish
       end
     end
@@ -62,7 +63,7 @@ module Auther
     def find_account
       session["auther_init"] = true # Force session to initialize.
       account_name = Auther::Keymaster.get_account_name session
-      account = settings.fetch(:accounts).detect { |account| account.fetch(:name) == account_name }
+      account = settings.accounts.detect { |account| account.fetch(:name) == account_name }
 
       account ? log_info("Account found.") : log_info("Account unknown.")
       account
@@ -84,7 +85,7 @@ module Auther
 
     def authenticated? account
       keymaster = Auther::Keymaster.new account.fetch(:name)
-      cipher = Auther::Cipher.new settings.fetch(:secret)
+      cipher = Auther::Cipher.new settings.secret
 
       begin
         session_login = cipher.decrypt session[keymaster.login_key]
@@ -110,8 +111,8 @@ module Auther
     end
 
     def authorized? path
-      accounts = settings.fetch :accounts
-      all_blacklisted_paths = blacklisted_paths settings.fetch(:accounts)
+      accounts = settings.accounts
+      all_blacklisted_paths = blacklisted_paths settings.accounts
 
       if blacklisted_matched_paths(accounts, path).any?
         log_info %(Requested path "#{request.path}" found in blacklisted paths: #{all_blacklisted_paths}.)
