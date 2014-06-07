@@ -37,79 +37,83 @@ describe Auther::SessionController, :type => :request do
     let(:password) { "itsasecret" }
     let(:cipher) { Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
 
-    it "redirects to authorized URL with valid credentials" do
-      post "/auther/session", account: {name: "test", login: login, password: password}
+    context "valid credentials" do
+      it "redirects to authorized URL" do
+        post "/auther/session", account: {name: "test", login: login, password: password}
 
-      expect(response.status).to eq 302
-      expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
-      expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.location).to eq("http://www.example.com/portal/dashboard")
+        expect(response.status).to eq 302
+        expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
+        expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
+        expect(response.location).to eq("http://www.example.com/portal/dashboard")
+      end
+
+      it "requires blacklisted path authorization and redirects to requested path" do
+        get "/portal"
+        post "/auther/session", account: {name: "test", login: login, password: password}
+
+        expect(response.status).to eq 302
+        expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
+        expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
+        expect(response.location).to eq("http://www.example.com/portal")
+      end
+
+      # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined for this test.
+      it "requires blacklisted (trailing slash) path authorization and redirects to requested path" do
+        get "/trailer"
+        post "/auther/session", account: {name: "test", login: login, password: password}
+
+        expect(response.status).to eq 302
+        expect(response.location).to eq("http://www.example.com/trailer")
+      end
+
+      it "requires blacklisted path authorization and redirects to root path" do
+        # Save and clear the authorized URL for the purposes of this test only.
+        authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
+        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ''
+
+        post "/auther/session", account: {name: "test", login: login, password: password}
+
+        # Restore the authorized URL so that other tests are not affected by the modified configuration.
+        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
+
+        expect(response.status).to eq 302
+        expect(response.location).to eq("http://www.example.com")
+      end
     end
 
-    it "renders errors with missing credentials" do
-      post "/auther/session", account: {name: "test", login: nil, password: nil}
+    context "invalid credentials" do
+      it "renders errors with missing login and password" do
+        post "/auther/session", account: {name: "test", login: nil, password: nil}
 
-      expect(response.status).to eq 200
-      expect(response.body).to include("field_with_errors")
-    end
+        expect(response.status).to eq 200
+        expect(response.body).to include("field_with_errors")
+      end
 
-    it "renders errors with invalid credentials" do
-      post "/auther/session", account: {name: "test", login: "bogus@test.com", password: "bogus-password"}
+      it "renders errors with invalid login and password" do
+        post "/auther/session", account: {name: "test", login: "bogus@test.com", password: "bogus-password"}
 
-      expect(response.status).to eq 200
-      expect(response.body).to include("field_with_errors")
-      expect(response.body).to include(%(value="bogus@test.com"))
-    end
+        expect(response.status).to eq 200
+        expect(response.body).to include("field_with_errors")
+        expect(response.body).to include(%(value="bogus@test.com"))
+      end
 
-    it "removes session credentials with missing/invalid credentials" do
-      post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
+      it "removes session credentials" do
+        post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
 
-      expect(response.status).to eq 200
-      expect(session.has_key? :auther_test_login).to eq(false)
-      expect(session.has_key? :auther_test_password).to eq(false)
-    end
+        expect(response.status).to eq 200
+        expect(session.has_key? :auther_test_login).to eq(false)
+        expect(session.has_key? :auther_test_password).to eq(false)
+      end
 
-    it "requires blacklisted path authorization and redirects to requested path with valid credentials" do
-      get "/portal"
-      post "/auther/session", account: {name: "test", login: login, password: password}
+      it "requires blacklisted path authorization and remembers request path" do
+        get "/portal"
+        post "/auther/session", account: {name: "test", login: login, password: "bogus"}
 
-      expect(response.status).to eq 302
-      expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
-      expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
-      expect(response.location).to eq("http://www.example.com/portal")
-    end
-
-    # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined for this test.
-    it "requires blacklisted (trailing slash) path authorization and redirects to requested path with valid credentials" do
-      get "/trailer"
-      post "/auther/session", account: {name: "test", login: login, password: password}
-
-      expect(response.status).to eq 302
-      expect(response.location).to eq("http://www.example.com/trailer")
-    end
-
-    it "requires blacklisted path authorization and redirects to root path with valid credentials" do
-      # Save and clear the authorized URL for the purposes of this test only.
-      authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
-      Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ''
-
-      post "/auther/session", account: {name: "test", login: login, password: password}
-
-      # Restore the authorized URL so that other tests are not affected by the modified configuration.
-      Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
-
-      expect(response.status).to eq 302
-      expect(response.location).to eq("http://www.example.com")
-    end
-
-    it "requires blacklisted path authorization and remembers request path with invalid credentials" do
-      get "/portal"
-      post "/auther/session", account: {name: "test", login: login, password: "bogus"}
-
-      expect(response.status).to eq 200
-      expect(session[:auther_redirect_url]).to eq("/portal")
-      expect(response.body).to include("field_with_errors")
-      expect(response.body).to include(%(value="#{login}"))
+        expect(response.status).to eq 200
+        expect(session[:auther_redirect_url]).to eq("/portal")
+        expect(response.body).to include("field_with_errors")
+        expect(response.body).to include(%(value="#{login}"))
+      end
     end
   end
 

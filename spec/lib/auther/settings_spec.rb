@@ -31,19 +31,19 @@ describe Auther::Settings do
 
   describe "#initialize" do
     context "defaults" do
-      it "sets default title" do
+      it "sets title" do
         expect(subject.title).to eq("Authorization")
       end
 
-      it "sets default label" do
+      it "sets label" do
         expect(subject.title).to eq("Authorization")
       end
 
-      it "sets default auth URL" do
+      it "sets auth URL" do
         expect(subject.auth_url).to eq("/login")
       end
 
-      it "sets default logger" do
+      it "sets logger" do
         expect(subject.logger).to be_a(Auther::NullLogger)
       end
     end
@@ -62,19 +62,19 @@ describe Auther::Settings do
 
       subject { Auther::Settings.new settings }
 
-      it "sets default title" do
+      it "sets title" do
         expect(subject.title).to eq("Test")
       end
 
-      it "sets default label" do
+      it "sets label" do
         expect(subject.title).to eq("Test")
       end
 
-      it "sets default auth URL" do
+      it "sets auth URL" do
         expect(subject.auth_url).to eq("/test")
       end
 
-      it "sets default logger" do
+      it "sets logger" do
         expect(subject.logger).to be_a(Logger)
       end
     end
