@@ -39,7 +39,7 @@ module Auther
 
     def account
       account_params = params.fetch :account
-      account_settings = find_account account_params.fetch(:name)
+      account_settings = settings.find_account account_params.fetch(:name)
 
       @account ||= Auther::Account.new name: account_params.fetch(:name),
         login: account_params.fetch(:login),
@@ -63,10 +63,6 @@ module Auther
 
     def authorized_url
       session["auther_redirect_url"] || account.authorized_url || '/'
-    end
-
-    def find_account name
-      settings.accounts.select { |account| account.fetch(:name) == name }.first
     end
 
     def store_credentials

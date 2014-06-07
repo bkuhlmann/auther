@@ -63,7 +63,7 @@ module Auther
     def find_account
       session["auther_init"] = true # Force session to initialize.
       account_name = Auther::Keymaster.get_account_name session
-      account = settings.accounts.detect { |account| account.fetch(:name) == account_name }
+      account = settings.find_account account_name
 
       account ? log_info("Account found.") : log_info("Account unknown.")
       account

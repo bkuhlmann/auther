@@ -10,5 +10,9 @@ module Auther
       @auth_url = auth_url
       @logger = logger
     end
+
+    def find_account name
+      accounts.detect { |account| account.fetch(:name) == name }
+    end
   end
 end

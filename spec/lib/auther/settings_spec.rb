@@ -5,13 +5,24 @@ describe Auther::Settings do
     {
       secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
       accounts: [
-        name: "test",
-        login: "test@test.com",
-        secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
-        secure_login: "RUFKUVcyQzJCc1FoRyswZFpwN3JtNVNQR09JRVRadHd4S2pmekt4em90cz0tLTZpTlQxNnI5UzJnZlFpK3dYS1hjUVE9PQ==--d5546a942ad2dc509031f4c34429a016f8bd8612",
-        password: "nevermore",
-        secure_password: "eHdHL0lpUDVyV0p1MU0zWnlJQnk2aURTQW5kRE9nQnRHWGJSUFpkam1XWT0tLXo5Snd5R29nWFJwNTF4RkllTW5qZVE9PQ==--301aa47630d2134dedefbd57bcc685dd7686503e",
-        paths: ["/admin"]
+        {
+          name: "test-1",
+          login: "test-1@test.com",
+          secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
+          secure_login: "M0dGeWRoc3pLbmVidy9QY1lpczh5bm5KaFpRZ0VYMFBYMkpLKzFzTHdWdz0tLXh0VytLcHBvNDZGeVl0bVhhRXVXREE9PQ==--82e827cf8148d6507052eb14d8c71ee33ceabbff",
+          password: "nevermore",
+          secure_password: "UXM1akhTSjhUVFQ1Um1yZFBNSFNid09WejlmY1F4eU1oREMzamdCK05nTT0tLW4vN20xTzZmVi9rNXNFSnJXWTlzekE9PQ==--6a8a0efcfb988c69749b4ef9375f6c10b0dce6fa",
+          paths: ["/admin"]
+        },
+        {
+          name: "test-2",
+          login: "test-2@test.com",
+          secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
+          secure_login: "ZDBwN0RyK3lJcEQ5VzZzMFpqUm82OUtUaThKWjVoMXVxTk1uTEdKNzVObz0tLVQvQ3VVZmtneTZoMldSYlcwWHpnN0E9PQ==--b78628e0ccb707f30764b18ca71de49aebd91b07",
+          password: "evergreen",
+          secure_password: "cDdVcDlOZ01KQ05pdXVzRWRoRUtnQVFhem9vWFdYdEsweWtRUFlkUkU0UT0tLWRTVnFQdUdvVlRWcGtybUFSc0FJMXc9PQ==--2baa181591ad7e171a6cb87b98ca4517486f10d5",
+          paths: ["/member"]
+        }
       ]
     }
   end
@@ -66,6 +77,22 @@ describe Auther::Settings do
       it "sets default logger" do
         expect(subject.logger).to be_a(Logger)
       end
+    end
+  end
+
+  describe "#find_account" do
+    it "answers account for given name" do
+      name = "test-2"
+      account = subject.find_account name
+
+      expect(account.fetch(:name)).to eq(name)
+    end
+
+    it "answers nil for missing account" do
+      name = "bogus"
+      account = subject.find_account name
+
+      expect(account).to eq(nil)
     end
   end
 end
