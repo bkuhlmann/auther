@@ -11,7 +11,7 @@ module Auther
     def create
       if account.valid?
         store_credentials
-        redirect_to redirect_url
+        redirect_to authorized_url
       else
         remove_credentials account.name
         render template: new_template_path
@@ -47,7 +47,7 @@ module Auther
         password: account_params.fetch(:password),
         secure_password: account_settings.fetch(:password),
         secret: settings.secret,
-        success_url: account_settings.fetch(:success_url, nil)
+        authorized_url: account_settings.fetch(:authorized_url, nil)
     end
 
     def name_options
@@ -61,8 +61,8 @@ module Auther
       raise NotImplementedError, "The method, #new_template_path, is not implemented."
     end
 
-    def redirect_url
-      session["auther_redirect_url"] || account.success_url || '/'
+    def authorized_url
+      session["auther_redirect_url"] || account.authorized_url || '/'
     end
 
     def find_account name

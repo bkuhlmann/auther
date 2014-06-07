@@ -6,8 +6,7 @@ Rails.application.config.auther_settings = {
       login: "WWNhTlk3VGU4dXc1bjFmU2FZYmM5UmxZYXEzSyt6TDlITmlXQ3MxcXk4RT0tLUlVRXRlWE81T3dLc1lrOCtUbDdYeVE9PQ==--81991e25d072d0904af97b9d114d4e543b6bcbe2",
       password: "VEtiVGwrYko0eXdhL1dnZ0d0MFFhWmI4UEkrL3A4NUNoNnZPNlBtQkwwZz0tLVpxSUwvYkV4NWVUNERuSzJBNFNkWmc9PQ==--9028c12deb299b659d1eaeac5b2ff46136138f7c",
       paths: ["/portal", "/trailer/"],
-      success_url: "/portal/dashboard"
+      authorized_url: "/portal/dashboard"
     }
-  ],
-  auth_url: "/session/new"
+  ]
 }

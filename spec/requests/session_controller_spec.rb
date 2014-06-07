@@ -37,7 +37,7 @@ describe Auther::SessionController, :type => :request do
     let(:password) { "itsasecret" }
     let(:cipher) { Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
 
-    it "redirects to success URL with valid credentials" do
+    it "redirects to authorized URL with valid credentials" do
       post "/auther/session", account: {name: "test", login: login, password: password}
 
       expect(response.status).to eq 302
@@ -89,14 +89,14 @@ describe Auther::SessionController, :type => :request do
     end
 
     it "requires blacklisted path authorization and redirects to root path with valid credentials" do
-      # Save and clear the success URL for the purposes of this test only.
-      success_url = Rails.application.config.auther_settings[:accounts].first[:success_url]
-      Rails.application.config.auther_settings[:accounts].first[:success_url] = ''
+      # Save and clear the authorized URL for the purposes of this test only.
+      authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
+      Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ''
 
       post "/auther/session", account: {name: "test", login: login, password: password}
 
-      # Restore the success URL so that other tests are not affected by the modified configuration.
-      Rails.application.config.auther_settings[:accounts].first[:success_url] = success_url
+      # Restore the authorized URL so that other tests are not affected by the modified configuration.
+      Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
 
       expect(response.status).to eq 302
       expect(response.location).to eq("http://www.example.com")
