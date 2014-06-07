@@ -48,6 +48,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry-remote"
   s.add_development_dependency "pry-rescue"
   s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "ammeter"
   s.add_development_dependency "rb-fsevent" # Guard file events for OSX.
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "coveralls"

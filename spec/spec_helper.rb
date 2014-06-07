@@ -7,6 +7,7 @@ require File.expand_path "../dummy/config/environment", __FILE__
 ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "/dummy"
 
 require "rspec/rails"
+require "ammeter/init"
 require "pry"
 require "pry-remote"
 require "pry-rescue"
