@@ -158,7 +158,7 @@ As mentioned in the setup above, the logger can be customized as follows:
 
     Auther::NullLogger.new # This is the default logger (which is no logging at all).
     ActiveSupport::Logger.new("log/#{Rails.env}.log") # Can be used to log to the environment log.
-    Logger.new($stdout) # Can be used to log to standard output.
+    Logger.new(STDOUT) # Can be used to log to standard output.
 
 When logging is enabled, you'll be able to see the following information in the server logs to help debug custom
 Auther settings:

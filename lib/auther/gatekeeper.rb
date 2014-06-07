@@ -2,7 +2,7 @@ module Auther
   class Gatekeeper
     attr_reader :application, :environment, :settings, :logger
 
-    def initialize application, settings = []
+    def initialize application, settings = {}
       @application = application
       @settings = settings
       @logger = @settings.fetch :logger, Auther::NullLogger.new(STDOUT)
