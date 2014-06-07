@@ -9,11 +9,6 @@ describe Auther::SessionController, :type => :request do
   end
 
   describe "#new" do
-    before :each do
-      Rails.application.config.auther_settings.delete :title
-      Rails.application.config.auther_settings.delete :label
-    end
-
     it "renders login form" do
       get "/auther/session/new"
 
@@ -22,34 +17,18 @@ describe Auther::SessionController, :type => :request do
       expect(response.body).to include("Password:")
     end
 
-    it "renders default page title" do
+    it "renders page title" do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
       expect(response.body).to include("<title>Authorization</title>")
     end
 
-    it "renders custom page title" do
-      Rails.application.config.auther_settings[:title] = "Dummy"
-      get "/auther/session/new"
-
-      expect(response.status).to eq 200
-      expect(response.body).to include("<title>Dummy</title>")
-    end
-
-    it "renders default page label" do
+    it "renders default label" do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
       expect(response.body).to include(">Authorization</h1>")
-    end
-
-    it "renders custom page label" do
-      Rails.application.config.auther_settings[:label] = "Dummy"
-      get "/auther/session/new"
-
-      expect(response.status).to eq 200
-      expect(response.body).to include(">Dummy</h1>")
     end
   end
 

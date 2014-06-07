@@ -1,7 +1,7 @@
 module Auther
   class BaseController < ActionController::Base
     def show
-      redirect_to settings[:auth_url]
+      redirect_to settings.auth_url
     end
 
     def new
@@ -20,21 +20,21 @@ module Auther
 
     def destroy
       remove_credentials params[:name]
-      redirect_to settings[:auth_url]
+      redirect_to settings.auth_url
     end
 
     private
 
     def load_title
-      @title = settings.fetch :title, "Authorization"
+      @title = settings.title
     end
 
     def load_label
-      @label = settings.fetch :label, "Authorization"
+      @label = settings.label
     end
 
     def settings
-      Rails.application.config.auther_settings
+      Auther::Settings.new Rails.application.config.auther_settings
     end
 
     def account
@@ -46,12 +46,12 @@ module Auther
         secure_login: account_settings.fetch(:login),
         password: account_params.fetch(:password),
         secure_password: account_settings.fetch(:password),
-        secret: settings.fetch(:secret),
+        secret: settings.secret,
         success_url: account_settings.fetch(:success_url, nil)
     end
 
     def name_options
-      @name_options = settings.fetch(:accounts).map do |account|
+      @name_options = settings.accounts.map do |account|
         name = account.fetch :name
         [name.capitalize, name]
       end
@@ -66,7 +66,7 @@ module Auther
     end
 
     def find_account name
-      settings.fetch(:accounts).select { |account| account.fetch(:name) == name }.first
+      settings.accounts.select { |account| account.fetch(:name) == name }.first
     end
 
     def store_credentials
