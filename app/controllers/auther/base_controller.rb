@@ -25,6 +25,10 @@ module Auther
 
     private
 
+    def settings
+      Auther::Settings.new Rails.application.config.auther_settings
+    end
+
     def load_title
       @title = settings.title
     end
@@ -33,8 +37,11 @@ module Auther
       @label = settings.label
     end
 
-    def settings
-      Auther::Settings.new Rails.application.config.auther_settings
+    def load_account_options
+      @account_options = settings.accounts.map do |account|
+        name = account.fetch :name
+        [name.capitalize, name]
+      end
     end
 
     def account
@@ -50,12 +57,6 @@ module Auther
         authorized_url: account_settings.fetch(:authorized_url, nil)
     end
 
-    def name_options
-      @name_options = settings.accounts.map do |account|
-        name = account.fetch :name
-        [name.capitalize, name]
-      end
-    end
 
     def new_template_path
       raise NotImplementedError, "The method, #new_template_path, is not implemented."
