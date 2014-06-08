@@ -1,6 +1,6 @@
 require "bundler/setup"
-require "coveralls"
-Coveralls.wear!
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path "../dummy/config/environment", __FILE__

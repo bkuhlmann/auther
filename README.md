@@ -2,9 +2,9 @@
 
 [![Gem Version](https://badge.fury.io/rb/auther.png)](http://badge.fury.io/rb/auther)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.png)](https://codeclimate.com/github/bkuhlmann/auther)
+[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.png)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.png)](https://gemnasium.com/bkuhlmann/auther)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.png)](http://travis-ci.org/bkuhlmann/auther)
-[![Coverage Status](https://coveralls.io/repos/bkuhlmann/auther/badge.png)](https://coveralls.io/r/bkuhlmann/auther)
 [![Gittip](http://img.shields.io/gittip/bkuhlmann.svg)](https://www.gittip.com/bkuhlmann)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with the clunky UI

@@ -1,4 +1,7 @@
 language: ruby
+env:
+  CODECLIMATE_REPO_TOKEN:
+    secure: XMEfGdh8DP2XULWJ2kmQXdr3lNgiXqZdVaqiM+U394ZX3bgOy/rE0w+6rGJRT5REfMyWaDsC72aUGbZQUYNtB3jHogQ5RtYO6Tz0KELoHqivuRvCSgUvOT+Rkxy8S7HE/rjZQYbn86C2NIwE7BbDiAuyGHRpvpAEYhY/ALiYK8c=
 rvm:
 - 2.0.0
 - 2.1.0
