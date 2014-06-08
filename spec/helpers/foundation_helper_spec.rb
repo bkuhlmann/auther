@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::FoundationHelper, :type => :helper do
+describe Auther::FoundationHelper, type: :helper do
   describe "#render_foundation_error" do
     it "renders error class when enabled" do
       result = render_foundation_error true
