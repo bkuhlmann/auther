@@ -19,8 +19,9 @@ module Auther
     end
 
     def destroy
+      account = settings.find_account params[:name]
       remove_credentials params[:name]
-      redirect_to settings.auth_url
+      redirect_to deauthorized_url(account)
     end
 
     private
@@ -64,6 +65,10 @@ module Auther
 
     def authorized_url
       session["auther_redirect_url"] || account.authorized_url || '/'
+    end
+
+    def deauthorized_url account
+      account[:deauthorized_url] || settings.auth_url
     end
 
     def store_credentials

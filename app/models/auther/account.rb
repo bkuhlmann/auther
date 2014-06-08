@@ -18,6 +18,7 @@ module Auther
       @paths = options.fetch :paths, []
       @secret = options.fetch :secret, nil
       @authorized_url = options.fetch :authorized_url, nil
+      @deauthorized_url = options.fetch :deauthorized_url_url, nil
     end
 
     def valid?

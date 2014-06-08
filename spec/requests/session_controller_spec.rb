@@ -118,13 +118,36 @@ describe Auther::SessionController, :type => :request do
   end
 
   describe "#destroy" do
-    it "destroys credentials and redirects to new action" do
+    it "destroys credentials" do
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
+      delete "/auther/session", name: "test"
+
+      expect(session.has_key? :auther_test_login).to eq(false)
+      expect(session.has_key? :auther_test_password).to eq(false)
+    end
+
+    it "redirects to default deauthorized URL" do
+      # Save and clear the authorized URL for the purposes of this test only.
+      deauthorized_url = Rails.application.config.auther_settings[:accounts].first[:deauthorized_url]
+      Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = nil
+
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
+      delete "/auther/session", name: "test"
+
+      # Restore the authorized URL so that other tests are not affected by the modified configuration.
+      Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = deauthorized_url
+
+      expect(response.status).to eq 302
+      expect(response.location).to eq("http://www.example.com/login")
+    end
+
+    it "redirects to account deauthorized URL" do
       post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
       delete "/auther/session", name: "test"
 
       expect(response.status).to eq 302
-      expect(session.has_key? :auther_test_login).to eq(false)
-      expect(session.has_key? :auther_test_password).to eq(false)
+      expect(response.location).to eq("http://www.example.com/deauthorized")
     end
+
   end
 end

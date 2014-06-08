@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     resource :dashboard, controller: "dashboard", only: :show
   end
 
+  resource :deauthorized, controller: "deauthorized", only: :show
+
   get "/trailer", to: "portal#show"
 end
