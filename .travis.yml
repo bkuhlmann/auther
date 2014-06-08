@@ -5,7 +5,7 @@ env:
 rvm:
 - 2.0.0
 - 2.1.0
-- jruby-head
+- jruby
 - rbx-2.2.7
 gemfile:
 - gemfiles/rails-4.0.x.gemfile
