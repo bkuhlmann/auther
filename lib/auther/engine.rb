@@ -5,6 +5,13 @@ module Auther
     # Set defaults. Can be overwritten in app config.
     config.auther_settings = {}
 
+    # Autoload presenters
+    config.to_prepare do
+      Dir.glob(Engine.root + "app/presenters/**/*.rb").each do |presenter|
+        require_dependency presenter
+      end
+    end
+
     initializer "auther.initialize" do |app|
       asset_paths = app.config.assets.paths
 
