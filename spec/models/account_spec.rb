@@ -5,9 +5,9 @@ describe Auther::Account, type: :model do
     {
       name: "test",
       login: "test@test.com",
-      secure_login: "RUFKUVcyQzJCc1FoRyswZFpwN3JtNVNQR09JRVRadHd4S2pmekt4em90cz0tLTZpTlQxNnI5UzJnZlFpK3dYS1hjUVE9PQ==--d5546a942ad2dc509031f4c34429a016f8bd8612",
+      encrypted_login: "RUFKUVcyQzJCc1FoRyswZFpwN3JtNVNQR09JRVRadHd4S2pmekt4em90cz0tLTZpTlQxNnI5UzJnZlFpK3dYS1hjUVE9PQ==--d5546a942ad2dc509031f4c34429a016f8bd8612",
       password: "nevermore",
-      secure_password: "eHdHL0lpUDVyV0p1MU0zWnlJQnk2aURTQW5kRE9nQnRHWGJSUFpkam1XWT0tLXo5Snd5R29nWFJwNTF4RkllTW5qZVE9PQ==--301aa47630d2134dedefbd57bcc685dd7686503e",
+      encrypted_password: "eHdHL0lpUDVyV0p1MU0zWnlJQnk2aURTQW5kRE9nQnRHWGJSUFpkam1XWT0tLXo5Snd5R29nWFJwNTF4RkllTW5qZVE9PQ==--301aa47630d2134dedefbd57bcc685dd7686503e",
       secret: "jBiaeSgIb4qBUmLne4TiXQrmghedqayXC7esJcdpgWNdEiFN2o6fWdk8TzNS6nv0GifypoIejQn82Q5hEkICyTejsUqTn&ohz?2n"
     }
   end
@@ -15,7 +15,7 @@ describe Auther::Account, type: :model do
   subject { Auther::Account.new parameters }
 
   describe "#valid?" do
-    it "is valid when name, login, secure_login, password, secure_password, and secret are present" do
+    it "is valid when name, login, encrypted login, password, encrypted password, and secret are present" do
       expect(subject.valid?).to eq(true)
     end
   end
@@ -31,8 +31,8 @@ describe Auther::Account, type: :model do
       expect(subject.invalid?).to eq(true)
     end
 
-    it "is invalid when secure login is not present" do
-      parameters.delete :secure_login
+    it "is invalid when encrypted login is not present" do
+      parameters.delete :encrypted_login
       subject = Auther::Account.new parameters
       subject.valid?
 
@@ -45,8 +45,8 @@ describe Auther::Account, type: :model do
       expect(subject.invalid?).to eq(true)
     end
 
-    it "is invalid when secure password is not present" do
-      parameters.delete :secure_password
+    it "is invalid when encrypted password is not present" do
+      parameters.delete :encrypted_password
       subject = Auther::Account.new parameters
 
       expect(subject.invalid?).to eq(true)

@@ -51,9 +51,9 @@ module Auther
 
       @account ||= Auther::Account.new name: account_params.fetch(:name),
         login: account_params.fetch(:login),
-        secure_login: account_settings.fetch(:login),
+        encrypted_login: account_settings.fetch(:login),
         password: account_params.fetch(:password),
-        secure_password: account_settings.fetch(:password),
+        encrypted_password: account_settings.fetch(:password),
         secret: settings.secret,
         authorized_url: account_settings.fetch(:authorized_url, nil)
     end
@@ -73,8 +73,8 @@ module Auther
 
     def store_credentials
       keymaster = Auther::Keymaster.new account.name
-      session[keymaster.login_key] = account.secure_login
-      session[keymaster.password_key] = account.secure_password
+      session[keymaster.login_key] = account.encrypted_login
+      session[keymaster.password_key] = account.encrypted_password
     end
 
     def remove_credentials name

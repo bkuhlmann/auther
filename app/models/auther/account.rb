@@ -4,7 +4,7 @@ module Auther
   class Account
     include ActiveModel::Validations
 
-    attr_accessor :name, :login, :secure_login, :password, :secure_password, :paths, :authorized_url
+    attr_accessor :name, :login, :encrypted_login, :password, :encrypted_password, :paths, :authorized_url
 
     validates :name, presence: true
     validates :paths, presence: {unless: lambda { |account| account.paths.is_a? Array }, message: "must be an array"}
@@ -12,9 +12,9 @@ module Auther
     def initialize options = {}
       @name = options.fetch :name, nil
       @login = options.fetch :login, nil
-      @secure_login = options.fetch :secure_login, nil
+      @encrypted_login = options.fetch :encrypted_login, nil
       @password = options.fetch :password, nil
-      @secure_password = options.fetch :secure_password, nil
+      @encrypted_password = options.fetch :encrypted_password, nil
       @paths = options.fetch :paths, []
       @secret = options.fetch :secret, nil
       @authorized_url = options.fetch :authorized_url, nil
@@ -52,11 +52,11 @@ module Auther
     end
 
     def authorized_login?
-      authorized? login, secure_login, "login"
+      authorized? login, encrypted_login, "login"
     end
 
     def authorized_password?
-      authorized? password, secure_password, "password"
+      authorized? password, encrypted_password, "password"
     end
   end
 end
