@@ -119,7 +119,7 @@ describe Auther::SessionController, type: :request do
 
   describe "#destroy" do
     it "destroys credentials" do
-      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
       expect(session.has_key? :auther_test_login).to eq(false)
@@ -131,7 +131,7 @@ describe Auther::SessionController, type: :request do
       deauthorized_url = Rails.application.config.auther_settings[:accounts].first[:deauthorized_url]
       Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = nil
 
-      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
       # Restore the authorized URL so that other tests are not affected by the modified configuration.
@@ -142,12 +142,11 @@ describe Auther::SessionController, type: :request do
     end
 
     it "redirects to account deauthorized URL" do
-      post "/auther/session", account: {name: "test", login: "test@test.com", password: "password"}
+      post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
       expect(response.status).to eq 302
       expect(response.location).to eq("http://www.example.com/deauthorized")
     end
-
   end
 end

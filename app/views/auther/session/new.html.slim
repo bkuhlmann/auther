@@ -1,12 +1,12 @@
 - content_for(:title) { @title }
 
-- error_keys = @account.errors.keys
+- error_keys = @account_presenter.errors.keys
 - login_error = error_keys.include?(:login)
 - password_error = error_keys.include?(:password)
 - name_error = error_keys.include?(:name)
 
 .authorization
-  = form_for @account, as: :account, url: "/auther/session" do |form|
+  = form_for @account_presenter, as: :account, url: "/auther/session" do |form|
     .small-12
       .row
         h1.authorization-label = @label
@@ -18,7 +18,7 @@
               = form.label :login, "Login:", class: "inline right"
             = content_tag :div, class: render_foundation_error(login_error, classes: %w(small-6 columns))
               = form.text_field :login
-              = content_tag(:small, @account.errors.full_messages.first, class: "error") if login_error
+              = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if login_error
       .row
         .small-8
           .row
@@ -26,7 +26,7 @@
               = form.label :password, "Password:", class: "inline right"
             = content_tag :div, class: render_foundation_error(password_error, classes: %w(small-6 columns))
               = form.password_field :password
-              = content_tag(:small, @account.errors.full_messages.first, class: "error") if password_error
+              = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if password_error
 
       .row
         .small-8

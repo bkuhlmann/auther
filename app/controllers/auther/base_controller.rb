@@ -5,23 +5,27 @@ module Auther
     end
 
     def new
-      @account = Auther::Account.new
+      @account_presenter = Auther::Presenter::Account.new
     end
 
     def create
-      if account.valid?
-        store_credentials
-        redirect_to authorized_url
+      @account_presenter = Auther::Presenter::Account.new params[:account]
+      account_model = Auther::Account.new settings.find_account(@account_presenter.name)
+      authenticator = Auther::Authenticator.new settings.secret, account_model, @account_presenter
+
+      if authenticator.authenticated?
+        store_credentials account_model
+        redirect_to authorized_url(account_model)
       else
-        remove_credentials account.name
+        remove_credentials account_model
         render template: new_template_path
       end
     end
 
     def destroy
-      account = settings.find_account params[:name]
-      remove_credentials params[:name]
-      redirect_to deauthorized_url(account)
+      account_model = Auther::Account.new settings.find_account(params[:name])
+      remove_credentials account_model
+      redirect_to deauthorized_url(account_model)
     end
 
     private
@@ -45,40 +49,26 @@ module Auther
       end
     end
 
-    def account
-      account_params = params.fetch :account
-      account_settings = settings.find_account account_params.fetch(:name)
-
-      @account ||= Auther::Account.new name: account_params.fetch(:name),
-        login: account_params.fetch(:login),
-        encrypted_login: account_settings.fetch(:login),
-        password: account_params.fetch(:password),
-        encrypted_password: account_settings.fetch(:password),
-        secret: settings.secret,
-        authorized_url: account_settings.fetch(:authorized_url, nil)
-    end
-
-
     def new_template_path
       raise NotImplementedError, "The method, #new_template_path, is not implemented."
     end
 
-    def authorized_url
-      session["auther_redirect_url"] || account.authorized_url || '/'
+    def authorized_url account_model
+      session["auther_redirect_url"] || account_model.authorized_url || '/'
     end
 
-    def deauthorized_url account
-      account[:deauthorized_url] || settings.auth_url
+    def deauthorized_url account_model
+      account_model.deauthorized_url || settings.auth_url
     end
 
-    def store_credentials
-      keymaster = Auther::Keymaster.new account.name
-      session[keymaster.login_key] = account.encrypted_login
-      session[keymaster.password_key] = account.encrypted_password
+    def store_credentials account_model
+      keymaster = Auther::Keymaster.new account_model.name
+      session[keymaster.login_key] = account_model.encrypted_login
+      session[keymaster.password_key] = account_model.encrypted_password
     end
 
-    def remove_credentials name
-      keymaster = Auther::Keymaster.new name
+    def remove_credentials account_model
+      keymaster = Auther::Keymaster.new account_model.name
       session.delete keymaster.login_key
       session.delete keymaster.password_key
     end
