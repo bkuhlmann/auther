@@ -1,3 +1,14 @@
+# v2.0.0
+
+* Removed account success_url (has been renamed to authorized_url).
+* Updated account settings to use encrypted_login and encrypted_password instead of login and password keys.
+* Added an install generator for settings and routes.
+* Added a settings object with sensible defaults.
+* Added account deauthorized URL support.
+* Added an account presenter.
+* Added an account authenticator.
+* Added Code Climate test coverage support.
+
 # v1.4.0
 
 * Fixed missing highlighting of errors for login and password form fields.

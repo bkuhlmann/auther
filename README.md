@@ -23,9 +23,9 @@ making for a pleasent user experience.
 * Multiple account support with account specific blacklisted paths.
 * Auto-redirection to requested path (once credentials have been verified).
 * Log filtering for account credentials (login and password).
-* Customizable logger support.
 * Customizable view support.
 * Customizable controller support.
+* Customizable logger support.
 
 # Requirements
 
@@ -53,51 +53,21 @@ Add the following to your Gemfile:
 
     gem "auther"
 
-Edit your routes.rb as follows:
+Run the generator to configure and initialize your application:
 
-    Rails.application.routes.draw do
-      mount Auther::Engine => "/auther"
-      get "/login", to: "auther/session#new", as: "login"
-      delete "/logout", to: "auther/session#destroy", as: "logout"
-    end
-
-Add a config/initializers/auther.rb to your application with the following content:
-
-    Rails.application.config.auther_settings = {
-      secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
-      accounts: [
-        name: "admin",
-        login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
-        password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
-        paths: ["/admin"]
-      ],
-      auth_url: "/login"
-    }
-
-The purpose of each setting is as follows:
-
-* *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
-* *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
-* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
-* *accounts* - Required. The array of accounts with different or similar access to the application.
-    * *name* - Required. The account name. The name that uniquely identifies each account.
-    * *login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
-    * *password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
-    * *paths* - Required. The array of blacklisted paths for which only this account has access to.
-    * *success_url* - Optional. The URL to redirect to upon successful authorization. Success redirection works
-      as follows (in the order defined):
-        0. The blacklisted path (if requested prior to authorization but now authorized).
-        0. The success URL (if defined and the blacklisted path wasn't requested).
-        0. The root path (if none of the above).
-* *auth_url* - Required. The URL to redirect to when enforcing authentication to a blacklisted path.
-* *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
+    bin/rails generate auther:install
 
 # Usage
 
 Using the setup examples, from above, launch your Rails application and visit either of the following routes:
 
     http://localhost:3000/login
-    http://localhost:3000/admin # Will redirect to /login if not authorized.
+    http://localhost:3000/admin/example # Assumes this route exists. Will redirect to /login if not authorized.
+
+Use the following credentials to login:
+
+* Login: test@test.com
+* Password: password
 
 To encrypt/decrypt account credentials, launch a rails console and type the following:
 
@@ -112,21 +82,77 @@ To encrypt/decrypt account credentials, launch a rails console and type the foll
 
 # Customization
 
+## Initializer
+
+The initializer (installed during setup) can be found here:
+
+    config/initializers/auther.rb
+
+The initializer comes installed with the following settings:
+
+    Rails.application.config.auther_settings = {
+      secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
+      accounts: [
+        name: "admin",
+        encrypted_login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
+        encrypted_password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
+        paths: ["/admin"]
+      ]
+    }
+
+The initializer can be customized as follows:
+
+* *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
+* *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
+* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
+* *accounts* - Required. The array of accounts with different or similar access to the application.
+    * *name* - Required. The account name. The name that uniquely identifies each account.
+    * *encrypted_login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
+    * *encrypted_password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
+    * *paths* - Required. The array of blacklisted paths for which only this account has access to.
+    * *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
+      as follows (in the order defined):
+        0. The blacklisted path (if requested prior to authorization but now authorized).
+        0. The authorized URL (if defined and the blacklisted path wasn't requested).
+        0. The root path (if none of the above).
+    * *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e. logout). Deauthorized
+      redirections works as follows (in the order defined):
+        0. The deauthorized URL (if defined).
+        0. The auth URL.
+* *auth_url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
+* *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
+
+## Routes
+
+The routes can be customized as follows (installed, by default, via the install generator):
+
+    Rails.application.routes.draw do
+      mount Auther::Engine => "/auther"
+      get "/login", to: "auther/session#new", as: "login"
+      delete "/logout", to: "auther/session#destroy", as: "logout"
+    end
+
 ## Model
 
-The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveRecord validations
-to aid in form/credential validation. This model could potentially be replaced with a database-backed object
-(would require controller customization)...but you might want to question if you have outgrown the use of this
-gem and need a different solution altogether if it comes to that.
+The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveModel validations to aid
+in attribute validation. This model could potentially be replaced with a database-backed object (would require
+controller customization)...but you might want to question if you have outgrown the use of this gem and need a different
+solution altogether if it comes to that.
 
-## Views
+## Presenter
+
+The [Auther::Presenter::Account](app/presenters/auther/account.rb) is a plain old Ruby object that uses ActiveModel
+validations to aid in form validation. This presenter makes it easy to construct form data for input and validation.
+
+## View
 
 The view can be customized by creating the following file within your Rails application (assumes that the
 default Auther::SessionController implementation is sufficient):
 
     app/views/auther/session/new.html
 
-The form can be stylized by attaching new styles to the .authorization class (see
+The form uses `@account_presenter` instance variable which is an instance of the Auther::Presenter::Account presenter
+(as mentioned above). The form can be stylized by attaching new styles to the .authorization class (see
 [auther.scss](app/assets/stylesheets/auther/auther.scss) for details).
 
 ## Controller
@@ -142,16 +168,6 @@ you add a controller to your app that inherits from the Auther::BaseController. 
 
 This allows complete customization of session controller behavior to serve any special business needs. See the
 Auther::BaseController for additional details or the Auther::SessionController for default implementation.
-
-## Routes
-
-As mentioned in the setup above, the routes can be customized as follows:
-
-    Rails.application.routes.draw do
-      mount Auther::Engine => "/auther"
-      get "/login", to: "auther/session#new"
-      delete "/logout", to: "auther/session#destroy"
-    end
 
 ## Logging
 
@@ -187,6 +203,8 @@ To test, do the following:
 
 * [Simplest Auth](https://github.com/vigetlabs/simplest_auth) - For situations where you need user and email reset
   support beyond what this engine can provide.
+* [Devise](https://github.com/plataformatec/devise) - For complex situations where you need persisted user objects,
+  email support, social media support, and much more.
 
 # Contributions
 
