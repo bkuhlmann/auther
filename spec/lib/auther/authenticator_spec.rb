@@ -61,5 +61,13 @@ describe Auther::Authenticator do
       account_presenter.password = "bogus"
       expect(subject.authenticated?).to be_falsey
     end
+
+    it "logs authentication failure" do
+      account_model.encrypted_login = "bogus"
+      message = %([auther]: Authentication failed! Invalid credential(s) for "#{account_model.name}" account.)
+
+      expect(subject.logger).to receive(:info).with(message).once
+      subject.authenticated?
+    end
   end
 end

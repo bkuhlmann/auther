@@ -173,7 +173,7 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.5.0)
-    sprockets (2.11.0)
+    sprockets (2.8.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -201,7 +201,7 @@ DEPENDENCIES
   auther!
   codeclimate-test-reporter
   guard-rspec
-  pry
+  pry (~> 0.9.12)
   pry-byebug
   pry-remote
   pry-rescue

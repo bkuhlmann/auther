@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.add_dependency "modernizr-rails", "~> 2.7"
   s.add_dependency "foundation-rails", "~> 5.2"
   s.add_development_dependency "rake", "~> 10.0"
-  s.add_development_dependency "pry"
+  s.add_development_dependency "pry", "~> 0.9.12"
   s.add_development_dependency "pry-remote"
   s.add_development_dependency "pry-rescue"
   s.add_development_dependency "rspec-rails"

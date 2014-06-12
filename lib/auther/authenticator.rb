@@ -1,10 +1,12 @@
 module Auther
   class Authenticator
+    attr_reader :logger
 
-    def initialize secret, account_model, account_presenter
+    def initialize secret, account_model, account_presenter, logger = Auther::NullLogger.new(STDOUT)
       @cipher = Auther::Cipher.new secret
       @account_model = account_model
       @account_presenter = account_presenter
+      @logger = logger
     end
 
     def authenticated?
@@ -19,8 +21,13 @@ module Auther
 
     attr_reader :cipher, :account_model, :account_presenter
 
+    # FIX: Extract to a module
+    def log_info message
+      id = "[#{Auther::Keymaster.namespace}]"
+      logger.info [id, message].join(": ")
+    end
+
     def authentic? encrypted_value, value, error_name
-      # FIX: Extract conditional logic to a separate method.
       begin
         if cipher.decrypt(encrypted_value) == value
           true
@@ -29,7 +36,7 @@ module Auther
           false
         end
       rescue ActiveSupport::MessageVerifier::InvalidSignature => error
-        # TODO: Add logger.
+        log_info %(Authentication failed! Invalid credential(s) for "#{account_model.name}" account.)
         false
       end
     end
