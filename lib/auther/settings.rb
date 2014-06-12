@@ -5,8 +5,8 @@ module Auther
     def initialize options = {}
       @title = options.fetch :title, "Authorization"
       @label = options.fetch :title, "Authorization"
-      @secret = options.fetch :secret
-      @accounts = options.fetch :accounts
+      @secret = options.fetch :secret, nil
+      @accounts = options.fetch :accounts, []
       @auth_url = options.fetch :auth_url, "/login"
       @logger = options.fetch :logger, Auther::NullLogger.new(STDOUT)
     end

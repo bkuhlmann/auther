@@ -90,8 +90,8 @@ module Auther
       begin
         session_login = cipher.decrypt session[keymaster.login_key]
         session_password = cipher.decrypt session[keymaster.password_key]
-        account_login = cipher.decrypt account.fetch(:login)
-        account_password = cipher.decrypt account.fetch(:password)
+        account_login = cipher.decrypt account.fetch(:encrypted_login)
+        account_password = cipher.decrypt account.fetch(:encrypted_password)
 
         authenticated = session_login == account_login && session_password == account_password
         log_authentication authenticated, account.fetch(:name)

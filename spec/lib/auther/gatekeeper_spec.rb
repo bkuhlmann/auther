@@ -36,16 +36,16 @@ describe Auther::Gatekeeper do
 
   describe "#call" do
     describe "single account" do
-      let(:login) { "Yk5hMUdMdk10WWxQMUtsZFUyR2VEYzBWUm9hbHVsWndqVFNtM3ZCMWpOcz0tLWMvQjF2dlJ2OWo4VkkvYXlYMTYwUlE9PQ==--f53729f459527e944d20987c8159a06b56e4a736" }
-      let(:password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
+      let(:encrypted_login) { "Yk5hMUdMdk10WWxQMUtsZFUyR2VEYzBWUm9hbHVsWndqVFNtM3ZCMWpOcz0tLWMvQjF2dlJ2OWo4VkkvYXlYMTYwUlE9PQ==--f53729f459527e944d20987c8159a06b56e4a736" }
+      let(:encrypted_password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
 
       subject do
         Auther::Gatekeeper.new app, {
           accounts: [
             {
               name: "public",
-              login: login,
-              password: password,
+              encrypted_login: encrypted_login,
+              encrypted_password: encrypted_password,
               paths: [
                 "/admin",
                 "/member",
@@ -88,8 +88,8 @@ describe Auther::Gatekeeper do
 
         context "authenticated account" do
           it "passes authorization with random path" do
-            env["rack.session"]["auther_public_login"] = login
-            env["rack.session"]["auther_public_password"] = password
+            env["rack.session"]["auther_public_login"] = encrypted_login
+            env["rack.session"]["auther_public_password"] = encrypted_password
             env["PATH_INFO"] = "/some/random/path"
 
             result = subject.call env
@@ -108,7 +108,7 @@ describe Auther::Gatekeeper do
 
         it "fails authorization with encrypted, invalid login" do
           env["rack.session"]["auther_public_login"] = "d1M3WmE4Zkp5RyttU1R0Q0dPMmhtNGxXY3E5YXRZMlJlTkZXTmFJK01BMD0tLVBSeU9NbjNwazRmUTd0VFNBUHZoTFE9PQ==--7a498efaaca3cee568c56dcc62ae7cd27fead46f"
-          env["rack.session"]["auther_public_password"] = password
+          env["rack.session"]["auther_public_password"] = encrypted_password
           env["PATH_INFO"] = "/admin"
 
           result = subject.call env
@@ -116,7 +116,7 @@ describe Auther::Gatekeeper do
         end
 
         it "fails authorization with encrypted, invalid password" do
-          env["rack.session"]["auther_public_login"] = login
+          env["rack.session"]["auther_public_login"] = encrypted_login
           env["rack.session"]["auther_public_password"] = "MEVvazdyd3lBellGNWkzdEpyWE5ybWx2V1NZUEozTVBacW9sRzhrRWpYYz0tLVZ5OHphRGRUSTM1UDI3Sm9qdER6QXc9PQ==--12d865675f89334e4ffa9026724b7e62b11bf095"
           env["PATH_INFO"] = "/admin"
 
@@ -126,7 +126,7 @@ describe Auther::Gatekeeper do
 
         it "fails authorization with unencrypted login" do
           env["rack.session"]["auther_public_login"] = "cracker"
-          env["rack.session"]["auther_public_password"] = password
+          env["rack.session"]["auther_public_password"] = encrypted_password
           env["PATH_INFO"] = "/admin"
 
           result = subject.call env
@@ -134,7 +134,7 @@ describe Auther::Gatekeeper do
         end
 
         it "fails authorization with unencrypted password" do
-          env["rack.session"]["auther_public_login"] = login
+          env["rack.session"]["auther_public_login"] = encrypted_login
           env["rack.session"]["auther_public_password"] = "opensesame"
           env["PATH_INFO"] = "/admin"
 
@@ -143,8 +143,8 @@ describe Auther::Gatekeeper do
         end
 
         it "fails authorization with authenticated account" do
-          env["rack.session"]["auther_public_login"] = login
-          env["rack.session"]["auther_public_password"] = password
+          env["rack.session"]["auther_public_login"] = encrypted_login
+          env["rack.session"]["auther_public_password"] = encrypted_password
           env["PATH_INFO"] = "/admin"
 
           result = subject.call env
@@ -171,8 +171,8 @@ describe Auther::Gatekeeper do
           accounts: [
             {
               name: "public",
-              login: public_login,
-              password: public_password,
+              encrypted_login: public_login,
+              encrypted_password: public_password,
               paths: [
                 "/admin",
                 "/member"
@@ -180,8 +180,8 @@ describe Auther::Gatekeeper do
             },
             {
               name: "member",
-              login: member_login,
-              password: member_password,
+              encrypted_login: member_login,
+              encrypted_password: member_password,
               paths: [
                 "/admin",
                 "/contests/january"
