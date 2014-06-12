@@ -55,11 +55,11 @@ Add the following to your Gemfile:
 
 Run the generator to configure and initialize your application:
 
-    bin/rails generate auther:install
+    rails generate auther:install
 
 # Usage
 
-Using the setup examples, from above, launch your Rails application and visit either of the following routes:
+Launch your Rails application and visit either of the following routes:
 
     http://localhost:3000/login
     http://localhost:3000/admin/example # Assumes this route exists. Will redirect to /login if not authorized.
@@ -68,17 +68,6 @@ Use the following credentials to login:
 
 * Login: test@test.com
 * Password: password
-
-To encrypt/decrypt account credentials, launch a rails console and type the following:
-
-    # Best if more than 150 characters and gibberish to read. Must be the same as defined in auther settings.
-    cipher = Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb"
-
-    # Do this to encrypt an unecrypted value.
-    cipher.encrypt "test@test.com"
-
-    # Do this to decrypt an encrypted value.
-    cipher.decrypt "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331"
 
 # Customization
 
@@ -99,6 +88,18 @@ The initializer comes installed with the following settings:
         paths: ["/admin"]
       ]
     }
+
+**IMPORTANT**: The encrypted login/password credentials must be changed and re-encrypted before deploying to production!
+To encrypt/decrypt account credentials, launch a rails console and run the following:
+
+    # Best if more than 150 characters and gibberish to read. Must be the same as defined in auther settings.
+    cipher = Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb"
+
+    # Do this to encrypt an unecrypted value.
+    cipher.encrypt "test@test.com"
+
+    # Do this to decrypt an encrypted value.
+    cipher.decrypt "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331"
 
 The initializer can be customized as follows:
 
@@ -187,11 +188,18 @@ Auther settings:
 
 # Tests
 
-To test, do the following:
+To test, run:
 
-0. cd to the gem root.
-0. bundle install
-0. bundle exec rspec spec
+    bundle exec rspec spec
+
+# Upgrading
+
+For those using Auther 1.x.x, there are a few minor changes to be applied in order to upgrade to 2.x.x:
+
+0. Move the old Auther settings (i.e. `config/application.rb`) into an Auther initilizer (i.e.
+   `config/initializers/auther.rb`). Read the *Customization* section above for additional instruction.
+0. All account settings have changed from `login` and `password` to `encrypted_login` and `encrypted_password` keys.
+0. The `success_url` account settings have been renamed to `authorized_url`.
 
 # Troubleshooting
 
