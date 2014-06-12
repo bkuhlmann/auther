@@ -1,5 +1,6 @@
 module Auther
   class Authenticator
+
     attr_reader :logger
 
     def initialize secret, account_model, account_presenter, logger = Auther::NullLogger.new(STDOUT)
@@ -21,7 +22,6 @@ module Auther
 
     attr_reader :cipher, :account_model, :account_presenter
 
-    # FIX: Extract to a module
     def log_info message
       id = "[#{Auther::Keymaster.namespace}]"
       logger.info [id, message].join(": ")

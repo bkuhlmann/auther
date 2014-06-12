@@ -101,8 +101,8 @@ describe Auther::SessionController, type: :request do
         post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
 
         expect(response.status).to eq 200
-        expect(session.has_key? :auther_test_login).to eq(false)
-        expect(session.has_key? :auther_test_password).to eq(false)
+        expect(session.has_key? :auther_test_login).to be_falsey
+        expect(session.has_key? :auther_test_password).to be_falsey
       end
 
       it "requires blacklisted path authorization and remembers request path" do
@@ -122,8 +122,8 @@ describe Auther::SessionController, type: :request do
       post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
-      expect(session.has_key? :auther_test_login).to eq(false)
-      expect(session.has_key? :auther_test_password).to eq(false)
+      expect(session.has_key? :auther_test_login).to be_falsey
+      expect(session.has_key? :auther_test_password).to be_falsey
     end
 
     it "redirects to default deauthorized URL" do

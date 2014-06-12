@@ -21,7 +21,7 @@ describe Auther::InstallGenerator, type: :generator do
     it "installs initializer" do
       run_generator
 
-      expect(File.exist?(initializer)).to eq(true)
+      expect(File.exist?(initializer)).to be_truthy
     end
 
     it "adds custom routes" do
