@@ -216,7 +216,7 @@ For those using Auther 1.x.x, there are a few minor changes to be applied in ord
 
 # Contributions
 
-Read CONTRIBUTING for details.
+Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 # Credits
 
@@ -225,9 +225,9 @@ Developed by [Brooke Kuhlmann](http://www.alchemists.io) at [Alchemists](http://
 # License
 
 Copyright (c) 2014 [Alchemists](http://www.alchemists.io).
-Read the LICENSE for details.
+Read the [LICENSE](LICENSE.md) for details.
 
 # History
 
-Read the CHANGELOG for details.
+Read the [CHANGELOG](CHANGELOG.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
