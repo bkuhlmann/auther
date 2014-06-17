@@ -19,47 +19,47 @@ describe Auther::Authenticator do
 
   describe "#authenticated?" do
     it "answers true when model/presenter are valid, names match, logins match, and passwords match" do
-      expect(subject.authenticated?).to be_truthy
+      expect(subject.authenticated?).to be(true)
     end
 
     it "answers false when model is invalid" do
       allow(account_model).to receive(:valid?).and_return(false)
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when presenter is invalid" do
       allow(account_presenter).to receive(:valid?).and_return(false)
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when model name is invalid" do
       account_model.name = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when model encrypted login is invalid" do
       account_model.encrypted_login = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when model encrypted password is invalid" do
       account_model.encrypted_password = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when presenter name is invalid" do
       account_presenter.name = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when presenter login is invalid" do
       account_presenter.login = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "answers false when presenter password is invalid" do
       account_presenter.password = "bogus"
-      expect(subject.authenticated?).to be_falsey
+      expect(subject.authenticated?).to be(false)
     end
 
     it "logs authentication failure" do

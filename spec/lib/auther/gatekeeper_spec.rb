@@ -65,7 +65,7 @@ describe Auther::Gatekeeper do
             env["PATH_INFO"] = "/some/random/path"
 
             result = subject.call env
-            expect(result[1].has_key?("Location")).to be_falsey
+            expect(result[1].has_key?("Location")).to be(false)
           end
 
           it "adds request path as request url to session" do
@@ -93,7 +93,7 @@ describe Auther::Gatekeeper do
             env["PATH_INFO"] = "/some/random/path"
 
             result = subject.call env
-            expect(result[1].has_key?("Location")).to be_falsey
+            expect(result[1].has_key?("Location")).to be(false)
           end
         end
       end
@@ -190,7 +190,7 @@ describe Auther::Gatekeeper do
           env["PATH_INFO"] = "/public"
 
           result = subject.call env
-          expect(result[1].has_key?("Location")).to be_falsey
+          expect(result[1].has_key?("Location")).to be(false)
         end
 
         it "logs requested path, account found, authentication passed, and authorization passed." do

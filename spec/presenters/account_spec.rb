@@ -13,24 +13,24 @@ describe Auther::Presenter::Account, type: :model do
 
   describe "#valid?" do
     it "answers true when name, login, and password are present" do
-      expect(subject.valid?).to be_truthy
+      expect(subject.valid?).to be(true)
     end
   end
 
   describe "#invalid?" do
     it "answers true when name is not present" do
       subject.name = nil
-      expect(subject.invalid?).to be_truthy
+      expect(subject.invalid?).to be(true)
     end
 
     it "answers true when login is not present" do
       subject.login = nil
-      expect(subject.invalid?).to be_truthy
+      expect(subject.invalid?).to be(true)
     end
 
     it "answers true when password is not present" do
       subject.password = nil
-      expect(subject.invalid?).to be_truthy
+      expect(subject.invalid?).to be(true)
     end
   end
 end
