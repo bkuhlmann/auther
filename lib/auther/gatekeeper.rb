@@ -73,14 +73,13 @@ module Auther
       paths.map { |path| path.chomp '/' }
     end
 
-    def blacklisted_paths accounts
-      paths = accounts.map { |account| clean_paths account.fetch(:paths) }
+    def blacklisted_paths
+      paths = settings.accounts.map { |account| clean_paths account.fetch(:paths) }
       paths.flatten.uniq
     end
 
-    def blacklisted_matched_paths accounts, path
-      paths = blacklisted_paths accounts
-      paths.select { |blacklisted_path| path.include? blacklisted_path }
+    def blacklisted_matched_paths path
+      blacklisted_paths.select { |blacklisted_path| path.include? blacklisted_path }
     end
 
     def authenticated? account
@@ -103,22 +102,18 @@ module Auther
     end
 
     def account_authorized? account, path
-      # FIX: Should not use the settings object here, should be passed in instead.
-      all_paths = blacklisted_paths settings.accounts
+      all_paths = blacklisted_paths
       account_paths = clean_paths account.fetch(:paths)
-      paths = all_paths - account_paths
+      restricted_paths = all_paths - account_paths
 
-      authorized = !paths.include?(path)
+      authorized = !restricted_paths.include?(path)
       log_authorization authorized, account.fetch(:name), all_paths, request.path
       authorized
     end
 
     def authorized? path
-      accounts = settings.accounts
-      all_blacklisted_paths = blacklisted_paths settings.accounts
-
-      if blacklisted_matched_paths(accounts, path).any?
-        log_info %(Requested path "#{request.path}" found in blacklisted paths: #{all_blacklisted_paths}.)
+      if blacklisted_matched_paths(path).any?
+        log_info %(Requested path "#{request.path}" found in blacklisted paths: #{blacklisted_paths}.)
         account = find_account
         account && authenticated?(account) && account_authorized?(account, path)
       else
