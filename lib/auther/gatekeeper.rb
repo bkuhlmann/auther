@@ -54,9 +54,9 @@ module Auther
       details = %(Account: "#{account_name}". Blacklist: #{blacklist}. Request Path: "#{request_path}".)
 
       if authorized
-        log_info %(Authorization failed! #{details})
-      else
         log_info %(Authorization passed. #{details})
+      else
+        log_info %(Authorization failed! #{details})
       end
     end
 
@@ -103,10 +103,13 @@ module Auther
     end
 
     def account_authorized? account, path
-      paths = clean_paths account.fetch(:paths)
+      # FIX: Should not use the settings object here, should be passed in instead.
+      all_paths = blacklisted_paths settings.accounts
+      account_paths = clean_paths account.fetch(:paths)
+      paths = all_paths - account_paths
 
-      authorized = paths.include? path
-      log_authorization authorized, account.fetch(:name), paths, request.path
+      authorized = !paths.include?(path)
+      log_authorization authorized, account.fetch(:name), all_paths, request.path
       authorized
     end
 
@@ -117,7 +120,7 @@ module Auther
       if blacklisted_matched_paths(accounts, path).any?
         log_info %(Requested path "#{request.path}" found in blacklisted paths: #{all_blacklisted_paths}.)
         account = find_account
-        account && authenticated?(account) && !account_authorized?(account, path)
+        account && authenticated?(account) && account_authorized?(account, path)
       else
         true
       end
