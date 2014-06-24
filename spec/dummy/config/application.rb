@@ -5,11 +5,11 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
 
-Bundler.require(*Rails.groups)
+Bundler.require
 require "auther"
 
 module Dummy
   class Application < Rails::Application
-    config.assets.initialize_on_precompile = false
+    config.assets.compile = false
   end
 end
