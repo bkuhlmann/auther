@@ -95,13 +95,13 @@ GEM
     modernizr-rails (2.7.1)
     multi_json (1.10.1)
     polyglot (0.3.5)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
+    pry (0.10.0)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (1.3.2)
+    pry-byebug (1.3.3)
       byebug (~> 2.7)
-      pry (~> 0.9.12)
+      pry (~> 0.10)
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
@@ -201,7 +201,7 @@ DEPENDENCIES
   auther!
   codeclimate-test-reporter
   guard-rspec
-  pry (~> 0.9.12)
+  pry
   pry-byebug
   pry-remote
   pry-rescue
