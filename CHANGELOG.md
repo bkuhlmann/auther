@@ -1,3 +1,8 @@
+# v2.2.0
+
+* Updated gem-public.pem for gem install certificate chain.
+* Fixed engine asset pipeline issues.
+
 # v2.1.0
 
 * Fixed bug where a second account (not defining the same blacklisted path as another account) could access the
