@@ -1,3 +1,8 @@
+# v3.0.0
+
+* Removed Rails 4.0.x support.
+* Added secure defaults for initializer.
+
 # v2.2.0
 
 * Updated gem-public.pem for gem install certificate chain.
