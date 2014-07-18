@@ -59,12 +59,18 @@ Run the generator to configure and initialize your application:
 
 # Usage
 
-Launch your Rails application and visit either of the following routes:
+Assuming you are using the excellent [dotenv](https://github.com/bkeepers/dotenv) gem, add the following to your `.env`
+settings:
+
+    AUTHER_SECRET=66is2tB4EbekG74DPGRmyQkdtZkQyNWZY6yeeNsmQ4Rpu42esdnP9X6puxpKfs64Gy2ghPu6QGTKsvQ73wXuDyWzDr
+    AUTHER_ADMIN_LOGIN=aHdMWUhiVGRyVHBPMmhTRWNRR082MFhNdVFkL2ZaSGpvY2VoVS90dGRpRT0tLXFBWWZDRkJ4aDR3Qy9aamNOeU1JekE9PQ==--bf077a68a8e654ed9e480851c9597dae57ec34b8
+    AUTHER_ADMIN_PASSWORD=VTloc285SVNrbnlHN0xhOTlMVEx6WnZ0VnFOMjFNWWdkZlRKdGVjZ1FtUT0tLTkrSDdweU1meVdFV1FIRnhpenZiK1E9PQ==--85c415da879ffab2491d37d767d108254d1ed57e
+
+Launch your Rails application and visit the following:
 
     http://localhost:3000/login
-    http://localhost:3000/admin/example # Assumes this route exists. Will redirect to /login if not authorized.
 
-Use the following credentials to login:
+Use these credentials to login:
 
 * Login: test@test.com
 * Password: password
@@ -80,17 +86,17 @@ The initializer (installed during setup) can be found here:
 The initializer comes installed with the following settings:
 
     Rails.application.config.auther_settings = {
-      secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
+      secret: ENV["AUTHER_SECRET"],
       accounts: [
         name: "admin",
-        encrypted_login: "N3JzR213WlBISDZsMjJQNkRXbEVmYVczbVdnMHRYVHRud29lOWRCekp6ST0tLWpFMkROekUvWDBkOHZ4ZngxZHV6clE9PQ==--cd863c39991fa4bb9a35de918aa16da54514e331",
-        encrypted_password: "cHhFSStjRm9KbEYwK3ZJVlF2MmpTTWVVZU5acEdlejZsZEhjWFJoQWxKND0tLTE3cmpXZVBQdW5VUW1jK0ZSSDdLUnc9PQ==--f51171174fa77055540420f205e0dd9d499cfeb6",
+        encrypted_login: ENV["AUTHER_ADMIN_LOGIN"],
+        encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
         paths: ["/admin"]
       ]
     }
 
-**IMPORTANT**: The encrypted login/password credentials must be changed and re-encrypted before deploying to production!
-To encrypt/decrypt account credentials, launch a rails console and run the following:
+**IMPORTANT**: The encrypted secret, login, and password credentials used in the `.env` setup above must be re-encrypted
+before deploying to production! To encrypt/decrypt account credentials, launch a rails console and run the following:
 
     # Best if more than 150 characters and gibberish to read. Must be the same as defined in auther settings.
     cipher = Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb"
@@ -108,8 +114,8 @@ The initializer can be customized as follows:
 * *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
 * *accounts* - Required. The array of accounts with different or similar access to the application.
     * *name* - Required. The account name. The name that uniquely identifies each account.
-    * *encrypted_login* - Required. The encrypted account login. For example, the above decrypts to: *test@test.com*.
-    * *encrypted_password* - Required. The encrypted account password. For example, the above decrypts to: *password*.
+    * *encrypted_login* - Required. The encrypted account login.
+    * *encrypted_password* - Required. The encrypted account password.
     * *paths* - Required. The array of blacklisted paths for which only this account has access to.
     * *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
       as follows (in the order defined):
