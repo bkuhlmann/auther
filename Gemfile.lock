@@ -51,7 +51,7 @@ GEM
       debugger-linecache (~> 1.2)
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    codeclimate-test-reporter (0.3.0)
+    codeclimate-test-reporter (0.4.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     columnize (0.8.9)
@@ -62,7 +62,7 @@ GEM
     erubis (2.7.0)
     ffi (1.9.3)
     formatador (0.2.5)
-    foundation-rails (5.3.1.0)
+    foundation-rails (5.3.3.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     guard (2.6.1)
@@ -190,7 +190,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (1.2.1)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
 
 PLATFORMS
