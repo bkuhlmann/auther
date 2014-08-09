@@ -30,6 +30,10 @@ RSpec.configure do |config|
   config.order = "random"
   config.infer_base_class_for_anonymous_controllers = false
 
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
   config.before(:all) { GC.disable }
   config.after(:all) { GC.enable }
 end
