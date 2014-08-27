@@ -14,25 +14,25 @@ making for a pleasent user experience.
 
 # Features
 
-* Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
+- Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
 
 [![Screenshot - Clean](https://github.com/bkuhlmann/auther/raw/master/screenshot-clean.png)](https://github.com/bkuhlmann/auther)
 [![Screenshot - Error](https://github.com/bkuhlmann/auther/raw/master/screenshot-error.png)](https://github.com/bkuhlmann/auther)
 
-* Encrypted account credentials.
-* Multiple account support with account specific blacklisted paths.
-* Auto-redirection to requested path (once credentials have been verified).
-* Log filtering for account credentials (login and password).
-* Customizable view support.
-* Customizable controller support.
-* Customizable logger support.
+- Encrypted account credentials.
+- Multiple account support with account specific blacklisted paths.
+- Auto-redirection to requested path (once credentials have been verified).
+- Log filtering for account credentials (login and password).
+- Customizable view support.
+- Customizable controller support.
+- Customizable logger support.
 
 # Requirements
 
 0. Any of the following Ruby VMs:
-    * [MRI 2.x.x](http://www.ruby-lang.org)
-    * [JRuby 1.x.x](http://jruby.org)
-    * [Rubinius 2.x.x](http://rubini.us)
+    - [MRI 2.x.x](http://www.ruby-lang.org)
+    - [JRuby 1.x.x](http://jruby.org)
+    - [Rubinius 2.x.x](http://rubini.us)
 0. [Ruby on Rails 4.x.x](http://rubyonrails.org).
 
 # Setup
@@ -72,8 +72,8 @@ Launch your Rails application and visit the following:
 
 Use these credentials to login:
 
-* Login: test@test.com
-* Password: password
+- Login: test@test.com
+- Password: password
 
 # Customization
 
@@ -109,25 +109,25 @@ before deploying to production! To encrypt/decrypt account credentials, launch a
 
 The initializer can be customized as follows:
 
-* *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
-* *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
-* *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
-* *accounts* - Required. The array of accounts with different or similar access to the application.
-    * *name* - Required. The account name. The name that uniquely identifies each account.
-    * *encrypted_login* - Required. The encrypted account login.
-    * *encrypted_password* - Required. The encrypted account password.
-    * *paths* - Required. The array of blacklisted paths for which only this account has access to.
-    * *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
+- *title- - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
+- *label- - Optional. The page label (what would appear above the form). Default: "Authorization".
+- *secret- - Required. The secret passphrase used to encrypt/decrypt account credentials.
+- *accounts- - Required. The array of accounts with different or similar access to the application.
+    - *name- - Required. The account name. The name that uniquely identifies each account.
+    - *encrypted_login- - Required. The encrypted account login.
+    - *encrypted_password- - Required. The encrypted account password.
+    - *paths- - Required. The array of blacklisted paths for which only this account has access to.
+    - *authorized_url- - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
       as follows (in the order defined):
         0. The blacklisted path (if requested prior to authorization but now authorized).
         0. The authorized URL (if defined and the blacklisted path wasn't requested).
         0. The root path (if none of the above).
-    * *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e. logout). Deauthorized
+    - *deauthorized_url- - Optional. The URL to redirect to upon successful deauthorization (i.e. logout). Deauthorized
       redirections works as follows (in the order defined):
         0. The deauthorized URL (if defined).
         0. The auth URL.
-* *auth_url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
-* *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
+- *auth_url- - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
+- *logger- - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
 
 ## Routes
 
@@ -187,10 +187,10 @@ As mentioned in the setup above, the logger can be customized as follows:
 When logging is enabled, you'll be able to see the following information in the server logs to help debug custom
 Auther settings:
 
-* Requested path and blacklist path detection.
-* Finding (or not finding) of account.
-* Account authentication pass/fail.
-* Account and path authorization pass/fail.
+- Requested path and blacklist path detection.
+- Finding (or not finding) of account.
+- Account authentication pass/fail.
+- Account and path authorization pass/fail.
 
 # Tests
 
@@ -203,21 +203,21 @@ To test, run:
 For those using Auther 1.x.x, there are a few minor changes to be applied in order to upgrade to 2.x.x:
 
 0. Move the old Auther settings (i.e. `config/application.rb`) into an Auther initilizer (i.e.
-   `config/initializers/auther.rb`). Read the *Customization* section above for additional instruction.
+   `config/initializers/auther.rb`). Read the *Customization- section above for additional instruction.
 0. All account settings have changed from `login` and `password` to `encrypted_login` and `encrypted_password` keys.
 0. The `success_url` account settings have been renamed to `authorized_url`.
 
 # Troubleshooting
 
-* If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc. this might
+- If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc. this might
   cause Auther authentication to fail. Make sure to clear your browser cookies in this situation or use Google
   Chrome (incognito mode) to verify.
 
 # Resources
 
-* [Simplest Auth](https://github.com/vigetlabs/simplest_auth) - For situations where you need user and email reset
+- [Simplest Auth](https://github.com/vigetlabs/simplest_auth) - For situations where you need user and email reset
   support beyond what this engine can provide.
-* [Devise](https://github.com/plataformatec/devise) - For complex situations where you need persisted user objects,
+- [Devise](https://github.com/plataformatec/devise) - For complex situations where you need persisted user objects,
   email support, social media support, and much more.
 
 # Contributions
