@@ -63,7 +63,7 @@ GEM
     erubis (2.7.0)
     ffi (1.9.3)
     formatador (0.2.5)
-    foundation-rails (5.4.3.0)
+    foundation-rails (5.4.3.1)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     guard (2.6.1)
@@ -139,7 +139,7 @@ GEM
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
       rspec-mocks (~> 3.1.0)
-    rspec-core (3.1.1)
+    rspec-core (3.1.2)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -189,7 +189,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    timers (4.0.0)
+    timers (4.0.1)
       hitimes
     treetop (1.4.15)
       polyglot
