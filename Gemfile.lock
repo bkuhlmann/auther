@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     auther (3.0.0)
-      foundation-rails (~> 5.2)
+      foundation-rails (~> 5.3.3)
       jquery-rails (~> 3.1)
       modernizr-rails (~> 2.7)
       rails (~> 4.0)
@@ -63,7 +63,7 @@ GEM
     erubis (2.7.0)
     ffi (1.9.3)
     formatador (0.2.5)
-    foundation-rails (5.4.4.0)
+    foundation-rails (5.3.3.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     guard (2.6.1)
@@ -173,7 +173,7 @@ GEM
       railties (>= 3.0, < 4.2)
       slim (~> 2.0)
     slop (3.6.0)
-    sprockets (2.8.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
