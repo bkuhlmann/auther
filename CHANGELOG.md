@@ -1,3 +1,12 @@
+# v3.1.0 (2014-09-20)
+
+- Added the Guard Terminal Notifier gem.
+- Updated to Ruby 2.1.3.
+- Updated gemspec to add security keys unless in a CI environment.
+- Updated Code Climate to run only if environment variable is present.
+- Updated and locked to Foundation Rails 5.3.3 (See [Issue 5811](https://github.com/zurb/foundation/issues/5811)).
+- Refactored RSpec setup and support files.
+
 # v3.0.0 (2014-07-17)
 
 - Removed Rails 4.0.x support.
