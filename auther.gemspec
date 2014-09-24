@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.version     = Auther::VERSION
   spec.platform    = Gem::Platform::RUBY
   spec.authors     = ["Brooke Kuhlmann"]
-  spec.email       = ["brooke@redalchemist.com"]
+  spec.email       = ["bkuhlmann@alchemists.io"]
   spec.homepage    = "https://github.com/bkuhlmann/auther"
   spec.summary     = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
   spec.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication as a Rails Engine."
