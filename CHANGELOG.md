@@ -1,3 +1,8 @@
+# v3.2.0 (2014-10-12)
+
+* Updated to [Foundation 5.4.x](https://github.com/zurb/foundation/releases/tag/v5.4.6) now that SASS issues are
+  resolved.
+
 # v3.1.0 (2014-09-20)
 
 - Added the Guard Terminal Notifier gem.
