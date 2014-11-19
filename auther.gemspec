@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication as a Rails Engine."
   spec.license     = "MIT"
 
-  unless ENV["CI"] == "true"
+  if ENV["RUBY_GEM_SECURITY"] == "enabled"
     spec.signing_key = File.expand_path("~/.ssh/gem-private.pem")
     spec.cert_chain = [File.expand_path("~/.ssh/gem-public.pem")]
   end
