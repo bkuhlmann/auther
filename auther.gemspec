@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
       raise RuntimeError.new("Unsupported Ruby Engine!")
   end
 
-  spec.add_dependency "rails", "~> 4.0"
+  spec.add_dependency "rails", "~> 4.1"
   spec.add_dependency "slim-rails", "~> 2.1"
   spec.add_dependency "sass-rails", "~> 4.0"
   spec.add_dependency "jquery-rails", "~> 3.1"
