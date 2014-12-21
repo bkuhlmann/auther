@@ -28,11 +28,11 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", "~> 4.1"
-  spec.add_dependency "slim-rails", "~> 2.1"
-  spec.add_dependency "sass-rails", "~> 4.0"
-  spec.add_dependency "jquery-rails", "~> 3.1"
-  spec.add_dependency "modernizr-rails", "~> 2.7"
-  spec.add_dependency "foundation-rails", "~> 5.4"
+  spec.add_dependency "slim-rails"
+  spec.add_dependency "sass-rails", "~> 5.0"
+  spec.add_dependency "jquery-rails"
+  spec.add_dependency "modernizr-rails"
+  spec.add_dependency "foundation-rails", "~> 5.5"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-remote"
