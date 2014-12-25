@@ -6,7 +6,7 @@ PATH
       jquery-rails
       modernizr-rails
       rails (~> 4.1)
-      sass-rails (~> 5.0)
+      sass-rails
       slim-rails
 
 GEM

@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 4.1"
   spec.add_dependency "slim-rails"
-  spec.add_dependency "sass-rails", "~> 5.0"
+  spec.add_dependency "sass-rails"
   spec.add_dependency "jquery-rails"
   spec.add_dependency "modernizr-rails"
   spec.add_dependency "foundation-rails", "~> 5.5"
