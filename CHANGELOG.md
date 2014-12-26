@@ -1,3 +1,13 @@
+# v4.0.0 (2014-12-26)
+
+- Removed Ruby 2.0.0 support.
+- Removed Rubinius support.
+- Removed specific version requirements for SASS Rails gem.
+- Added Rails 4.2.x support.
+- Added Ruby 2.2.0 support.
+- Updated gemspec to use RUBY_GEM_SECURITY env var for gem certs.
+- Updated to Zurb Foundation 5.5.x.
+
 # v3.2.0 (2014-10-12)
 
 * Updated to [Foundation 5.4.x](https://github.com/zurb/foundation/releases/tag/v5.4.6) now that SASS issues are

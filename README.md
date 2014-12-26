@@ -32,7 +32,6 @@ making for a pleasent user experience.
 0. Any of the following Ruby VMs:
     - [MRI 2.x.x](http://www.ruby-lang.org)
     - [JRuby 1.x.x](http://jruby.org)
-    - [Rubinius 2.x.x](http://rubini.us)
 0. [Ruby on Rails 4.x.x](http://rubyonrails.org).
 
 # Setup
@@ -197,15 +196,6 @@ Auther settings:
 To test, run:
 
     bundle exec rspec spec
-
-# Upgrading
-
-For those using Auther 1.x.x, there are a few minor changes to be applied in order to upgrade to 2.x.x:
-
-0. Move the old Auther settings (i.e. `config/application.rb`) into an Auther initilizer (i.e.
-   `config/initializers/auther.rb`). Read the *Customization- section above for additional instruction.
-0. All account settings have changed from `login` and `password` to `encrypted_login` and `encrypted_password` keys.
-0. The `success_url` account settings have been renamed to `authorized_url`.
 
 # Troubleshooting
 
