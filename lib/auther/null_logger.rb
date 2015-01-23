@@ -7,9 +7,6 @@ module Auther
     def info(*)
     end
 
-    def info(*)
-    end
-
     def warn(*)
     end
 
