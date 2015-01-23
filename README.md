@@ -108,25 +108,25 @@ before deploying to production! To encrypt/decrypt account credentials, launch a
 
 The initializer can be customized as follows:
 
-- *title- - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
-- *label- - Optional. The page label (what would appear above the form). Default: "Authorization".
-- *secret- - Required. The secret passphrase used to encrypt/decrypt account credentials.
-- *accounts- - Required. The array of accounts with different or similar access to the application.
-    - *name- - Required. The account name. The name that uniquely identifies each account.
-    - *encrypted_login- - Required. The encrypted account login.
-    - *encrypted_password- - Required. The encrypted account password.
-    - *paths- - Required. The array of blacklisted paths for which only this account has access to.
-    - *authorized_url- - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
+- *title* - Optional. The HTML page title (as rendered within a browser tab). Default: "Authorization".
+- *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
+- *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
+- *accounts* - Required. The array of accounts with different or similar access to the application.
+    - *name* - Required. The account name. The name that uniquely identifies each account.
+    - *encrypted_login* - Required. The encrypted account login.
+    - *encrypted_password* - Required. The encrypted account password.
+    - *paths* - Required. The array of blacklisted paths for which only this account has access to.
+    - *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized redirection works
       as follows (in the order defined):
         0. The blacklisted path (if requested prior to authorization but now authorized).
         0. The authorized URL (if defined and the blacklisted path wasn't requested).
         0. The root path (if none of the above).
-    - *deauthorized_url- - Optional. The URL to redirect to upon successful deauthorization (i.e. logout). Deauthorized
+    - *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e. logout). Deauthorized
       redirections works as follows (in the order defined):
         0. The deauthorized URL (if defined).
         0. The auth URL.
-- *auth_url- - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
-- *logger- - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
+- *auth_url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
+- *logger* - Optional. The logger used to log path/account authorization messages. Default: Auther::NullLogger.
 
 ## Routes
 
