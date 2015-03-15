@@ -14,17 +14,17 @@
       .row
         .small-8
           .row
-            = content_tag :div, class: render_foundation_error(login_error, classes: %w(small-6 columns))
+            = content_tag :div
               = form.label :login, "Login:", class: "inline right"
-            = content_tag :div, class: render_foundation_error(login_error, classes: %w(small-6 columns))
+            = content_tag :div
               = form.text_field :login
               = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if login_error
       .row
         .small-8
           .row
-            = content_tag :div, class: render_foundation_error(password_error, classes: %w(small-6 columns))
+            = content_tag :div
               = form.label :password, "Password:", class: "inline right"
-            = content_tag :div, class: render_foundation_error(password_error, classes: %w(small-6 columns))
+            = content_tag :div
               = form.password_field :password
               = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if password_error
 

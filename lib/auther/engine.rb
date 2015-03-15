@@ -22,10 +22,6 @@ module Auther
       # Add Modernizr assets.
       add_asset_paths asset_paths, "modernizr-rails", "javascripts"
 
-      # Add Zurb Foundation assets.
-      add_asset_paths asset_paths, "foundation-rails", "javascripts"
-      add_asset_paths asset_paths, "foundation-rails", "stylesheets"
-
       # Configure log filter parameters.
       app.config.filter_parameters += [:login, :password]
 
