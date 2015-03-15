@@ -19,9 +19,6 @@ module Auther
       # Add jQuery assets.
       add_asset_paths asset_paths, "jquery-rails", "javascripts"
 
-      # Add Modernizr assets.
-      add_asset_paths asset_paths, "modernizr-rails", "javascripts"
-
       # Configure log filter parameters.
       app.config.filter_parameters += [:login, :password]
 
