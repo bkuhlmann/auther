@@ -210,13 +210,14 @@ To test, run:
 - [Devise](https://github.com/plataformatec/devise) - For complex situations where you need persisted user objects,
   email support, social media support, and much more.
 
+# Code of Conduct
+
+Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By participating in this project
+you agree to abide by its terms.
+
 # Contributions
 
 Read [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-# Credits
-
-Developed by [Brooke Kuhlmann](https://www.alchemists.io) at [Alchemists](https://www.alchemists.io).
 
 # License
 
@@ -227,3 +228,7 @@ Read the [LICENSE](LICENSE.md) for details.
 
 Read the [CHANGELOG](CHANGELOG.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
+
+# Credits
+
+Developed by [Brooke Kuhlmann](https://www.alchemists.io) at [Alchemists](https://www.alchemists.io).
