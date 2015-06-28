@@ -12,16 +12,10 @@ ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "/dummy"
 require "rspec/rails"
 require "ammeter/init"
 require "pry"
+require "pry-byebug"
+require "pry-stack_explorer"
 require "pry-remote"
 require "pry-rescue"
-
-case Gem.ruby_engine
-  when "ruby"
-    require "pry-byebug"
-    require "pry-stack_explorer"
-  when "jruby"
-    require "pry-nav"
-end
 
 Dir[File.join(File.dirname(__FILE__), "support/kit/**/*.rb")].each { |file| require file }
 
