@@ -1,3 +1,11 @@
+# v4.1.0 (2015-07-05)
+
+- Removed JRuby support (no longer officially supported).
+- Removed duplicate `#info` method in NullLogger.
+- Fixed secure gem installs (new cert has 10 year lifespan).
+- Added code of conduct documentation.
+- Updated to Ruby 2.2.2.
+
 # v4.0.0 (2014-12-26)
 
 - Removed Ruby 2.0.0 support.
