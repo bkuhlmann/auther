@@ -1,9 +1,9 @@
 $:.push File.expand_path("../lib", __FILE__)
-require "auther/version"
+require "auther/identity"
 
 Gem::Specification.new do |spec|
-  spec.name        = "auther"
-  spec.version     = Auther::VERSION
+  spec.name        = Auther::Identity.name
+  spec.version     = Auther::Identity.version
   spec.platform    = Gem::Platform::RUBY
   spec.authors     = ["Brooke Kuhlmann"]
   spec.email       = ["brooke@alchemists.io"]

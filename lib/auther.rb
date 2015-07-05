@@ -1,5 +1,5 @@
 require "slim-rails"
-require "auther/version"
+require "auther/identity"
 require "auther/settings"
 require "auther/null_logger"
 require "auther/cipher"
