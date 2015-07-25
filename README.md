@@ -1,4 +1,4 @@
-# Overview
+# Auther
 
 [![Gem Version](https://badge.fury.io/rb/auther.png)](http://badge.fury.io/rb/auther)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.png)](https://codeclimate.com/github/bkuhlmann/auther)
