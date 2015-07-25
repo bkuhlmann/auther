@@ -12,6 +12,31 @@ of HTTP Basic Authentication or something as heavyweight as [Devise](https://git
 doesn't require a database and is compatible with password managers like [1Password](https://agilebits.com/onepassword)
 making for a pleasent user experience.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+# Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
+    - [Initializer](#initializer)
+    - [Routes](#routes)
+    - [Model](#model)
+    - [Presenter](#presenter)
+    - [View](#view)
+    - [Controller](#controller)
+    - [Logging](#logging)
+    - [Troubleshooting](#troubleshooting)
+- [Tests](#tests)
+- [Code of Conduct](#code-of-conduct)
+- [Contributions](#contributions)
+- [License](#license)
+- [History](#history)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Features
 
 - Form-based authentication compatible with password managers like [1Password](https://agilebits.com/onepassword).
@@ -56,8 +81,7 @@ Run the generator to configure and initialize your application:
 
 # Usage
 
-Assuming you are using the excellent [dotenv](https://github.com/bkeepers/dotenv) gem, add the following to your `.env`
-settings:
+Assuming you are using the [dotenv](https://github.com/bkeepers/dotenv) gem, add the following to your `.env` settings:
 
     AUTHER_SECRET=66is2tB4EbekG74DPGRmyQkdtZkQyNWZY6yeeNsmQ4Rpu42esdnP9X6puxpKfs64Gy2ghPu6QGTKsvQ73wXuDyWzDr
     AUTHER_ADMIN_LOGIN=aHdMWUhiVGRyVHBPMmhTRWNRR082MFhNdVFkL2ZaSGpvY2VoVS90dGRpRT0tLXFBWWZDRkJ4aDR3Qy9aamNOeU1JekE9PQ==--bf077a68a8e654ed9e480851c9597dae57ec34b8
@@ -71,8 +95,6 @@ Use these credentials to login:
 
 - Login: test@test.com
 - Password: password
-
-# Customization
 
 ## Initializer
 
@@ -189,24 +211,17 @@ Auther settings:
 - Account authentication pass/fail.
 - Account and path authorization pass/fail.
 
-# Tests
-
-To test, run:
-
-    bundle exec rspec spec
-
-# Troubleshooting
+## Troubleshooting
 
 - If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc. this might
   cause Auther authentication to fail. Make sure to clear your browser cookies in this situation or use Google
   Chrome (incognito mode) to verify.
 
-# Resources
+# Tests
 
-- [Simplest Auth](https://github.com/vigetlabs/simplest_auth) - For situations where you need user and email reset
-  support beyond what this engine can provide.
-- [Devise](https://github.com/plataformatec/devise) - For complex situations where you need persisted user objects,
-  email support, social media support, and much more.
+To test, run:
+
+    bundle exec rspec spec
 
 # Code of Conduct
 
