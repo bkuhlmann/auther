@@ -1,8 +1,8 @@
 # Auther
 
 [![Gem Version](https://badge.fury.io/rb/auther.svg)](http://badge.fury.io/rb/auther)
-[![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.png)](https://codeclimate.com/github/bkuhlmann/auther)
-[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.png)](https://codeclimate.com/github/bkuhlmann/auther)
+[![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.svg)](https://codeclimate.com/github/bkuhlmann/auther)
+[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.png)](https://gemnasium.com/bkuhlmann/auther)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.png)](http://travis-ci.org/bkuhlmann/auther)
 [![Gittip](http://img.shields.io/gittip/bkuhlmann.svg)](https://www.gittip.com/bkuhlmann)
