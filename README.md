@@ -1,6 +1,6 @@
 # Auther
 
-[![Gem Version](https://badge.fury.io/rb/auther.png)](http://badge.fury.io/rb/auther)
+[![Gem Version](https://badge.fury.io/rb/auther.svg)](http://badge.fury.io/rb/auther)
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.png)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.png)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.png)](https://gemnasium.com/bkuhlmann/auther)
