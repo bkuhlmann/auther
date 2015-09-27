@@ -1,4 +1,5 @@
 module Auther
+  # Gem identity information.
   module Identity
     def self.name
       "auther"
