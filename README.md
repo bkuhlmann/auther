@@ -5,6 +5,7 @@
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.svg)](https://gemnasium.com/bkuhlmann/auther)
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.svg)](http://travis-ci.org/bkuhlmann/auther)
+[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with the clunky UI
 of HTTP Basic Authentication or something as heavyweight as [Devise](https://github.com/plataformatec/devise). It
