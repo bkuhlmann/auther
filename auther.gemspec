@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "modernizr-rails"
   spec.add_dependency "foundation-rails", "~> 5.5"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "gemsmith"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "pry-state"

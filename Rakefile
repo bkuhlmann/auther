@@ -1,9 +1,4 @@
-begin
-  require "bundler/setup"
-rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
-end
+require "gemsmith/rake/setup"
+Dir.glob("lib/auther/tasks/*.rake").each { |file| load file }
 
-APP_RAKEFILE = File.expand_path "../spec/dummy/Rakefile", __FILE__
-
-Bundler::GemHelper.install_tasks
+task default: %w(spec)
