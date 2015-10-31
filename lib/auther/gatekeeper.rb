@@ -1,4 +1,5 @@
 module Auther
+  # Rack middleware that guards access to sensitive routes.
   class Gatekeeper
     attr_reader :application, :environment, :settings
 
@@ -70,7 +71,7 @@ module Auther
     end
 
     def clean_paths paths
-      paths.map { |path| path.chomp '/' }
+      paths.map { |path| path.chomp "/" }
     end
 
     def blacklisted_paths
@@ -82,23 +83,25 @@ module Auther
       blacklisted_paths.select { |blacklisted_path| path.include? blacklisted_path }
     end
 
-    def authenticated? account
+    def account_authenticated? account
       keymaster = Auther::Keymaster.new account.fetch(:name)
       cipher = Auther::Cipher.new settings.secret
 
-      begin
-        session_login = cipher.decrypt session[keymaster.login_key]
-        session_password = cipher.decrypt session[keymaster.password_key]
-        account_login = cipher.decrypt account.fetch(:encrypted_login)
-        account_password = cipher.decrypt account.fetch(:encrypted_password)
+      session_login = cipher.decrypt session[keymaster.login_key]
+      session_password = cipher.decrypt session[keymaster.password_key]
+      account_login = cipher.decrypt account.fetch(:encrypted_login)
+      account_password = cipher.decrypt account.fetch(:encrypted_password)
 
-        authenticated = session_login == account_login && session_password == account_password
-        log_authentication authenticated, account.fetch(:name)
-        authenticated
-      rescue ActiveSupport::MessageVerifier::InvalidSignature => error
-        log_info %(Authentication failed! Invalid credential(s) for "#{account.fetch :name}" account.)
-        false
-      end
+      session_login == account_login && session_password == account_password
+    end
+
+    def authenticated? account
+      authenticated = account_authenticated? account
+      log_authentication authenticated, account.fetch(:name)
+      authenticated
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      log_info %(Authentication failed! Invalid credential(s) for "#{account.fetch :name}" account.)
+      false
     end
 
     def account_authorized? account, path

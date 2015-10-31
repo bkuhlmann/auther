@@ -1,13 +1,14 @@
 require "active_model"
 
 module Auther
+  # Represents an authenticatable account.
   class Account
     include ActiveModel::Validations
 
     attr_accessor :name, :encrypted_login, :encrypted_password, :paths, :authorized_url, :deauthorized_url
 
     validates :name, :encrypted_login, :encrypted_password, presence: true
-    validates :paths, presence: {unless: lambda { |account| account.paths.is_a? Array }, message: "must be an array"}
+    validates :paths, presence: {unless: ->(account) { account.paths.is_a? Array }, message: "must be an array"}
 
     def initialize options = {}
       @name = options.fetch :name, nil

@@ -1,6 +1,6 @@
 module Auther
+  # Manages account authentication.
   class Authenticator
-
     attr_reader :logger
 
     def initialize secret, account_model, account_presenter, logger = Auther::NullLogger.new(STDOUT)
@@ -12,10 +12,10 @@ module Auther
 
     def authenticated?
       account_model.valid? &&
-      account_presenter.valid? &&
-      authentic_name? &&
-      authentic_login? &&
-      authentic_password?
+        account_presenter.valid? &&
+        authentic_name? &&
+        authentic_login? &&
+        authentic_password?
     end
 
     private
@@ -28,17 +28,15 @@ module Auther
     end
 
     def authentic? encrypted_value, value, error_name
-      begin
-        if cipher.decrypt(encrypted_value) == value
-          true
-        else
-          account_presenter.errors.add error_name, "is invalid"
-          false
-        end
-      rescue ActiveSupport::MessageVerifier::InvalidSignature => error
-        log_info %(Authentication failed! Invalid credential(s) for "#{account_model.name}" account.)
+      if cipher.decrypt(encrypted_value) == value
+        true
+      else
+        account_presenter.errors.add error_name, "is invalid"
         false
       end
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      log_info %(Authentication failed! Invalid credential(s) for "#{account_model.name}" account.)
+      false
     end
 
     def authentic_name?

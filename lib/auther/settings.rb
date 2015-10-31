@@ -1,4 +1,5 @@
 module Auther
+  # Represents Auther settings.
   class Settings
     attr_reader :title, :label, :secret, :accounts, :auth_url, :logger
 

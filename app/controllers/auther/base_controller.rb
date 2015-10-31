@@ -1,4 +1,5 @@
 module Auther
+  # Abstract controller for session management.
   class BaseController < ActionController::Base
     def show
       redirect_to settings.auth_url
@@ -50,11 +51,11 @@ module Auther
     end
 
     def new_template_path
-      raise NotImplementedError, "The method, #new_template_path, is not implemented."
+      fail NotImplementedError, "The method, #new_template_path, is not implemented."
     end
 
     def authorized_url account_model
-      session["auther_redirect_url"] || account_model.authorized_url || '/'
+      session["auther_redirect_url"] || account_model.authorized_url || "/"
     end
 
     def deauthorized_url account_model

@@ -35,7 +35,8 @@ describe Auther::SessionController, type: :request do
   describe "#create" do
     let(:login) { "test@test.com" }
     let(:password) { "itsasecret" }
-    let(:cipher) { Auther::Cipher.new "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
+    let(:secret) { "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
+    let(:cipher) { Auther::Cipher.new secret }
 
     context "valid credentials" do
       it "redirects to authorized URL" do
@@ -69,7 +70,7 @@ describe Auther::SessionController, type: :request do
       it "requires blacklisted path authorization and redirects to root path" do
         # Save and clear the authorized URL for the purposes of this test only.
         authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
-        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ''
+        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ""
 
         post "/auther/session", account: {name: "test", login: login, password: password}
 
@@ -101,8 +102,8 @@ describe Auther::SessionController, type: :request do
         post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
 
         expect(response.status).to eq 200
-        expect(session.has_key? :auther_test_login).to be(false)
-        expect(session.has_key? :auther_test_password).to be(false)
+        expect(session.key? :auther_test_login).to be(false)
+        expect(session.key? :auther_test_password).to be(false)
       end
 
       it "requires blacklisted path authorization and remembers request path" do
@@ -122,8 +123,8 @@ describe Auther::SessionController, type: :request do
       post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
-      expect(session.has_key? :auther_test_login).to be(false)
-      expect(session.has_key? :auther_test_password).to be(false)
+      expect(session.key? :auther_test_login).to be(false)
+      expect(session.key? :auther_test_password).to be(false)
     end
 
     it "redirects to default deauthorized URL" do

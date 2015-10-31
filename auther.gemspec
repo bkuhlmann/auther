@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "auther/identity"
 
 Gem::Specification.new do |spec|
@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email       = ["brooke@alchemists.io"]
   spec.homepage    = "https://github.com/bkuhlmann/auther"
   spec.summary     = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
-  spec.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication as a Rails Engine."
+  spec.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
   spec.license     = "MIT"
 
   if ENV["RUBY_GEM_SECURITY"] == "enabled"
@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "terminal-notifier"
   spec.add_development_dependency "terminal-notifier-guard"
+  spec.add_development_dependency "rubocop"
   spec.add_development_dependency "codeclimate-test-reporter"
 
   spec.files            = Dir["app/**/*", "bin/**/*", "config/**/*", "lib/**/*", "vendor/**/*"]

@@ -16,7 +16,7 @@ describe Auther::Keymaster do
     end
 
     it "answers blank string for empty session" do
-      expect(subject.get_account_name).to eq('')
+      expect(subject.get_account_name).to eq("")
     end
   end
 
@@ -28,7 +28,7 @@ describe Auther::Keymaster do
     end
 
     it "answers redirect url key with custom delimiter" do
-      expect(subject.redirect_url_key(delimiter: '-')).to eq("auther-redirect-url")
+      expect(subject.redirect_url_key(delimiter: "-")).to eq("auther-redirect-url")
     end
   end
 

@@ -1,4 +1,5 @@
 module Auther
+  # Manages encryption/decryption.
   class Cipher
     def initialize secret
       @encryptor = ActiveSupport::MessageEncryptor.new secret
@@ -14,8 +15,6 @@ module Auther
 
     private
 
-    def encryptor
-      @encryptor
-    end
+    attr_reader :encryptor
   end
 end

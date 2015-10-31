@@ -26,7 +26,7 @@ describe Auther::InstallGenerator, type: :generator do
 
     it "adds custom routes" do
       run_generator
-      lines = File.open(routes_test, 'r').readlines
+      lines = File.open(routes_test, "r").readlines
 
       expect(lines[1]).to eq(%(  mount Auther::Engine => "/auther"\n))
       expect(lines[2]).to eq(%(  get "/login", to: "auther/session#new", as: "login"\n))
@@ -34,5 +34,3 @@ describe Auther::InstallGenerator, type: :generator do
     end
   end
 end
-
-

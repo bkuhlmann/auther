@@ -1,4 +1,5 @@
 module Auther
+  # The main engine.
   class Engine < ::Rails::Engine
     isolate_namespace Auther
 

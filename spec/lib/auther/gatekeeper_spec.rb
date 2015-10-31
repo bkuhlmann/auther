@@ -19,10 +19,8 @@ describe Auther::Gatekeeper do
 
   describe "#initialize" do
     subject do
-      Auther::Gatekeeper.new app, {
-        secret: secret,
-        accounts: []
-      }
+      Auther::Gatekeeper.new app,         secret: secret,
+                                          accounts: []
     end
 
     it "sets application" do
@@ -40,23 +38,21 @@ describe Auther::Gatekeeper do
       let(:encrypted_password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
 
       subject do
-        Auther::Gatekeeper.new app, {
-          accounts: [
-            {
-              name: "admin",
-              encrypted_login: encrypted_login,
-              encrypted_password: encrypted_password,
-              paths: [
-                "/admin",
-                "/member",
-                "/trailing_slash/"
-              ],
-              authorized_url: "/admin/dashboard"
-            }
-          ],
-          secret: secret,
-          auth_url: auth_url
-        }
+        Auther::Gatekeeper.new app, accounts: [
+          {
+            name: "admin",
+            encrypted_login: encrypted_login,
+            encrypted_password: encrypted_password,
+            paths: [
+              "/admin",
+              "/member",
+              "/trailing_slash/"
+            ],
+            authorized_url: "/admin/dashboard"
+          }
+        ],
+                                    secret: secret,
+                                    auth_url: auth_url
       end
 
       context "non-blacklisted path" do
@@ -65,14 +61,14 @@ describe Auther::Gatekeeper do
             env["PATH_INFO"] = "/some/random/path"
 
             result = subject.call env
-            expect(result[1].has_key?("Location")).to be(false)
+            expect(result[1].key?("Location")).to be(false)
           end
 
           it "adds request path as request url to session" do
             path = "/admin"
             env["PATH_INFO"] = path
+            subject.call env
 
-            result = subject.call env
             expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
           end
 
@@ -80,8 +76,8 @@ describe Auther::Gatekeeper do
           it "adds request (trailing slash) path as request url to session" do
             path = "/trailing_slash"
             env["PATH_INFO"] = path
+            subject.call env
 
-            result = subject.call env
             expect(env["rack.session"]["auther_redirect_url"]).to eq(path)
           end
         end
@@ -93,7 +89,7 @@ describe Auther::Gatekeeper do
             env["PATH_INFO"] = "/some/random/path"
 
             result = subject.call env
-            expect(result[1].has_key?("Location")).to be(false)
+            expect(result[1].key?("Location")).to be(false)
           end
         end
       end
@@ -158,29 +154,27 @@ describe Auther::Gatekeeper do
       let(:admin_password) { "UjFtVnJKVVlHQUR1WTlwaUNCR2JsQ3d4MWZ2Q2MvdnhhQ2ZWaU05SHVDaz0tLVV6TnRyek9td21GZ2w1MWhONmpYdlE9PQ==--0611996b09391cb22dd034f7f2046ca266eb0f65" }
 
       subject do
-        Auther::Gatekeeper.new app, {
-          accounts: [
-            {
-              name: "member",
-              encrypted_login: member_login,
-              encrypted_password: member_password,
-              paths: [
-                "/member"
-              ]
-            },
-            {
-              name: "admin",
-              encrypted_login: admin_login,
-              encrypted_password: admin_password,
-              paths: [
-                "/admin",
-                "/member"
-              ]
-            }
-          ],
-          secret: secret,
-          auth_url: auth_url
-        }
+        Auther::Gatekeeper.new app, accounts: [
+          {
+            name: "member",
+            encrypted_login: member_login,
+            encrypted_password: member_password,
+            paths: [
+              "/member"
+            ]
+          },
+          {
+            name: "admin",
+            encrypted_login: admin_login,
+            encrypted_password: admin_password,
+            paths: [
+              "/admin",
+              "/member"
+            ]
+          }
+        ],
+                                    secret: secret,
+                                    auth_url: auth_url
       end
 
       context "non-blacklisted path" do
@@ -190,7 +184,7 @@ describe Auther::Gatekeeper do
           env["PATH_INFO"] = "/public"
 
           result = subject.call env
-          expect(result[1].has_key?("Location")).to be(false)
+          expect(result[1].key?("Location")).to be(false)
         end
 
         it "logs requested path, account found, authentication passed, and authorization passed." do

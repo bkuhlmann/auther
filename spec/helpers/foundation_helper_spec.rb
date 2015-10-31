@@ -9,7 +9,7 @@ describe Auther::FoundationHelper, type: :helper do
 
     it "renders an empty string when disabled" do
       result = render_foundation_error false
-      expect(result).to eq('')
+      expect(result).to eq("")
     end
 
     it "renders classes with error class suffix" do

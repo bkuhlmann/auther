@@ -2,6 +2,7 @@ require "active_model"
 
 module Auther
   module Presenter
+    # Adapter for presenting an account within a view.
     class Account
       include ActiveModel::Validations
 
