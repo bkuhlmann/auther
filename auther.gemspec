@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "slim-rails"
   spec.add_dependency "sass-rails"
   spec.add_dependency "jquery-rails"
+  spec.add_dependency "bourbon"
+  spec.add_dependency "neat"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "gemsmith"
   spec.add_development_dependency "pry"
