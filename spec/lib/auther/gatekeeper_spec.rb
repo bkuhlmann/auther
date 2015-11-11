@@ -3,25 +3,13 @@ require "spec_helper"
 describe Auther::Gatekeeper do
   include Rack::Test::Methods
 
-  let(:env) do
-    {
-      "rack.session" => {},
-      "PATH_INFO" => "/"
-    }
-  end
-
-  let(:app) do
-    ->(env) { [200, env, ["OK"]] }
-  end
-
+  let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
+  let(:app) { -> (env) { [200, env, ["OK"]] } }
   let(:secret) { "b%?A9mfswnd%PAXiKHcmR6WXz4(UG2t9W9sxkat7#uNBws}[s9Tuc;gDVfPV" }
   let(:auth_url) { "/login" }
 
   describe "#initialize" do
-    subject do
-      Auther::Gatekeeper.new app,         secret: secret,
-                                          accounts: []
-    end
+    subject { Auther::Gatekeeper.new app, secret: secret, accounts: [] }
 
     it "sets application" do
       expect(subject.application).to eq(app)
