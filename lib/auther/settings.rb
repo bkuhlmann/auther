@@ -3,13 +3,19 @@ module Auther
   class Settings
     attr_reader :title, :label, :secret, :accounts, :auth_url, :logger
 
-    def initialize options = {}
-      @title = options.fetch :title, "Authorization"
-      @label = options.fetch :title, "Authorization"
-      @secret = options.fetch :secret, nil
-      @accounts = options.fetch :accounts, []
-      @auth_url = options.fetch :auth_url, "/login"
-      @logger = options.fetch :logger, Auther::NullLogger.new(STDOUT)
+    def initialize title: "Authorization",
+                   label: "Authorization",
+                   secret: "",
+                   accounts: [],
+                   auth_url: "/login",
+                   logger: Auther::NullLogger.new(STDOUT)
+
+      @title = title
+      @label = label
+      @secret = secret
+      @accounts = accounts
+      @auth_url = auth_url
+      @logger = logger
     end
 
     def find_account name

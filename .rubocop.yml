@@ -17,3 +17,9 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Metrics/LineLength:
   Max: 120
+Metrics/MethodLength:
+  Exclude:
+    - "lib/auther/settings.rb"
+Metrics/ParameterLists:
+  Exclude:
+    - "lib/auther/settings.rb"
