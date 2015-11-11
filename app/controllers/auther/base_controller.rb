@@ -10,7 +10,7 @@ module Auther
     end
 
     def create
-      @account = Auther::Presenter::Account.new params[:account]
+      @account = Auther::Presenter::Account.new account_params
       account = Auther::Account.new settings.find_account(@account.name)
       authenticator = Auther::Authenticator.new settings.secret, account, @account
 
@@ -30,6 +30,10 @@ module Auther
     end
 
     private
+
+    def account_params
+      params.require(:account).permit(:name, :login, :password)
+    end
 
     def settings
       Auther::Settings.new Rails.application.config.auther_settings
