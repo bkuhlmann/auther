@@ -87,14 +87,14 @@ describe Auther::SessionController, type: :request do
         post "/auther/session", account: {name: "test", login: nil, password: nil}
 
         expect(response.status).to eq 200
-        expect(response.body).to include("field_with_errors")
+        expect(response.body).to include("auther-error")
       end
 
       it "renders errors with invalid login and password" do
         post "/auther/session", account: {name: "test", login: "bogus@test.com", password: "bogus-password"}
 
         expect(response.status).to eq 200
-        expect(response.body).to include("field_with_errors")
+        expect(response.body).to include("auther-error")
         expect(response.body).to include(%(value="bogus@test.com"))
       end
 
@@ -112,7 +112,7 @@ describe Auther::SessionController, type: :request do
 
         expect(response.status).to eq 200
         expect(session[:auther_redirect_url]).to eq("/portal")
-        expect(response.body).to include("field_with_errors")
+        expect(response.body).to include("auther-error")
         expect(response.body).to include(%(value="#{login}"))
       end
     end

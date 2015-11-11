@@ -1,43 +1,25 @@
 - content_for(:title) { @title }
 
-- error_keys = @account_presenter.errors.keys
-- login_error = error_keys.include?(:login)
-- password_error = error_keys.include?(:password)
-- name_error = error_keys.include?(:name)
+.auther-page
+  .auther-content
+    h1.auther-title = "Authorization"
 
-.authorization
-  = form_for @account_presenter, as: :account, url: "/auther/session" do |form|
-    .small-12
-      .row
-        h1.authorization-label = @label
+    = form_for @account_presenter, as: :account, url: "/auther/session", html: {class: "auther-credentials"} do |form|
+      div class=%(auther-form-section #{"auther-error" if @account_presenter.error?(:login)})
+        = form.label :login, "Login:", class: "auther-form-label"
+        .auther-form-group
+          = form.text_field :login, class: "auther-form-input"
+          small.auther-error-message = @account_presenter.error_message(:login)
 
-      .row
-        .small-8
-          .row
-            = content_tag :div
-              = form.label :login, "Login:", class: "inline right"
-            = content_tag :div
-              = form.text_field :login
-              = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if login_error
-      .row
-        .small-8
-          .row
-            = content_tag :div
-              = form.label :password, "Password:", class: "inline right"
-            = content_tag :div
-              = form.password_field :password
-              = content_tag(:small, @account_presenter.errors.full_messages.first, class: "error") if password_error
+      div class=%(auther-form-section #{"auther-error" if @account_presenter.error?(:password)})
+        = form.label :password, "Password:", class: "auther-form-label"
+        .auther-form-group
+          = form.password_field :password, class: "auther-form-input"
+          small.auther-error-message = @account_presenter.error_message(:password)
 
-      .row
-        .small-8
-          .row
-            .small-6.columns
-              = form.label :name, "Account:", class: "inline right"
-            .small-6.columns
-              = form.select :name, @account_options
+      .auther-form-section
+        = form.label :name, "Account:", class: "auther-form-select-label"
+        .auther-form-group
+          = form.select :name, @account_options, {}, class: "auther-form-select"
 
-      .row
-        .small-8
-          .row
-            .small-6.right
-              = form.submit "Login", class: "button round expand"
+      = form.submit "Login", class: "auther-button"
