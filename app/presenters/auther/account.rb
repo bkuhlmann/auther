@@ -15,6 +15,15 @@ module Auther
         @login = options[:login]
         @password = options[:password]
       end
+
+      def error? key
+        errors.key? key
+      end
+
+      def error_message key
+        return "" unless error?(key)
+        "#{key.capitalize} #{errors.messages[key].first}"
+      end
     end
   end
 end
