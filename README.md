@@ -222,6 +222,12 @@ Auther settings:
 - If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc. this might
   cause Auther authentication to fail. Make sure to clear your browser cookies in this situation or use Google
   Chrome (incognito mode) to verify.
+- If the authentication view/form looks broken (stylewise) this could be due to custom
+  `ActionView::Base.field_error_proc` settings defined by your app (usually via an initializer). Auther uses this
+  configuration `ActionView::Base.field_error_proc = proc { |html_tag, _| html_tag.html_safe }` so that no additional
+  markup is added to the DOM when errors are raised. If you have customized this to something else, you might want to
+  read the usage documentation (mentioned above) to rebuild the authentication view/form for your specific business
+  needs.
 
 # Tests
 
