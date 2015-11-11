@@ -1,9 +1,7 @@
 module Auther
   # Manages account authentication.
   class Authenticator
-    attr_reader :logger
-
-    def initialize secret, account_model, account_presenter, logger = Auther::NullLogger.new(STDOUT)
+    def initialize secret, account_model, account_presenter, logger: Auther::NullLogger.new(STDOUT)
       @cipher = Auther::Cipher.new secret
       @account_model = account_model
       @account_presenter = account_presenter
@@ -20,7 +18,7 @@ module Auther
 
     private
 
-    attr_reader :cipher, :account_model, :account_presenter
+    attr_reader :cipher, :account_model, :account_presenter, :logger
 
     def log_info message
       id = "[#{Auther::Keymaster.namespace}]"
