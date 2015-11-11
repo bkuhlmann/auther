@@ -11,22 +11,22 @@ module Auther
 
     def create
       @account = Auther::Presenter::Account.new params[:account]
-      account_model = Auther::Account.new settings.find_account(@account.name)
-      authenticator = Auther::Authenticator.new settings.secret, account_model, @account
+      account = Auther::Account.new settings.find_account(@account.name)
+      authenticator = Auther::Authenticator.new settings.secret, account, @account
 
       if authenticator.authenticated?
-        store_credentials account_model
-        redirect_to authorized_url(account_model)
+        store_credentials account
+        redirect_to authorized_url(account)
       else
-        remove_credentials account_model
+        remove_credentials account
         render template: new_template_path
       end
     end
 
     def destroy
-      account_model = Auther::Account.new settings.find_account(params[:name])
-      remove_credentials account_model
-      redirect_to deauthorized_url(account_model)
+      account = Auther::Account.new settings.find_account(params[:name])
+      remove_credentials account
+      redirect_to deauthorized_url(account)
     end
 
     private
@@ -54,22 +54,22 @@ module Auther
       fail NotImplementedError, "The method, #new_template_path, is not implemented."
     end
 
-    def authorized_url account_model
-      session["auther_redirect_url"] || account_model.authorized_url || "/"
+    def authorized_url account
+      session["auther_redirect_url"] || account.authorized_url || "/"
     end
 
-    def deauthorized_url account_model
-      account_model.deauthorized_url || settings.auth_url
+    def deauthorized_url account
+      account.deauthorized_url || settings.auth_url
     end
 
-    def store_credentials account_model
-      keymaster = Auther::Keymaster.new account_model.name
-      session[keymaster.login_key] = account_model.encrypted_login
-      session[keymaster.password_key] = account_model.encrypted_password
+    def store_credentials account
+      keymaster = Auther::Keymaster.new account.name
+      session[keymaster.login_key] = account.encrypted_login
+      session[keymaster.password_key] = account.encrypted_password
     end
 
-    def remove_credentials account_model
-      keymaster = Auther::Keymaster.new account_model.name
+    def remove_credentials account
+      keymaster = Auther::Keymaster.new account.name
       session.delete keymaster.login_key
       session.delete keymaster.password_key
     end
