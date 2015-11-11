@@ -1,3 +1,34 @@
+# v5.0.0 (2015-11-11)
+
+- Added Bourbon, Neat, and Bitters support.
+- Added Gemsmith development support.
+- Added Identity module description.
+- Added Patreon badge to README.
+- Added Rubocop support.
+- Added [pry-state](https://github.com/SudhagarS/pry-state) support.
+- Added ability to query errors to account presenter.
+- Added large/mobile screenshots to README.
+- Added parameter permission checking to base controller.
+- Added project name to README.
+- Added table of contents to README.
+- Updated Authenticator to accept keyword logger argument.
+- Updated Code Climate to run when CI ENV is set.
+- Updated Code of Conduct 1.3.0.
+- Updated RSpec support kit with new Gemsmith changes.
+- Updated engine to ignore modifying the DOM when errors are detected.
+- Updated to Code of Conduct 1.2.0.
+- Updated to Ruby 2.2.3.
+- Updated to SVG README badge icon.
+- Removed Foundation support.
+- Removed GitTip badge from README.
+- Removed Modernizr support.
+- Removed Rails 4.1.x support.
+- Removed jQuery support.
+- Removed unnecessary exclusions from .gitignore.
+- Refactored base controller account model variable.
+- Refactored base controller account presenter instance variable.
+- Refactored settings class to initialize by keyword arguments.
+
 # v4.1.0 (2015-07-05)
 
 - Removed JRuby support (no longer officially supported).
