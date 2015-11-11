@@ -4,18 +4,18 @@
   .auther-content
     h1.auther-title = "Authorization"
 
-    = form_for @account_presenter, as: :account, url: "/auther/session", html: {class: "auther-credentials"} do |form|
-      div class=%(auther-form-section #{"auther-error" if @account_presenter.error?(:login)})
+    = form_for @account, as: :account, url: "/auther/session", html: {class: "auther-credentials"} do |form|
+      div class=%(auther-form-section #{"auther-error" if @account.error?(:login)})
         = form.label :login, "Login:", class: "auther-form-label"
         .auther-form-group
           = form.text_field :login, class: "auther-form-input"
-          small.auther-error-message = @account_presenter.error_message(:login)
+          small.auther-error-message = @account.error_message(:login)
 
-      div class=%(auther-form-section #{"auther-error" if @account_presenter.error?(:password)})
+      div class=%(auther-form-section #{"auther-error" if @account.error?(:password)})
         = form.label :password, "Password:", class: "auther-form-label"
         .auther-form-group
           = form.password_field :password, class: "auther-form-input"
-          small.auther-error-message = @account_presenter.error_message(:password)
+          small.auther-error-message = @account.error_message(:password)
 
       .auther-form-section
         = form.label :name, "Account:", class: "auther-form-select-label"

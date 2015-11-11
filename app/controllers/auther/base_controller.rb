@@ -6,13 +6,13 @@ module Auther
     end
 
     def new
-      @account_presenter = Auther::Presenter::Account.new
+      @account = Auther::Presenter::Account.new
     end
 
     def create
-      @account_presenter = Auther::Presenter::Account.new params[:account]
-      account_model = Auther::Account.new settings.find_account(@account_presenter.name)
-      authenticator = Auther::Authenticator.new settings.secret, account_model, @account_presenter
+      @account = Auther::Presenter::Account.new params[:account]
+      account_model = Auther::Account.new settings.find_account(@account.name)
+      authenticator = Auther::Authenticator.new settings.secret, account_model, @account
 
       if authenticator.authenticated?
         store_credentials account_model
