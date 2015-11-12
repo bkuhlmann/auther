@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auther (5.0.0)
+    auther (5.0.1)
       bourbon
       neat
       rails (~> 4.1)

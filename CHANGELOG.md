@@ -1,3 +1,7 @@
+# v5.0.1 (2015-11-11)
+
+- Fixed issue with Bourbon/Neat not loading for apps that don't require them.
+
 # v5.0.0 (2015-11-11)
 
 - Added Bourbon, Neat, and Bitters support.
