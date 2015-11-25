@@ -13,6 +13,8 @@ Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
 Metrics/AbcSize:
   Exclude:
     - "app/controllers/auther/base_controller.rb"
