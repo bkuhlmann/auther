@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.svg)](https://gemnasium.com/bkuhlmann/auther)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.svg)](http://travis-ci.org/bkuhlmann/auther)
+[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.svg)](https://travis-ci.org/bkuhlmann/auther)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with the clunky UI
@@ -60,7 +60,7 @@ making for a pleasent user experience.
 
 # Requirements
 
-0. [MRI 2.x.x](http://www.ruby-lang.org).
+0. [MRI 2.x.x](https://www.ruby-lang.org).
 0. [Ruby on Rails 4.2.x](http://rubyonrails.org).
 
 # Setup
