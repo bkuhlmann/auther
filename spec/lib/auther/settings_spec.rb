@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::Settings do
+RSpec.describe Auther::Settings do
   let :settings do
     {
       secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",

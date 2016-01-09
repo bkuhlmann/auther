@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::SessionController, type: :request do
+RSpec.describe Auther::SessionController, type: :request do
   describe "#show" do
     it "redirects to new action" do
       get "/auther/session"

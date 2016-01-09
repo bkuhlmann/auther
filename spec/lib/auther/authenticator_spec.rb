@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::Authenticator do
+RSpec.describe Auther::Authenticator do
   let(:secret) { "8F^Ve2oYhaMYVvaWPAj}7Ks}U6FeJ*oNYjcXP,6AmdXhsNU?Xeu7jb)8:JH4" }
   let(:encrypted_login) { "dGJrVXUvcy91djE1eThBTDVLbEhybGtTS2dzYy85VmZXREZTVUVPVU9Sdz0tLURjWTRpaTlYOUdjU2VpUG81Y3FhNWc9PQ==--88916f89ff39860b4ef8c12ae2ef7af6a6966cd4" }
   let(:encrypted_password) { "RlA5cURFall4eEp0UFNLRzA1NVhtMkIyUnNqWlVqcSsvd2VGeURwbXJEST0tLXlPZ0Z1aElaS2ZYT003Ny9Pc1BBb3c9PQ==--510f42afd06ba015202a90b883451ae4b0dd23c2" }

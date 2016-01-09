@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::Keymaster do
+RSpec.describe Auther::Keymaster do
   describe ".get_account_name" do
     subject { Auther::Keymaster }
 

@@ -1,7 +1,7 @@
 require "spec_helper"
 require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 
-describe Auther::InstallGenerator, type: :generator do
+RSpec.describe Auther::InstallGenerator, type: :generator do
   destination File.expand_path("../../tmp", __FILE__)
 
   let(:temp_path) { File.expand_path "../../tmp", __FILE__ }

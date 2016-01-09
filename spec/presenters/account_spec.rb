@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::Presenter::Account, type: :model do
+RSpec.describe Auther::Presenter::Account, type: :model do
   let(:parameters) do
     {
       name: "test",

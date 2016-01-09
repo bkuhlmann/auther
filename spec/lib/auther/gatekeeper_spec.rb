@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Auther::Gatekeeper do
+RSpec.describe Auther::Gatekeeper do
   include Rack::Test::Methods
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
