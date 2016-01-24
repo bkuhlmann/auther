@@ -18,13 +18,13 @@ Gem::Specification.new do |spec|
   end
 
   spec.required_ruby_version = "~> 2.3"
-  spec.add_dependency "rails", "~> 4.1"
+  spec.add_dependency "rails", "~> 4.2"
   spec.add_dependency "slim-rails"
   spec.add_dependency "sass-rails"
   spec.add_dependency "bourbon"
   spec.add_dependency "neat"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "gemsmith"
+  spec.add_development_dependency "gemsmith", "~> 7.0"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "pry-remote"
