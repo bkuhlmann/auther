@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.config.auther_settings = {
   secret: ENV["AUTHER_SECRET"],
   accounts: [

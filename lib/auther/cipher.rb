@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Manages encryption/decryption.
   class Cipher

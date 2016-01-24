@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Default implementation for session management.
   class SessionController < BaseController

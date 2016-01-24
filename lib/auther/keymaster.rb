@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Provides access to setting keys.
   class Keymaster

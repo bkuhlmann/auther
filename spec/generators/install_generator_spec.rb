@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 
@@ -28,9 +30,9 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
       run_generator
       lines = File.open(routes_test, "r").readlines
 
-      expect(lines[1]).to eq(%(  mount Auther::Engine => "/auther"\n))
-      expect(lines[2]).to eq(%(  get "/login", to: "auther/session#new", as: "login"\n))
-      expect(lines[3]).to eq(%(  delete "/logout", to: "auther/session#destroy", as: "logout"\n))
+      expect(lines[3]).to eq(%(  mount Auther::Engine => "/auther"\n))
+      expect(lines[4]).to eq(%(  get "/login", to: "auther/session#new", as: "login"\n))
+      expect(lines[5]).to eq(%(  delete "/logout", to: "auther/session#destroy", as: "logout"\n))
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Represents Auther settings.
   class Settings

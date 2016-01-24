@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # The default logger which purposefully does nothing at all.
   class NullLogger

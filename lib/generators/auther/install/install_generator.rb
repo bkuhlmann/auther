@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Install generator for adding Auther support to existing application.
   class InstallGenerator < ::Rails::Generators::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount Auther::Engine => "/auther"
   get "/login", to: "auther/session#new", as: "login"

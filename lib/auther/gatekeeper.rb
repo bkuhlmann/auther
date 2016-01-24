@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Rack middleware that guards access to sensitive routes.
   class Gatekeeper

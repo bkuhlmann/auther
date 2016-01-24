@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auther
   # Abstract controller for session management.
   class BaseController < ActionController::Base

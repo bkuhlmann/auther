@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Auther::SessionController, type: :request do
@@ -102,8 +104,8 @@ RSpec.describe Auther::SessionController, type: :request do
         post "/auther/session", account: {name: "test", login: "bogus@test.com", password: nil}
 
         expect(response.status).to eq 200
-        expect(session.key? :auther_test_login).to be(false)
-        expect(session.key? :auther_test_password).to be(false)
+        expect(session.key?(:auther_test_login)).to be(false)
+        expect(session.key?(:auther_test_password)).to be(false)
       end
 
       it "requires blacklisted path authorization and remembers request path" do
@@ -123,8 +125,8 @@ RSpec.describe Auther::SessionController, type: :request do
       post "/auther/session", account: {name: "test", login: "test@test.com", password: "itsasecret"}
       delete "/auther/session", name: "test"
 
-      expect(session.key? :auther_test_login).to be(false)
-      expect(session.key? :auther_test_password).to be(false)
+      expect(session.key?(:auther_test_login)).to be(false)
+      expect(session.key?(:auther_test_password)).to be(false)
     end
 
     it "redirects to default deauthorized URL" do
