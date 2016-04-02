@@ -15,7 +15,7 @@ module Auther
       "5.0.1"
     end
 
-    def self.label_version
+    def self.version_label
       "#{label} #{version}"
     end
   end
