@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bourbon"
   spec.add_dependency "neat"
   spec.add_development_dependency "rake", "~> 11.0"
-  spec.add_development_dependency "gemsmith", "~> 7.6"
+  spec.add_development_dependency "gemsmith", "~> 7.7"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "pry-byebug"
   spec.add_development_dependency "pry-state"
