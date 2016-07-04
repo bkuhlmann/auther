@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "rails_helper"
 require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 
 RSpec.describe Auther::InstallGenerator, type: :generator do
