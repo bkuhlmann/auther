@@ -35,7 +35,8 @@ Metrics/LineLength:
     - "spec/lib/auther/gatekeeper_spec.rb"
     - "spec/lib/auther/cipher_spec.rb"
     - "spec/lib/auther/authenticator_spec.rb"
-    - "spec/dummy/config/initializers/auther.rb"
+    - "spec/support/dummy/config/initializers/auther.rb"
+    - "spec/support/dummy/config/secrets.yml"
 Metrics/MethodLength:
   Exclude:
     - "lib/auther/settings.rb"
