@@ -4,8 +4,8 @@ module Auther
   # Default implementation for session management.
   class SessionController < BaseController
     layout "auther/auth"
-    before_filter :load_title, :load_label
-    before_filter :load_account_options, only: [:new, :create]
+    before_action :load_title, :load_label
+    before_action :load_account_options, only: [:new, :create]
 
     private
 
