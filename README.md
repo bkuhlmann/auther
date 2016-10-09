@@ -60,7 +60,7 @@ making for a pleasent user experience.
 
 # Requirements
 
-0. [MRI 2.x.x](https://www.ruby-lang.org).
+0. [Ruby 2.x.x](https://www.ruby-lang.org).
 0. [Ruby on Rails 4.2.x](http://rubyonrails.org).
 
 # Setup
