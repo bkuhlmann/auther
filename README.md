@@ -29,6 +29,7 @@ making for a pleasent user experience.
   - [Logging](#logging)
   - [Troubleshooting](#troubleshooting)
 - [Tests](#tests)
+- [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
 - [Contributions](#contributions)
 - [License](#license)
@@ -234,6 +235,14 @@ Auther settings:
 To test, run:
 
     bundle exec rake
+
+# Versioning
+
+Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
+
+- Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
+- Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
+- Major (X.y.z) - Incremented for any backwards incompatible public API changes.
 
 # Code of Conduct
 
