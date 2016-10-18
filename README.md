@@ -256,11 +256,11 @@ Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 # License
 
 Copyright (c) 2014 [Alchemists](https://www.alchemists.io).
-Read the [LICENSE](LICENSE.md) for details.
+Read [LICENSE](LICENSE.md) for details.
 
 # History
 
-Read the [CHANGELOG](CHANGELOG.md) for details.
+Read [CHANGES](CHANGES.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
 # Credits
