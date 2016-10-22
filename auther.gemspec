@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.email       = ["brooke@alchemists.io"]
   spec.homepage    = "https://github.com/bkuhlmann/auther"
   spec.summary     = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
-  spec.description = "Enhances Rails with multi-account, form-based, database-less, application-wide authentication."
   spec.license     = "MIT"
 
   if File.exist?(Gem.default_key_path) && File.exist?(Gem.default_cert_path)
