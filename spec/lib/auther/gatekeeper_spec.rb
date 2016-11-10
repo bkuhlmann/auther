@@ -6,7 +6,7 @@ RSpec.describe Auther::Gatekeeper do
   include Rack::Test::Methods
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
-  let(:app) { -> (env) { [200, env, ["OK"]] } }
+  let(:app) { ->(env) { [200, env, ["OK"]] } }
   let(:secret) { "b%?A9mfswnd%PAXiKHcmR6WXz4(UG2t9W9sxkat7#uNBws}[s9Tuc;gDVfPV" }
   let(:auth_url) { "/login" }
 
