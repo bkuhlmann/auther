@@ -1,0 +1,56 @@
+---
+FeatureEnvy:
+  exclude:
+  - Auther::BaseController#store_credentials
+  - Auther::Gatekeeper#account_authenticated?
+InstanceVariableAssumption:
+  exclude:
+  - Auther::BaseController
+TooManyStatements:
+  exclude:
+  - initialize
+  - Auther::BaseController#create
+  - Auther::Gatekeeper#account_authenticated?
+  - Auther::Gatekeeper#account_authorized?
+  - Auther::Gatekeeper#call
+  - Auther::Gatekeeper#find_account
+UtilityFunction:
+  exclude:
+  - Auther::BaseController#settings
+  - Auther::Gatekeeper#clean_paths
+Attribute:
+  exclude:
+  - Auther::Account#authorized_url
+  - Auther::Account#deauthorized_url
+  - Auther::Account#encrypted_login
+  - Auther::Account#encrypted_password
+  - Auther::Account#name
+  - Auther::Account#paths
+  - Auther::Presenter::Account#login
+  - Auther::Presenter::Account#name
+  - Auther::Presenter::Account#password
+TooManyInstanceVariables:
+  exclude:
+  - Auther::Account
+  - Auther::Settings
+ControlParameter:
+  exclude:
+  - Auther::Authenticator#authentic?
+  - Auther::Gatekeeper#log_authentication
+  - Auther::Gatekeeper#log_authorization
+DuplicateMethodCall:
+  exclude:
+  - Auther::Gatekeeper#authenticated?
+  - Auther::Gatekeeper#call
+  - Auther::InstallGenerator#install_initializer
+LongParameterList:
+  exclude:
+  - Auther::Gatekeeper#log_authorization
+  - Auther::Settings#initialize
+TooManyMethods:
+  exclude:
+  - Auther::Gatekeeper
+IrresponsibleModule:
+  exclude:
+  - ApplicationCable::Channel
+  - ApplicationCable::Connection

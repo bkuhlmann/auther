@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-rails", "~> 3.5"
   spec.add_development_dependency "ammeter", "~> 1.1"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "reek", "~> 4.5"
   spec.add_development_dependency "rubocop", "~> 0.45"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
 
