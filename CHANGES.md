@@ -1,3 +1,56 @@
+# v6.0.0 (2016-11-14)
+
+- Fixed ActionDispatch::IntegrationTest deprecation warnings.
+- Fixed README URLs to use HTTPS schemes where possible.
+- Fixed Rakefile to safely load Gemsmith tasks.
+- Fixed `before_filter` deprecation warnings.
+- Fixed `render :text` deprecation warnings.
+- Fixed contributing guideline links.
+- Fixed space in lambda parameter.
+- Added "pg" gem development dependency.
+- Added Code Climate engine support.
+- Added GitHub issue and pull request templates.
+- Added IRB development console Rake task support.
+- Added Reek support.
+- Added Rubocop Style/SignalException cop style.
+- Added Rubocop Style/StringLiteralsInInterpolation cop.
+- Added Rubocop exceptions for dummy app long line lengths.
+- Added Ruby 2.3.0 frozen string literal support.
+- Added Travis CI PostgreSQL setup.
+- Added `Gemfile.lock` to `.gitignore`.
+- Added bond, wirb, hirb, and awesome_print development dependencies.
+- Added frozen string pragma.
+- Added versioning section to README.
+- Updated GitHub issue and pull request templates.
+- Updated README secure gem install documentation.
+- Updated README to mention "Ruby" instead of "MRI".
+- Updated README with Tocer generated Table of Contents.
+- Updated RSpec temp directory to use Bundler root path.
+- Updated Rubocop PercentLiteralDelimiters and AndOr styles.
+- Updated dummy application to a Rails 5 application.
+- Updated gem dependencies (Rails 4.2.5/RSpec 3.4.0).
+- Updated gem dependencies.
+- Updated gemspec with conservative versions.
+- Updated to Code Climate Test Reporter 1.0.0.
+- Updated to Code of Conduct, Version 1.4.0.
+- Updated to Gemsmith 7.7.0.
+- Updated to Rails 5.0.0.
+- Updated to Rubocop 0.44.
+- Updated to Ruby 2.2.4.
+- Updated to Ruby 2.3.0.
+- Updated to Ruby 2.3.1.
+- Removed CHANGELOG.md (use CHANGES.md instead).
+- Removed RSpec default monkey patching behavior.
+- Removed Rake console task.
+- Removed Ruby 2.1.x and 2.2.x support.
+- Removed gemspec description.
+- Removed rb-fsevent development dependency from gemspec.
+- Removed terminal notifier gems from gemspec.
+- Refactored RSpec spec helper configuration.
+- Refactored Rake tasks to standard location.
+- Refactored gemspec to use default security keys.
+- Refactored version label method name.
+
 # v5.0.1 (2015-11-11)
 
 - Fixed issue with Bourbon/Neat not loading for apps that don't require them.
