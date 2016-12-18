@@ -1,3 +1,12 @@
+# v6.1.0 (2016-12-18)
+
+- Fixed Rakefile support for RSpec, Reek, Rubocop, and SCSS Lint.
+- Updated Travis CI configuration to use defaults.
+- Updated to Rake 12.x.x.
+- Updated to Rubocop 0.46.x.
+- Updated to Ruby 2.3.2.
+- Updated to Ruby 2.3.3.
+
 # v6.0.0 (2016-11-14)
 
 - Fixed ActionDispatch::IntegrationTest deprecation warnings.
