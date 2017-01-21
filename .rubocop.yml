@@ -46,5 +46,6 @@ Metrics/MethodLength:
   Exclude:
     - "lib/auther/settings.rb"
 Metrics/ParameterLists:
+  Max: 3
   Exclude:
     - "lib/auther/settings.rb"

@@ -53,6 +53,7 @@ module Auther
       end
     end
 
+    # rubocop:disable Metrics/ParameterLists
     def log_authorization authorized, account_name, blacklist, request_path
       details = %(Account: "#{account_name}". Blacklist: #{blacklist}. Request Path: "#{request_path}".)
 
