@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-RSpec.describe Auther::Gatekeeper do
+# rubocop:disable Metrics/LineLength
+RSpec.describe Auther::Gatekeeper, :credentials do
   include Rack::Test::Methods
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
   let(:app) { ->(env) { [200, env, ["OK"]] } }
-  let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
   let(:auth_url) { "/login" }
 
   describe "#initialize" do
@@ -24,9 +24,6 @@ RSpec.describe Auther::Gatekeeper do
 
   describe "#call" do
     describe "single account" do
-      let(:encrypted_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
-      let(:encrypted_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
-
       subject do
         Auther::Gatekeeper.new app, accounts: [
           {
@@ -93,7 +90,7 @@ RSpec.describe Auther::Gatekeeper do
         end
 
         it "fails authorization with encrypted, invalid login" do
-          env["rack.session"]["auther_public_login"] = "d1M3WmE4Zkp5RyttU1R0Q0dPMmhtNGxXY3E5YXRZMlJlTkZXTmFJK01BMD0tLVBSeU9NbjNwazRmUTd0VFNBUHZoTFE9PQ==--7a498efaaca3cee568c56dcc62ae7cd27fead46f"
+          env["rack.session"]["auther_public_login"] = "bogus"
           env["rack.session"]["auther_public_password"] = encrypted_password
           env["PATH_INFO"] = "/admin"
 
@@ -103,7 +100,7 @@ RSpec.describe Auther::Gatekeeper do
 
         it "fails authorization with encrypted, invalid password" do
           env["rack.session"]["auther_public_login"] = encrypted_login
-          env["rack.session"]["auther_public_password"] = "MEVvazdyd3lBellGNWkzdEpyWE5ybWx2V1NZUEozTVBacW9sRzhrRWpYYz0tLVZ5OHphRGRUSTM1UDI3Sm9qdER6QXc9PQ==--12d865675f89334e4ffa9026724b7e62b11bf095"
+          env["rack.session"]["auther_public_password"] = "bogus"
           env["PATH_INFO"] = "/admin"
 
           result = subject.call env
@@ -138,10 +135,10 @@ RSpec.describe Auther::Gatekeeper do
     end
 
     describe "multiple accounts" do
-      let(:member_login) { "S1cwMGxVS1JIL0prU01zaURCcVYyTjUwanFOUE1GeXZNajMzWGpOYlp5WT0tLUUvbHovY2p3azcyY3pSb1VWQ01remc9PQ==--6e99dff96dd33126da2f81c864d6484688ff8192" }
-      let(:member_password) { "U1k4NmNzTEJJUzJ0WVkvM21xeit0WDh3bEp1elp1MkhNbkZrdkxWZExXTT0tLW5EdmF4d2pBNGF5dVZnME14dW45dmc9PQ==--94fc9b317660613df6efa84347c4c89e47a3c667" }
-      let(:admin_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
-      let(:admin_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
+      let(:member_login) { cipher.encrypt "member" }
+      let(:member_password) { cipher.encrypt "password" }
+      let(:admin_login) { cipher.encrypt "admin" }
+      let(:admin_password) { cipher.encrypt "for-your-eyes-only" }
 
       subject do
         Auther::Gatekeeper.new app, accounts: [

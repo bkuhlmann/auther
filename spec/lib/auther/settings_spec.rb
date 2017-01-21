@@ -2,27 +2,27 @@
 
 require "rails_helper"
 
-RSpec.describe Auther::Settings do
+RSpec.describe Auther::Settings, :credentials do
   let :settings do
     {
-      secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
+      secret: secret,
       accounts: [
         {
           name: "test-1",
+          secret: secret,
           login: "test-1@test.com",
-          secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
-          secure_login: "M0dGeWRoc3pLbmVidy9QY1lpczh5bm5KaFpRZ0VYMFBYMkpLKzFzTHdWdz0tLXh0VytLcHBvNDZGeVl0bVhhRXVXREE9PQ==--82e827cf8148d6507052eb14d8c71ee33ceabbff",
+          secure_login: cipher.encrypt("test-1@test.com"),
           password: "nevermore",
-          secure_password: "UXM1akhTSjhUVFQ1Um1yZFBNSFNid09WejlmY1F4eU1oREMzamdCK05nTT0tLW4vN20xTzZmVi9rNXNFSnJXWTlzekE9PQ==--6a8a0efcfb988c69749b4ef9375f6c10b0dce6fa",
+          secure_password: cipher.encrypt("nevermore"),
           paths: ["/admin"]
         },
         {
           name: "test-2",
+          secret: secret,
           login: "test-2@test.com",
-          secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
-          secure_login: "ZDBwN0RyK3lJcEQ5VzZzMFpqUm82OUtUaThKWjVoMXVxTk1uTEdKNzVObz0tLVQvQ3VVZmtneTZoMldSYlcwWHpnN0E9PQ==--b78628e0ccb707f30764b18ca71de49aebd91b07",
+          secure_login: cipher.encrypt("test-2@test.com"),
           password: "evergreen",
-          secure_password: "cDdVcDlOZ01KQ05pdXVzRWRoRUtnQVFhem9vWFdYdEsweWtRUFlkUkU0UT0tLWRTVnFQdUdvVlRWcGtybUFSc0FJMXc9PQ==--2baa181591ad7e171a6cb87b98ca4517486f10d5",
+          secure_password: cipher.encrypt("evergreen"),
           paths: ["/member"]
         }
       ]
@@ -55,7 +55,7 @@ RSpec.describe Auther::Settings do
         {
           title: "Test",
           label: "Test",
-          secret: "eSgIb4qBUmLneTiXQrmghyXTQq7wfopf9wYaDLGBh3e2RYp9DRayCogYbmDBj4Z78xWQKmoq4bY2WPGPXuf48RqXiW2RbKV3wPmJ",
+          secret: secret,
           accounts: [],
           auth_url: "/test",
           logger: Logger.new(STDOUT)

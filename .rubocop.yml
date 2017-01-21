@@ -40,11 +40,6 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
   Exclude:
-    - "spec/lib/auther/settings_spec.rb"
-    - "spec/models/account_spec.rb"
-    - "spec/lib/auther/gatekeeper_spec.rb"
-    - "spec/lib/auther/cipher_spec.rb"
-    - "spec/lib/auther/authenticator_spec.rb"
     - "spec/support/dummy/config/initializers/auther.rb"
     - "spec/support/dummy/config/secrets.yml"
 Metrics/MethodLength:

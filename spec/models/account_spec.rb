@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-RSpec.describe Auther::Account, type: :model do
+RSpec.describe Auther::Account, :credentials do
   let(:parameters) do
     {
       name: "test",
-      encrypted_login: "RUFKUVcyQzJCc1FoRyswZFpwN3JtNVNQR09JRVRadHd4S2pmekt4em90cz0tLTZpTlQxNnI5UzJnZlFpK3dYS1hjUVE9PQ==--d5546a942ad2dc509031f4c34429a016f8bd8612",
-      encrypted_password: "eHdHL0lpUDVyV0p1MU0zWnlJQnk2aURTQW5kRE9nQnRHWGJSUFpkam1XWT0tLXo5Snd5R29nWFJwNTF4RkllTW5qZVE9PQ==--301aa47630d2134dedefbd57bcc685dd7686503e"
+      encrypted_login: encrypted_login,
+      encrypted_password: encrypted_password
     }
   end
 

@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "rails_helper"
 
-RSpec.describe Auther::Authenticator do
-  let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
-  let(:encrypted_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
-  let(:encrypted_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
-  let(:account_model) { Auther::Account.new name: "test", encrypted_login: encrypted_login, encrypted_password: encrypted_password }
-  let(:account_presenter) { Auther::Presenter::Account.new name: "test", login: "admin", password: "nevermore" }
+RSpec.describe Auther::Authenticator, :credentials do
+  let :account_model do
+    Auther::Account.new name: "test",
+                        encrypted_login: encrypted_login,
+                        encrypted_password: encrypted_password
+  end
+
+  let :account_presenter do
+    Auther::Presenter::Account.new name: "test", login: "tester", password: "nevermore"
+  end
+
   let(:logger) { instance_spy Auther::NullLogger }
   subject { Auther::Authenticator.new secret, account_model, account_presenter, logger: logger }
 
