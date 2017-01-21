@@ -35,9 +35,9 @@ RSpec.describe Auther::SessionController, type: :request do
   end
 
   describe "#create" do
-    let(:login) { "test@test.com" }
-    let(:password) { "itsasecret" }
-    let(:secret) { "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb" }
+    let(:login) { "admin" }
+    let(:password) { "nevermore" }
+    let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
     let(:cipher) { Auther::Cipher.new secret }
 
     context "valid credentials" do

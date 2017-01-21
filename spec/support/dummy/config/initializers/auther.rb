@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.config.auther_settings = {
-  secret: "vuKrwD9XWoYuv@s99?tR(9VqryiL,KV{W7wFnejUa4QcVBP+D{2rD4JfuD(mXgA=$tNK4Pfn#NeGs3o3TZ3CqNc^Qb",
+  secret: "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2",
   accounts: [
     {
       name: "test",
-      encrypted_login: "WWNhTlk3VGU4dXc1bjFmU2FZYmM5UmxZYXEzSyt6TDlITmlXQ3MxcXk4RT0tLUlVRXRlWE81T3dLc1lrOCtUbDdYeVE9PQ==--81991e25d072d0904af97b9d114d4e543b6bcbe2",
-      encrypted_password: "VEtiVGwrYko0eXdhL1dnZ0d0MFFhWmI4UEkrL3A4NUNoNnZPNlBtQkwwZz0tLVpxSUwvYkV4NWVUNERuSzJBNFNkWmc9PQ==--9028c12deb299b659d1eaeac5b2ff46136138f7c",
+      encrypted_login: "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0",
+      encrypted_password: "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5",
       paths: ["/portal", "/trailer/"],
       authorized_url: "/portal/dashboard",
       deauthorized_url: "/deauthorized"

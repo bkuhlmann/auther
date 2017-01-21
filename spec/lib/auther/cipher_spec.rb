@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "rails_helper"
 
 RSpec.describe Auther::Cipher do
-  let(:secret) { "8F^Ve2oYhaMYVvaWPAj}7Ks}U6FeJ*oNYjcXP,6AmdXhsNU?Xeu7jb)8:JH4" }
-  let(:encrypted_data) { "WmxBdlhvQ1B6S01ZNTl5NFk1cG1OdTNvaWhvenVVNWxNb2k3UThOVzdFaz0tLStUV1lmMTBEUG1VbFE1YlhnaGJocXc9PQ==--1dc715907f07a7687b054952078d8f956372fe86" }
+  let(:secret) { "\xE4]c\xE8\xC8\xBFOh%\xB5\xF4\xD5\x12\xB0\x0F\xF0\xF8\xC3\x8D\xFCKZ\x00R~9\x19\xE3\x11xk\xB2" }
+  let(:encrypted_data) { "ZDVGRDhlc09HL1lLcExGUVVldnBuL2cwcGtWMTU0MkNLWlBMK3JDdlRiUT0tLU1xQkR4ZzhaN1BQZ25XVFYxQldZWUE9PQ==--07a95f72a7e1e0138ef782ec13d6b2631450da1b" }
   let(:decrypted_data) { "password" }
   subject { Auther::Cipher.new secret }
 

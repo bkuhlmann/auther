@@ -3,11 +3,11 @@
 require "spec_helper"
 
 RSpec.describe Auther::Authenticator do
-  let(:secret) { "8F^Ve2oYhaMYVvaWPAj}7Ks}U6FeJ*oNYjcXP,6AmdXhsNU?Xeu7jb)8:JH4" }
-  let(:encrypted_login) { "dGJrVXUvcy91djE1eThBTDVLbEhybGtTS2dzYy85VmZXREZTVUVPVU9Sdz0tLURjWTRpaTlYOUdjU2VpUG81Y3FhNWc9PQ==--88916f89ff39860b4ef8c12ae2ef7af6a6966cd4" }
-  let(:encrypted_password) { "RlA5cURFall4eEp0UFNLRzA1NVhtMkIyUnNqWlVqcSsvd2VGeURwbXJEST0tLXlPZ0Z1aElaS2ZYT003Ny9Pc1BBb3c9PQ==--510f42afd06ba015202a90b883451ae4b0dd23c2" }
+  let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
+  let(:encrypted_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
+  let(:encrypted_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
   let(:account_model) { Auther::Account.new name: "test", encrypted_login: encrypted_login, encrypted_password: encrypted_password }
-  let(:account_presenter) { Auther::Presenter::Account.new name: "test", login: "test@test.com", password: "nevermore" }
+  let(:account_presenter) { Auther::Presenter::Account.new name: "test", login: "admin", password: "nevermore" }
   let(:logger) { instance_spy Auther::NullLogger }
   subject { Auther::Authenticator.new secret, account_model, account_presenter, logger: logger }
 

@@ -7,7 +7,7 @@ RSpec.describe Auther::Gatekeeper do
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
   let(:app) { ->(env) { [200, env, ["OK"]] } }
-  let(:secret) { "b%?A9mfswnd%PAXiKHcmR6WXz4(UG2t9W9sxkat7#uNBws}[s9Tuc;gDVfPV" }
+  let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
   let(:auth_url) { "/login" }
 
   describe "#initialize" do
@@ -24,8 +24,8 @@ RSpec.describe Auther::Gatekeeper do
 
   describe "#call" do
     describe "single account" do
-      let(:encrypted_login) { "Yk5hMUdMdk10WWxQMUtsZFUyR2VEYzBWUm9hbHVsWndqVFNtM3ZCMWpOcz0tLWMvQjF2dlJ2OWo4VkkvYXlYMTYwUlE9PQ==--f53729f459527e944d20987c8159a06b56e4a736" }
-      let(:encrypted_password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
+      let(:encrypted_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
+      let(:encrypted_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
 
       subject do
         Auther::Gatekeeper.new app, accounts: [
@@ -138,10 +138,10 @@ RSpec.describe Auther::Gatekeeper do
     end
 
     describe "multiple accounts" do
-      let(:member_login) { "Yk5hMUdMdk10WWxQMUtsZFUyR2VEYzBWUm9hbHVsWndqVFNtM3ZCMWpOcz0tLWMvQjF2dlJ2OWo4VkkvYXlYMTYwUlE9PQ==--f53729f459527e944d20987c8159a06b56e4a736" }
-      let(:member_password) { "S0F5V1prdWhXblkyd3pSTzZ5cTVuVFBDSU1QcWV2eGF6U3RLR2VVem9HND0tLUcvRkg1U25RZ3dxb01GeXNWV082TUE9PQ==--2ea7b64a2b08bf0d29aa767122451a98ff191370" }
-      let(:admin_login) { "NGUzT2JIWUgybWwrc215UlpBUjBjcnRhS1g2SC8xQ0JkdkgvaXU0cERraz0tLVdLNGhqNnllMVZyTWFoZ3Btc3FiNFE9PQ==--57811a8a72d3c7ab8a6f95c8cea3aba6ac480749" }
-      let(:admin_password) { "UjFtVnJKVVlHQUR1WTlwaUNCR2JsQ3d4MWZ2Q2MvdnhhQ2ZWaU05SHVDaz0tLVV6TnRyek9td21GZ2w1MWhONmpYdlE9PQ==--0611996b09391cb22dd034f7f2046ca266eb0f65" }
+      let(:member_login) { "S1cwMGxVS1JIL0prU01zaURCcVYyTjUwanFOUE1GeXZNajMzWGpOYlp5WT0tLUUvbHovY2p3azcyY3pSb1VWQ01remc9PQ==--6e99dff96dd33126da2f81c864d6484688ff8192" }
+      let(:member_password) { "U1k4NmNzTEJJUzJ0WVkvM21xeit0WDh3bEp1elp1MkhNbkZrdkxWZExXTT0tLW5EdmF4d2pBNGF5dVZnME14dW45dmc9PQ==--94fc9b317660613df6efa84347c4c89e47a3c667" }
+      let(:admin_login) { "ZzNEY0gxWVdEQzdBTmppWnFNbGwvQT09LS1ZSWdwUFU5VklyVWY1cjJNS0FBWUJ3PT0=--4498bdb1461305d9ef218f7886bd903d00c44ce0" }
+      let(:admin_password) { "OXRlRkpMTEsxbGJuQnVUNHRMSFgvRVhLREFJeW9hNzRzNFBId2kzeSs4QT0tLWJYakVRd0pXR1JQeXFyL0NVSk1XbWc9PQ==--d5bc91dcdb9117a2edbdba7e3cf8b4f3b53d09f5" }
 
       subject do
         Auther::Gatekeeper.new app, accounts: [
