@@ -17,7 +17,7 @@ RSpec.describe Auther::Authenticator, :credentials do
   subject { Auther::Authenticator.new secret, account_model, account_presenter, logger: logger }
 
   describe "#authenticated?" do
-    it "answers true when model/presenter are valid, names match, logins match, and passwords match" do
+    it "answers true when model/presenter are valid and names, logins, and passwords match" do
       expect(subject.authenticated?).to be(true)
     end
 
@@ -63,7 +63,10 @@ RSpec.describe Auther::Authenticator, :credentials do
 
     context "when encrypted value can't be decrypted" do
       let(:encrypted_login) { "bogus" }
-      let(:message) { %([auther]: Authentication failed! Invalid credential(s) for "#{account_model.name}" account.) }
+      let :message do
+        %([auther]: Authentication failed! ) +
+          %(Invalid credential(s) for "#{account_model.name}" account.)
+      end
 
       it "logs authentication failure" do
         subject.authenticated?

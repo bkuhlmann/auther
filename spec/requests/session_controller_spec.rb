@@ -37,7 +37,11 @@ RSpec.describe Auther::SessionController, type: :request do
   describe "#create" do
     let(:login) { "admin" }
     let(:password) { "nevermore" }
-    let(:secret) { "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2" }
+
+    let :secret do
+      "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2"
+    end
+
     let(:cipher) { Auther::Cipher.new secret }
 
     context "valid credentials" do
@@ -60,8 +64,8 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.location).to eq("http://www.example.com/portal")
       end
 
-      # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined for this test.
-      it "requires blacklisted (trailing slash) path authorization and redirects to requested path" do
+      # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined.
+      it "requires blacklisted (trailing slash) path auth and redirects to requested path" do
         get "/trailer"
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -76,7 +80,7 @@ RSpec.describe Auther::SessionController, type: :request do
 
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
-        # Restore the authorized URL so that other tests are not affected by the modified configuration.
+        # Restore the authorized URL so that other tests are not affected by modified configuration.
         Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
 
         expect(response.status).to eq 302
@@ -93,7 +97,13 @@ RSpec.describe Auther::SessionController, type: :request do
       end
 
       it "renders errors with invalid login and password" do
-        post "/auther/session", params: {account: {name: "test", login: "bogus@test.com", password: "bogus-password"}}
+        post "/auther/session", params: {
+          account: {
+            name: "test",
+            login: "bogus@test.com",
+            password: "bogus-password"
+          }
+        }
 
         expect(response.status).to eq 200
         expect(response.body).to include("auther-error")
@@ -101,7 +111,13 @@ RSpec.describe Auther::SessionController, type: :request do
       end
 
       it "removes session credentials" do
-        post "/auther/session", params: {account: {name: "test", login: "bogus@test.com", password: nil}}
+        post "/auther/session", params: {
+          account: {
+            name: "test",
+            login: "bogus@test.com",
+            password: nil
+          }
+        }
 
         expect(response.status).to eq 200
         expect(session.key?(:auther_test_login)).to be(false)
@@ -122,7 +138,14 @@ RSpec.describe Auther::SessionController, type: :request do
 
   describe "#destroy" do
     it "destroys credentials" do
-      post "/auther/session", params: {account: {name: "test", login: "test@test.com", password: "itsasecret"}}
+      post "/auther/session", params: {
+        account: {
+          name: "test",
+          login: "test@test.com",
+          password: "itsasecret"
+        }
+      }
+
       delete "/auther/session", params: {name: "test"}
 
       expect(session.key?(:auther_test_login)).to be(false)
@@ -131,21 +154,41 @@ RSpec.describe Auther::SessionController, type: :request do
 
     it "redirects to default deauthorized URL" do
       # Save and clear the authorized URL for the purposes of this test only.
-      deauthorized_url = Rails.application.config.auther_settings[:accounts].first[:deauthorized_url]
+      deauthorized_url = Rails.application
+                              .config
+                              .auther_settings[:accounts]
+                              .first[:deauthorized_url]
       Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = nil
 
-      post "/auther/session", params: {account: {name: "test", login: "test@test.com", password: "itsasecret"}}
+      post "/auther/session", params: {
+        account: {
+          name: "test",
+          login: "test@test.com",
+          password: "itsasecret"
+        }
+      }
+
       delete "/auther/session", params: {name: "test"}
 
-      # Restore the authorized URL so that other tests are not affected by the modified configuration.
-      Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = deauthorized_url
+      # Restore authorized URL so other tests are not affected by the modified configuration.
+      Rails.application
+           .config
+           .auther_settings[:accounts]
+           .first[:deauthorized_url] = deauthorized_url
 
       expect(response.status).to eq 302
       expect(response.location).to eq("http://www.example.com/login")
     end
 
     it "redirects to account deauthorized URL" do
-      post "/auther/session", params: {account: {name: "test", login: "test@test.com", password: "itsasecret"}}
+      post "/auther/session", params: {
+        account: {
+          name: "test",
+          login: "test@test.com",
+          password: "itsasecret"
+        }
+      }
+
       delete "/auther/session", params: {name: "test"}
 
       expect(response.status).to eq 302

@@ -38,7 +38,7 @@ Metrics/BlockLength:
     - "**/*.gemspec"
     - "spec/**/*"
 Metrics/LineLength:
-  Max: 120
+  Max: 100
   Exclude:
     - "spec/support/dummy/config/initializers/auther.rb"
     - "spec/support/dummy/config/secrets.yml"

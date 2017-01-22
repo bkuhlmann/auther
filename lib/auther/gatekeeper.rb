@@ -2,6 +2,7 @@
 
 module Auther
   # Rack middleware that guards access to sensitive routes.
+  # rubocop:disable Metrics/ClassLength
   class Gatekeeper
     attr_reader :application, :environment, :settings
 
@@ -55,7 +56,9 @@ module Auther
 
     # rubocop:disable Metrics/ParameterLists
     def log_authorization authorized, account_name, blacklist, request_path
-      details = %(Account: "#{account_name}". Blacklist: #{blacklist}. Request Path: "#{request_path}".)
+      details = %(Account: "#{account_name}". ) +
+                %(Blacklist: #{blacklist}. ) +
+                %(Request Path: "#{request_path}".)
 
       if authorized
         log_info %(Authorization passed. #{details})
@@ -119,7 +122,8 @@ module Auther
 
     def authorized? path
       if blacklisted_matched_paths(path).any?
-        log_info %(Requested path "#{request.path}" found in blacklisted paths: #{blacklisted_paths}.)
+        log_info %(Requested path "#{request.path}" found in blacklisted paths: ) +
+                 %(#{blacklisted_paths}.)
         account = find_account
         account && authenticated?(account) && account_authorized?(account, path)
       else

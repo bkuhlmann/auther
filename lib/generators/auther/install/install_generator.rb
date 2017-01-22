@@ -14,7 +14,8 @@ module Auther
     private
 
     def install_initializer
-      template File.join("config", "initializers", "auther.rb"), File.join("config", "initializers", "auther.rb")
+      template File.join("config", "initializers", "auther.rb"),
+               File.join("config", "initializers", "auther.rb")
     end
 
     def add_routes

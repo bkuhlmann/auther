@@ -12,7 +12,9 @@ module Auther
     config.action_view.field_error_proc = proc { |html_tag, _| html_tag.html_safe }
 
     config.to_prepare do
-      Dir.glob(Engine.root + "app/presenters/**/*.rb").each { |presenter| require_dependency presenter }
+      Dir.glob(Engine.root + "app/presenters/**/*.rb").each do |presenter|
+        require_dependency presenter
+      end
     end
 
     initializer "auther.initialize" do |app|
