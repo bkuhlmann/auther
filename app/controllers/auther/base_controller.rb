@@ -11,6 +11,7 @@ module Auther
       @account = Auther::Presenter::Account.new
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       @account = Auther::Presenter::Account.new account_params
       account = Auther::Account.new settings.find_account(@account.name)

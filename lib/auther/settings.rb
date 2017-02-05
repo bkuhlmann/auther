@@ -5,6 +5,7 @@ module Auther
   class Settings
     attr_reader :title, :label, :secret, :accounts, :auth_url, :logger
 
+    # rubocop:disable Metrics/ParameterLists
     def initialize title: "Authorization",
                    label: "Authorization",
                    secret: "",

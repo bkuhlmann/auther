@@ -89,6 +89,7 @@ module Auther
       blacklisted_paths.select { |blacklisted_path| path.include? blacklisted_path }
     end
 
+    # rubocop:disable Metrics/AbcSize
     def account_authenticated? account
       keymaster = Auther::Keymaster.new account.fetch(:name)
       cipher = Auther::Cipher.new settings.secret
