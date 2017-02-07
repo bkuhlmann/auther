@@ -26,13 +26,16 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
       expect(File.exist?(initializer)).to be(true)
     end
 
-    it "adds custom routes" do
+    it "adds custom routes", :aggregate_failures do
       run_generator
-      lines = File.open(routes_test, "r").readlines
 
-      expect(lines[3]).to eq(%(  mount Auther::Engine => "/auther"\n))
-      expect(lines[4]).to eq(%(  get "/login", to: "auther/session#new", as: "login"\n))
-      expect(lines[5]).to eq(%(  delete "/logout", to: "auther/session#destroy", as: "logout"\n))
+      File.open(routes_test, "r") do |file|
+        lines = file.readlines
+
+        expect(lines[3]).to eq(%(  mount Auther::Engine => "/auther"\n))
+        expect(lines[4]).to eq(%(  get "/login", to: "auther/session#new", as: "login"\n))
+        expect(lines[5]).to eq(%(  delete "/logout", to: "auther/session#destroy", as: "logout"\n))
+      end
     end
   end
 end
