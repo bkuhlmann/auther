@@ -19,7 +19,7 @@ module Auther
 
     initializer "auther.initialize" do |app|
       app.config.app_middleware.use Gatekeeper, app.config.auther_settings
-      app.config.filter_parameters += [:login, :password]
+      app.config.filter_parameters += %i[login password]
     end
   end
 end

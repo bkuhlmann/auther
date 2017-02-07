@@ -5,7 +5,7 @@ module Auther
   class SessionController < BaseController
     layout "auther/auth"
     before_action :load_title, :load_label
-    before_action :load_account_options, only: [:new, :create]
+    before_action :load_account_options, only: %i[new create]
 
     private
 
