@@ -22,7 +22,7 @@ module Auther
     end
 
     def find_account name
-      accounts.detect { |account| account.fetch(:name) == name }
+      accounts.find { |account| account.fetch(:name) == name }
     end
   end
 end
