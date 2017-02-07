@@ -12,10 +12,10 @@ module Auther
 
       validates :name, :login, :password, presence: true
 
-      def initialize options = {}
-        @name = options[:name]
-        @login = options[:login]
-        @password = options[:password]
+      def initialize name: "", login: "", password: ""
+        @name = name
+        @login = login
+        @password = password
       end
 
       def error? key

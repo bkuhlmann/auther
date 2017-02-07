@@ -9,8 +9,8 @@ module Auther
       "auther"
     end
 
-    def self.redirect_url_key options = {}
-      [namespace, "redirect", "url"] * options.fetch(:delimiter, "_")
+    def self.redirect_url_key delimiter: "_"
+      [namespace, "redirect", "url"] * delimiter
     end
 
     def self.get_account_name session = {}
@@ -38,8 +38,8 @@ module Auther
 
     private
 
-    def build_key key_name, options = {}
-      [self.class.namespace, account_name, key_name].compact * options.fetch(:delimiter, "_")
+    def build_key key_name, delimiter: "_"
+      [self.class.namespace, account_name, key_name].compact * delimiter
     end
   end
 end

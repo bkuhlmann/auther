@@ -3,15 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Auther::Presenter::Account, type: :model do
-  let(:parameters) do
-    {
-      name: "test",
-      login: "test@test.com",
-      password: "nevermore"
-    }
-  end
-
-  subject { Auther::Presenter::Account.new parameters }
+  subject { described_class.new name: "test", login: "test@test.com", password: "nevermore" }
 
   describe "#valid?" do
     it "answers true when name, login, and password are present" do
@@ -39,17 +31,17 @@ RSpec.describe Auther::Presenter::Account, type: :model do
   describe "#error?" do
     before { subject.valid? }
 
-    context "when key exist" do
-      let(:parameters) { {name: "test", login: "test@test.com"} }
-
-      it "answers true" do
-        expect(subject.error?(:password)).to eq(true)
+    context "when attributes exist" do
+      it "answers false" do
+        expect(subject.error?(:login)).to eq(false)
       end
     end
 
-    context "when key don't exist" do
-      it "answers false" do
-        expect(subject.error?(:login)).to eq(false)
+    context "when an attribute is missing" do
+      subject { described_class.new name: "test", login: "test@test.com" }
+
+      it "answers true" do
+        expect(subject.error?(:password)).to eq(true)
       end
     end
   end
@@ -58,7 +50,7 @@ RSpec.describe Auther::Presenter::Account, type: :model do
     before { subject.valid? }
 
     context "when errors exist" do
-      let(:parameters) { {} }
+      subject { described_class.new }
 
       it "answers full error message" do
         expect(subject.error_message(:password)).to eq("Password can't be blank")

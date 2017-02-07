@@ -20,6 +20,7 @@ module Auther
       message: "must be an array"
     }
 
+    # rubocop:disable Style/OptionHash
     def initialize options = {}
       @name = options.fetch :name, nil
       @encrypted_login = options.fetch :encrypted_login, nil
