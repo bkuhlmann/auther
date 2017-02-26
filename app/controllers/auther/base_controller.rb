@@ -3,6 +3,8 @@
 module Auther
   # Abstract controller for session management.
   class BaseController < ActionController::Base
+    protect_from_forgery with: :exception
+
     def show
       redirect_to settings.auth_url
     end
