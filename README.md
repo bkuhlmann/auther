@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/auther.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/auther/coverage.svg)](https://codeclimate.com/github/bkuhlmann/auther)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.svg)](https://gemnasium.com/bkuhlmann/auther)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/auther.svg)](https://travis-ci.org/bkuhlmann/auther)
+[![Circle CI Status](https://circleci.com/gh/bkuhlmann/auther.svg?style=svg)](https://circleci.com/gh/bkuhlmann/auther)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with
