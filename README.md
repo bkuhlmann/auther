@@ -15,31 +15,31 @@ user experience.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
-# Table of Contents
+## Table of Contents
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Usage](#usage)
-  - [Initializer](#initializer)
-  - [Routes](#routes)
-  - [Model](#model)
-  - [Presenter](#presenter)
-  - [View](#view)
-  - [Controller](#controller)
-  - [Logging](#logging)
-  - [Troubleshooting](#troubleshooting)
-- [Tests](#tests)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
-- [Credits](#credits)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Usage](#usage)
+    - [Initializer](#initializer)
+    - [Routes](#routes)
+    - [Model](#model)
+    - [Presenter](#presenter)
+    - [View](#view)
+    - [Controller](#controller)
+    - [Logging](#logging)
+    - [Troubleshooting](#troubleshooting)
+  - [Tests](#tests)
+  - [Versioning](#versioning)
+  - [Code of Conduct](#code-of-conduct)
+  - [Contributions](#contributions)
+  - [License](#license)
+  - [History](#history)
+  - [Credits](#credits)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
-# Features
+## Features
 
 - Supports form-based authentication compatible with password managers like
   [1Password](https://agilebits.com/onepassword).
@@ -60,12 +60,12 @@ user experience.
 - Provides a generator for easy install and setup within an existing project.
 - Provides auto-redirection to requested path for verified credentials.
 
-# Requirements
+## Requirements
 
 0. [Ruby 2.4.x](https://www.ruby-lang.org).
 0. [Ruby on Rails 5.x.x](http://rubyonrails.org).
 
-# Setup
+## Setup
 
 For a secure install, type the following from the command line (recommended):
 
@@ -88,7 +88,7 @@ Run the generator to configure and initialize your application:
 
     rails generate auther:install
 
-# Usage
+## Usage
 
 Assuming you are using the [dotenv](https://github.com/bkeepers/dotenv) gem, add the following to
 your `.env` settings:
@@ -106,7 +106,7 @@ Use these credentials to login:
 - Login: test@test.com
 - Password: nevermore
 
-## Initializer
+### Initializer
 
 The initializer (installed during setup) can be found here:
 
@@ -162,7 +162,7 @@ The initializer can be customized as follows:
 - *logger* - Optional. The logger used to log path/account authorization messages. Default:
   `Auther::NullLogger`.
 
-## Routes
+### Routes
 
 The routes can be customized as follows (installed, by default, via the install generator):
 
@@ -172,20 +172,20 @@ The routes can be customized as follows (installed, by default, via the install 
       delete "/logout", to: "auther/session#destroy", as: "logout"
     end
 
-## Model
+### Model
 
 The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveModel
 validations to aid in attribute validation. This model could potentially be replaced with a
 database-backed object (would require controller customization)...but you should question if you
 have outgrown the use of this gem and need a different solution altogether if it comes to that.
 
-## Presenter
+### Presenter
 
 The [Auther::Presenter::Account](app/presenters/auther/account.rb) is a plain old Ruby object that
 uses ActiveModel validations to aid in form validation. This presenter makes it easy to construct
 form data for input and validation.
 
-## View
+### View
 
 The view can be customized by creating the following file within your Rails application (assumes
 that the default Auther::SessionController implementation is sufficient):
@@ -196,7 +196,7 @@ The form uses `@account` instance variable which is an instance of the Auther::P
 presenter (as mentioned above). The form can be stylized by attaching new styles to the
 .authorization class (see [auther.scss](app/assets/stylesheets/auther/auther.scss) for details).
 
-## Controller
+### Controller
 
 The [Auther::SessionController](app/controllers/auther/session_controller.rb) inherits from the
 [Auther::BaseController](app/controllers/auther/base_controller.rb). To customize, it is recommended
@@ -211,7 +211,7 @@ This allows customization of session controller behavior to serve any special bu
 the `Auther::BaseController` for additional details or the `Auther::SessionController` for default
 implementation.
 
-## Logging
+### Logging
 
 As mentioned in the setup above, the logger can be customized as follows:
 
@@ -227,7 +227,7 @@ debug custom Auther settings:
 - Account authentication pass/fail.
 - Account and path authorization pass/fail.
 
-## Troubleshooting
+### Troubleshooting
 
 - With Ruby 2.4.0, it's imporant that the secret is generated via `SecureRandom.random_bytes`. Use
   `32` bytes or higher for a secure secret.
@@ -241,13 +241,13 @@ debug custom Auther settings:
   you have customized this to something else, you might want to read the usage documentation
   (mentioned above) to rebuild the authentication view/form for your specific business needs.
 
-# Tests
+## Tests
 
 To test, run:
 
     bundle exec rake
 
-# Versioning
+## Versioning
 
 Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 
@@ -255,26 +255,26 @@ Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 - Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
 - Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
 
-# Code of Conduct
+## Code of Conduct
 
 Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By
 participating in this project you agree to abide by its terms.
 
-# Contributions
+## Contributions
 
 Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-# License
+## License
 
 Copyright (c) 2014 [Alchemists](https://www.alchemists.io).
 Read [LICENSE](LICENSE.md) for details.
 
-# History
+## History
 
 Read [CHANGES](CHANGES.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
-# Credits
+## Credits
 
 Developed by [Brooke Kuhlmann](https://www.alchemists.io) at
 [Alchemists](https://www.alchemists.io).
