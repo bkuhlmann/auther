@@ -15,8 +15,8 @@ RSpec.describe Auther::SessionController, type: :request do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
-      expect(response.body).to include("Login:")
-      expect(response.body).to include("Password:")
+      expect(response.body).to include("Login")
+      expect(response.body).to include("Password")
     end
 
     it "renders page title" do

@@ -1,6 +1,18 @@
-$auther-red: #F04124;
-$auther-white: #FFFFFF;
+$auther-blue-light: hsla(215, 55%, 54%, 1.00);
+$auther-blue-dark: hsla(214, 58%, 38%, 1.00);
+$auther-red: hsla(9, 87%, 54%, 1.00);
+$auther-white: hsla(0, 0%, 100%, 1.00);
+$auther-grey-light: hsla(0, 0%, 65%, 1.00);
+$auther-grey-dark: hsla(240, 1%, 30%, 1.00);
+
 $auther-font-family: "Verdana", sans-serif;
+
+@mixin border_radius($value: 0.3rem) {
+  border-top-left-radius: $value;
+  border-top-right-radius: $value;
+  border-bottom-right-radius: $value;
+  border-bottom-left-radius: $value;
+}
 
 .auther-page {
   display: flex;
@@ -32,50 +44,69 @@ $auther-font-family: "Verdana", sans-serif;
 }
 
 .auther-form-section {
-}
-
-%auther-form-label {
-  font-weight: 300;
-  text-align: right;
-}
-
-.auther-form-label {
-}
-
-.auther-form-select-label {
-}
-
-.auther-form-select {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.5rem 0;
 }
 
 .auther-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.auther-form-input {
+  @include border_radius();
+
+  color: $auther-grey-dark;
+  border: 0.09rem solid $auther-grey-light;
+  display: flex;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.auther-form-select {
+  @include border_radius();
+
+  background: transparent;
+  color: $auther-grey-dark;
+  display: flex;
+  font-size: 1rem;
+  height: 2rem;
+  outline: none;
 }
 
 .auther-button {
+  color: $auther-white;
+  cursor: pointer;
+  background-color: $auther-blue-light;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 1rem 0 0 0;
+  outline: none;
+  width: 100%;
+
+  &:active {
+    background-color: $auther-blue-dark;
+  }
 }
 
 .auther-error-message {
   background: $auther-red;
   color: $auther-white;
   display: none;
-  padding: 0.3em 0.5em;
+  padding: 0.3em 0.7em;
 }
 
 .auther-error {
-  .auther-form-label {
-    color: $auther-red;
-  }
-
-  .auther-form-group {
-    margin-bottom: 0.75em;
-  }
-
   .auther-form-input {
     border-color: $auther-red;
-    margin-bottom: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .auther-error-message {
-    display: block;
+    display: flex;
   }
 }
