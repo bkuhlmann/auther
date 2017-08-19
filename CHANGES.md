@@ -1,3 +1,25 @@
+# v8.0.0 (2017-08-19)
+
+- Fixed Rubocop Style/MixinGrouping issues.
+- Fixed generator template to convert secret to bytes.
+- Fixed missing space after pragma.
+- Added Circle CI support.
+- Added Git Cop code quality task.
+- Added Rails 5.1.0 support.
+- Added dynamic formatting of RSpec output.
+- Updated CONTRIBUTING documentation.
+- Updated GitHub templates.
+- Updated README headers.
+- Updated Rubocop configuration.
+- Updated authentication form to use CSS Flexbox layout.
+- Updated gem dependencies.
+- Updated to Awesome Print 1.8.0.
+- Updated to Gemsmith 10.0.0.
+- Updated to Git Cop 1.3.0.
+- Updated to Ruby 2.4.1.
+- Removed Neat and Bourbon gems.
+- Removed Travis CI support.
+
 # v7.1.0 (2017-02-26)
 
 - Fixed Cross-Site Request Forgery (CSRF) issue.

@@ -30,18 +30,18 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-byebug", "~> 3.4"
   spec.add_development_dependency "pry-state", "~> 0.1"
   spec.add_development_dependency "bond", "~> 0.5"
-  spec.add_development_dependency "wirb", "~> 2.0"
+  spec.add_development_dependency "wirb", "~> 2.1"
   spec.add_development_dependency "hirb", "~> 0.7"
   spec.add_development_dependency "awesome_print", "~> 1.8"
-  spec.add_development_dependency "rspec-rails", "~> 3.5"
+  spec.add_development_dependency "rspec-rails", "~> 3.6"
   spec.add_development_dependency "ammeter", "~> 1.1"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
-  spec.add_development_dependency "git-cop", "~> 1.3"
+  spec.add_development_dependency "git-cop", "~> 1.5"
   spec.add_development_dependency "reek", "~> 4.7"
   spec.add_development_dependency "rubocop", "~> 0.49"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
 
-  spec.files            = Dir["app/**/*", "bin/**/*", "config/**/*", "lib/**/*", "vendor/**/*"]
+  spec.files            = Dir["app/**/*", "config/**/*", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths    = ["lib"]
 end

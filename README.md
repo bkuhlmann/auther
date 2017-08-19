@@ -10,7 +10,7 @@
 Provides simple, form-based authentication for apps that need security but don't want to deal with
 the clunky UI of HTTP Basic Authentication or something as heavyweight as
 [Devise](https://github.com/plataformatec/devise). It doesn't require a database and is compatible
-with password managers like [1Password](https://agilebits.com/onepassword) making for a pleasent
+with password managers like [1Password](https://agilebits.com/onepassword) making for a pleasant
 user experience.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -44,16 +44,10 @@ user experience.
 - Supports form-based authentication compatible with password managers like
   [1Password](https://agilebits.com/onepassword).
 
-[![Screenshot - Large Valid](doc/screenshots/large-valid.png)](https://github.com/bkuhlmann/auther)
-[![Screenshot - Large Invalid](doc/screenshots/large-invalid.png)](https://github.com/bkuhlmann/auther)
+[![Screenshot - Form Without Errors](doc/screenshots/form-without_errors.png)](https://github.com/bkuhlmann/auther)
+[![Screenshot - For With Errors](doc/screenshots/form-with_errors.png)](https://github.com/bkuhlmann/auther)
 
-- Supports mobile layouts and small screens:
-
-[![Screenshot - Mobile Valid](doc/screenshots/mobile-valid.png)](https://github.com/bkuhlmann/auther)
-[![Screenshot - Mobile Invalid](doc/screenshots/mobile-invalid.png)](https://github.com/bkuhlmann/auther)
-
-- Uses [Bourbon](http://bourbon.io), [Neat](http://neat.bourbon.io), and
-  [Bitters](http://bitters.bourbon.io) for lightweight styling.
+- Uses CSS Flexbox for lightweight styling.
 - Uses encrypted account credentials to keep sensitive information secure.
 - Supports multiple accounts with account specific blacklists.
 - Supports customizable routes, models, presenters, views, controllers, and loggers.
@@ -90,12 +84,12 @@ Run the generator to configure and initialize your application:
 
 ## Usage
 
-Assuming you are using the [dotenv](https://github.com/bkeepers/dotenv) gem, add the following to
-your `.env` settings:
+Assuming you are using something like [direnv](https://direnv.net), add the following to your `.env`
+file:
 
-    AUTHER_SECRET=\x14\xCE\xCB\xECc\xCFl$.\xCE\xA7J}\xEE\xD5\xEA}\x86\xE7\xF6\xE3\xF3DA\x8F\x90m\xED\xA5\xA4=Z
-    AUTHER_ADMIN_LOGIN=cEgyd2hHSit6NkpwN000aUNiU3BkNThxcjRRd1AyT1RmbFFqaGJRR0FjVT0tLWR6Mm1sUmxscHlxQU1leHF2d3ZoZ2c9PQ==--6d4b8bfadc54bfba6a41164675b14980caf01445
-    AUTHER_ADMIN_PASSWORD=LzlDekNYVW5UK05rRXZnekJuN1g5OXNhYUFRLy96TWI1NEMzbHFnVHpqND0tLUJUSGJTS1djQjlFR0ZkS0VCcE14VEE9PQ==--6331922bb9dace39e402818ce4ebf87ab9a73317
+    AUTHER_SECRET=281047a438dcd3f1f1401954d779025e496dc938ba79703bcf6ca0605ca350e7
+    AUTHER_ADMIN_LOGIN=V0lMaDFBK2o3SngvSHUySUZOYVJ3dC82QmlQaDRWcUhKOEFkUjFsYkF3ND0tLXpMZDBhdCtJaHVsVnpWNkFWVWUxVVE9PQ==--d8595331720f8475090763d5a3a3103b3f6a9259
+    AUTHER_ADMIN_PASSWORD=Tk05VzlWNTdoQW5sbEtzWlA5T25VVHRFb3FkS0xGbjA2ZVU5bjVqN3RHST0tLVBOaVcyWnp3ZFY5ais0eWtrNXhobXc9PQ==--a83d6d7644085a972d847181b5f486bf245fd16b
 
 Launch your Rails application and visit the following:
 
@@ -106,6 +100,8 @@ Use these credentials to login:
 - Login: test@test.com
 - Password: nevermore
 
+That's it, you'll be logged in at this point.
+
 ### Initializer
 
 The initializer (installed during setup) can be found here:
@@ -115,22 +111,23 @@ The initializer (installed during setup) can be found here:
 The initializer comes installed with the following settings:
 
     Rails.application.config.auther_settings = {
-      secret: ENV["AUTHER_SECRET"],
       accounts: [
         name: "admin",
         encrypted_login: ENV["AUTHER_ADMIN_LOGIN"],
         encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
         paths: ["/admin"]
-      ]
+      ],
+      secret: [ENV["AUTHER_SECRET"]].pack("H*")
     }
 
-**IMPORTANT**: The encrypted secret, login, and password credentials used in the `.env` setup above
-must be re-encrypted before deploying to production! To encrypt/decrypt account credentials, launch
-a rails console and run the following:
+**IMPORTANT**: The encrypted secret, login, and password used in the `.env` setup above must be
+unique and re-encrypted before deploying to production (don't use the provided examples)! To
+encrypt/decrypt account credentials, launch a rails console and run the following:
 
-    # Best is generated via `SecureRandom.random_bytes 32`. `32` bytes is the minimum but using a
-    # number higher than `32` is recommend. Must be equal to what is defined in `auther_settings`.
-    cipher = Auther::Cipher.new "\x14\xCE\xCB\xECc\xCFl$.\xCE\xA7J}\xEE\xD5\xEA}\x86\xE7\xF6\xE3\xF3DA\x8F\x90m\xED\xA5\xA4=Z"
+    # Best if generated via `SecureRandom.hex 32`. Exactly `32` bytes is required or you'll
+    # get a `ArgumentError: key must be 32 bytes`. Must be equal to the secret as defined in
+    # `auther_settings`.
+    cipher = Auther::Cipher.new "f106a7169a5cfb90f016105b31b595282011a1090d843b7868103c770e35e38e"
 
     # Do this to encrypt an unecrypted value.
     cipher.encrypt "test@test.com"
@@ -192,9 +189,9 @@ that the default Auther::SessionController implementation is sufficient):
 
     app/views/auther/session/new.html
 
-The form uses `@account` instance variable which is an instance of the Auther::Presenter::Account
-presenter (as mentioned above). The form can be stylized by attaching new styles to the
-.authorization class (see [auther.scss](app/assets/stylesheets/auther/auther.scss) for details).
+The form uses the `@account` instance variable which is an instance of the
+Auther::Presenter::Account presenter (as mentioned above). The form can be stylized by modifying the
+styles found in the [auther.scss](app/assets/stylesheets/auther/auther.scss) stylesheet.
 
 ### Controller
 
@@ -229,8 +226,6 @@ debug custom Auther settings:
 
 ### Troubleshooting
 
-- With Ruby 2.4.0, it's imporant that the secret is generated via `SecureRandom.random_bytes`. Use
-  `32` bytes or higher for a secure secret.
 - If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc.
   this might cause Auther authentication to fail. Make sure to clear your browser cookies in this
   situation or use Google Chrome (incognito mode) to verify.
