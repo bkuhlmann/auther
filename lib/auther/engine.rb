@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "bourbon"
-require "neat"
-
 module Auther
   # The main engine.
   class Engine < ::Rails::Engine

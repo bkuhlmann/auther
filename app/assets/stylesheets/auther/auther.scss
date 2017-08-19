@@ -1,76 +1,57 @@
 $auther-red: #F04124;
 $auther-white: #FFFFFF;
-$mobile: new-breakpoint(max-width 480px 4);
+$auther-font-family: "Verdana", sans-serif;
 
 .auther-page {
-  @include row;
+  display: flex;
+  font-family: $auther-font-family;
+}
+
+.auther-body {
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 .auther-content {
-  @include outer-container;
+  display: flex;
+  flex-direction: column;
 }
 
-.auther-credentials {
-  @include span-columns(6);
-  @include shift(2);
-  @include media($mobile) {
-    @include shift(0);
-    @include span-columns(4);
-  }
-}
-
-.auther-title {
+.auther-label {
   font-size: 2em;
   font-weight: 400;
-  margin: 2em 0 1em 0;
   text-align: center;
-  @include media($mobile) {
-    margin-top: 1em;
-  }
+}
+
+.auther-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .auther-form-section {
-  @include span-columns(6 of 6);
 }
 
 %auther-form-label {
-  @include span-columns(2 of 6);
   font-weight: 300;
   text-align: right;
-  @include media($mobile) {
-    @include span-columns(4 of 4);
-    @include omega();
-    text-align: center;
-  }
 }
 
 .auther-form-label {
-  @extend %auther-form-label;
 }
 
 .auther-form-select-label {
-  @extend %auther-form-label;
 }
 
 .auther-form-select {
-  @include fill-parent;
 }
 
 .auther-form-group {
-  @include span-columns(4 of 6);
-  @include omega();
-  @include media($mobile) {
-    @include span-columns(4 of 4);
-  }
 }
 
 .auther-button {
-  @include shift(1.3);
-  @include span-columns(4 of 6);
-  @include media($mobile) {
-    @include shift(0);
-    @include span-columns(4 of 4);
-  }
 }
 
 .auther-error-message {

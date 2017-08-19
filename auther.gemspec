@@ -23,8 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 5.0"
   spec.add_dependency "slim-rails", "~> 3.1"
   spec.add_dependency "sass-rails", "~> 5.0"
-  spec.add_dependency "bourbon", "~> 4.2"
-  spec.add_dependency "neat", "~> 1.8"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "gemsmith", "~> 10.2"
   spec.add_development_dependency "pg", "~> 0.21"
