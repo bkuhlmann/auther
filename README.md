@@ -84,8 +84,8 @@ Run the generator to configure and initialize your application:
 
 ## Usage
 
-Assuming you are using something like [direnv](https://direnv.net), add the following to your `.env`
-file:
+Assuming you are using something like [direnv](https://direnv.net), add the following to your
+`.envrc` file:
 
     AUTHER_SECRET=281047a438dcd3f1f1401954d779025e496dc938ba79703bcf6ca0605ca350e7
     AUTHER_ADMIN_LOGIN=V0lMaDFBK2o3SngvSHUySUZOYVJ3dC82QmlQaDRWcUhKOEFkUjFsYkF3ND0tLXpMZDBhdCtJaHVsVnpWNkFWVWUxVVE9PQ==--d8595331720f8475090763d5a3a3103b3f6a9259
@@ -120,7 +120,7 @@ The initializer comes installed with the following settings:
       secret: [ENV["AUTHER_SECRET"]].pack("H*")
     }
 
-**IMPORTANT**: The encrypted secret, login, and password used in the `.env` setup above must be
+**IMPORTANT**: The encrypted secret, login, and password used in the `.envrc` setup above must be
 unique and re-encrypted before deploying to production (don't use the provided examples)! To
 encrypt/decrypt account credentials, launch a rails console and run the following:
 
@@ -129,10 +129,10 @@ encrypt/decrypt account credentials, launch a rails console and run the followin
     # `auther_settings`.
     cipher = Auther::Cipher.new "f106a7169a5cfb90f016105b31b595282011a1090d843b7868103c770e35e38e"
 
-    # Do this to encrypt an unecrypted value.
+    # Use the following to encrypt an unecrypted value.
     cipher.encrypt "test@test.com"
 
-    # Do this to decrypt an encrypted value.
+    # Use the following to decrypt an encrypted value.
     cipher.decrypt "cEgyd2hHSit6NkpwN000aUNiU3BkNThxcjRRd1AyT1RmbFFqaGJRR0FjVT0tLWR6Mm1sUmxscHlxQU1leHF2d3ZoZ2c9PQ==--6d4b8bfadc54bfba6a41164675b14980caf01445"
 
 The initializer can be customized as follows:
@@ -142,19 +142,19 @@ The initializer can be customized as follows:
 - *label* - Optional. The page label (what would appear above the form). Default: "Authorization".
 - *secret* - Required. The secret passphrase used to encrypt/decrypt account credentials.
 - *accounts* - Required. The array of accounts with different or similar access to the application.
-    - *name* - Required. The account name that uniquely identifies the account.
-    - *encrypted_login* - Required. The encrypted account login.
-    - *encrypted_password* - Required. The encrypted account password.
-    - *paths* - Required. The array of blacklisted paths for which only this account has access to.
-    - *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized
-      redirection works in the order defined:
-        0. The blacklisted path (if requested prior to authorization but now authorized).
-        0. The authorized URL (if defined and the blacklisted path wasn't requested).
-        0. The root path (if none of the above).
-    - *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e.
-      logout). Deauthorized redirections works as follows (in the order defined):
-        0. The deauthorized URL (if defined).
-        0. The auth URL.
+  - *name* - Required. The account name that uniquely identifies the account.
+  - *encrypted_login* - Required. The encrypted account login.
+  - *encrypted_password* - Required. The encrypted account password.
+  - *paths* - Required. The array of blacklisted paths for which only this account has access to.
+  - *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized
+    redirection works in the order defined:
+    - The blacklisted path (if requested prior to authorization but now authorized).
+    - The authorized URL (if defined and the blacklisted path wasn't requested).
+    - The root path (if none of the above).
+  - *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e.
+    logout). Deauthorized redirections works as follows (in the order defined):
+    - The deauthorized URL (if defined).
+    - The auth URL.
 - *auth_url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
 - *logger* - Optional. The logger used to log path/account authorization messages. Default:
   `Auther::NullLogger`.
