@@ -1,3 +1,12 @@
+# v8.1.0 (2017-10-29)
+
+- Fixed README layout issues.
+- Added Bundler Audit gem.
+- Updated to Rubocop 0.50.0.
+- Updated to Rubocop 0.51.0.
+- Updated to Ruby 2.4.2.
+- Removed Pry State gem.
+
 # v8.0.0 (2017-08-19)
 
 - Fixed Rubocop Style/MixinGrouping issues.
