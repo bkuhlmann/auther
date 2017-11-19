@@ -1,3 +1,8 @@
+# v8.1.1 (2017-11-19)
+
+- Updated to Git Cop 1.7.0.
+- Updated to Rake 12.3.0.
+
 # v8.1.0 (2017-10-29)
 
 - Fixed README layout issues.
