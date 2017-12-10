@@ -51,6 +51,4 @@ TooManyMethods:
   exclude:
   - Auther::Gatekeeper
 IrresponsibleModule:
-  exclude:
-  - ApplicationCable::Channel
-  - ApplicationCable::Connection
+  enabled: false
