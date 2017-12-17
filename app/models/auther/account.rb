@@ -29,5 +29,6 @@ module Auther
       @authorized_url = options.fetch :authorized_url, nil
       @deauthorized_url = options.fetch :deauthorized_url, nil
     end
+    # rubocop:enable Style/OptionHash
   end
 end

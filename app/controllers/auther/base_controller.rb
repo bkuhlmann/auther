@@ -27,6 +27,7 @@ module Auther
         render template: new_template_path
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def destroy
       account = Auther::Account.new settings.find_account(params[:name])

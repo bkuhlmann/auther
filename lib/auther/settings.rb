@@ -20,6 +20,7 @@ module Auther
       @auth_url = auth_url
       @logger = logger
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def find_account name
       accounts.find { |account| account.fetch(:name) == name }

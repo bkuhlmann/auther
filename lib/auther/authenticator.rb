@@ -10,6 +10,7 @@ module Auther
       @account_presenter = account_presenter
       @logger = logger
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def authenticated?
       account_model.valid? &&

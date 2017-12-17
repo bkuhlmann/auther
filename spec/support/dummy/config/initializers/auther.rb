@@ -14,3 +14,4 @@ Rails.application.config.auther_settings = {
     }
   ]
 }
+# rubocop:enable Metrics/LineLength

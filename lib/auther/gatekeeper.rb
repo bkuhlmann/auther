@@ -66,6 +66,7 @@ module Auther
         log_info %(Authorization failed! #{details})
       end
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def find_account
       session["auther_init"] = true # Force session to initialize.
@@ -101,6 +102,7 @@ module Auther
 
       session_login == account_login && session_password == account_password
     end
+    # rubocop:enable Metrics/AbcSize
 
     def authenticated? account
       authenticated = account_authenticated? account
@@ -132,4 +134,5 @@ module Auther
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

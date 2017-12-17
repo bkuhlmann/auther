@@ -259,3 +259,4 @@ RSpec.describe Auther::Gatekeeper, :credentials do
     end
   end
 end
+# rubocop:enable Metrics/LineLength
