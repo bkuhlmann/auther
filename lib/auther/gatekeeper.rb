@@ -55,9 +55,9 @@ module Auther
     end
 
     # rubocop:disable Metrics/ParameterLists
-    def log_authorization authorized, account_name, blacklist, request_path
+    def log_authorization authorized, account_name, excludes, request_path
       details = %(Account: "#{account_name}". ) +
-                %(Blacklist: #{blacklist}. ) +
+                %(Excludes: #{excludes}. ) +
                 %(Request Path: "#{request_path}".)
 
       if authorized
@@ -81,13 +81,13 @@ module Auther
       paths.map { |path| path.chomp "/" }
     end
 
-    def blacklisted_paths
+    def excluded_paths
       paths = settings.accounts.map { |account| clean_paths account.fetch(:paths) }
       paths.flatten.uniq
     end
 
-    def blacklisted_matched_paths path
-      blacklisted_paths.select { |blacklisted_path| path.include? blacklisted_path }
+    def excluded_matched_paths path
+      excluded_paths.select { |excluded_path| path.include? excluded_path }
     end
 
     # rubocop:disable Metrics/AbcSize
@@ -114,7 +114,7 @@ module Auther
     end
 
     def account_authorized? account, path
-      all_paths = blacklisted_paths
+      all_paths = excluded_paths
       account_paths = clean_paths account.fetch(:paths)
       restricted_paths = all_paths - account_paths
 
@@ -124,9 +124,9 @@ module Auther
     end
 
     def authorized? path
-      if blacklisted_matched_paths(path).any?
-        log_info %(Requested path "#{request.path}" found in blacklisted paths: ) +
-                 %(#{blacklisted_paths}.)
+      if excluded_matched_paths(path).any?
+        log_info %(Requested path "#{request.path}" found in excluded paths: ) +
+                 %(#{excluded_paths}.)
         account = find_account
         account && authenticated?(account) && account_authorized?(account, path)
       else

@@ -49,7 +49,7 @@ user experience.
 
 - Uses CSS Flexbox for lightweight styling.
 - Uses encrypted account credentials to keep sensitive information secure.
-- Supports multiple accounts with account specific blacklists.
+- Supports multiple accounts with optional path exclude lists.
 - Supports customizable routes, models, presenters, views, controllers, and loggers.
 - Provides a generator for easy install and setup within an existing project.
 - Provides auto-redirection to requested path for verified credentials.
@@ -136,11 +136,11 @@ The initializer can be customized as follows:
   - *name* - Required. The account name that uniquely identifies the account.
   - *encrypted_login* - Required. The encrypted account login.
   - *encrypted_password* - Required. The encrypted account password.
-  - *paths* - Required. The array of blacklisted paths for which only this account has access to.
+  - *paths* - Required. The array of excluded paths for which only this account has access to.
   - *authorized_url* - Optional. The URL to redirect to upon successful authorization. Authorized
     redirection works in the order defined:
-    - The blacklisted path (if requested prior to authorization but now authorized).
-    - The authorized URL (if defined and the blacklisted path wasn't requested).
+    - The excluded path (if requested prior to authorization but now authorized).
+    - The authorized URL (if defined and the excluded path wasn't requested).
     - The root path (if none of the above).
   - *deauthorized_url* - Optional. The URL to redirect to upon successful deauthorization (i.e.
     logout). Deauthorized redirections works as follows (in the order defined):
@@ -210,7 +210,7 @@ As mentioned in the setup above, the logger can be customized as follows:
 When logging is enabled, you'll be able to see the following information in the server logs to help
 debug custom Auther settings:
 
-- Requested path and blacklist path detection.
+- Requested path and excluded path detection.
 - Finding (or not finding) of account.
 - Account authentication pass/fail.
 - Account and path authorization pass/fail.

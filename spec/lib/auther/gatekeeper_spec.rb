@@ -42,7 +42,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
                                     auth_url: auth_url
       end
 
-      context "non-blacklisted path" do
+      context "non-excluded path" do
         context "unauthenticated account" do
           it "passes authorization with random path" do
             env["PATH_INFO"] = "/some/random/path"
@@ -81,7 +81,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         end
       end
 
-      context "blacklisted path" do
+      context "excluded path" do
         it "fails authorization with unknown account" do
           env["PATH_INFO"] = "/admin"
 
@@ -164,7 +164,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
                                     auth_url: auth_url
       end
 
-      context "non-blacklisted path" do
+      context "non-excluded path" do
         it "passes authorization with authenticated account" do
           env["rack.session"]["auther_member_login"] = member_login
           env["rack.session"]["auther_member_password"] = member_password
@@ -179,10 +179,10 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["rack.session"]["auther_member_password"] = member_password
           env["PATH_INFO"] = "/member"
 
-          path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/member", "/admin"].)
+          path_message = %([auther]: Requested path "/member" found in excluded paths: ["/member", "/admin"].)
           account_message = "[auther]: Account found."
           authentication_message = %([auther]: Authentication passed. Account: "member".)
-          authorization_message = %([auther]: Authorization passed. Account: "member". Blacklist: ["/member", "/admin"]. Request Path: "/member".)
+          authorization_message = %([auther]: Authorization passed. Account: "member". Excludes: ["/member", "/admin"]. Request Path: "/member".)
 
           expect(subject.logger).to receive(:info).with(path_message).once
           expect(subject.logger).to receive(:info).with(account_message).once
@@ -193,7 +193,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         end
       end
 
-      context "blacklisted path" do
+      context "excluded path" do
         it "fails authorization with unauthenticated account" do
           env["PATH_INFO"] = "/member"
 
@@ -213,7 +213,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         it "logs requested path and account unknown" do
           env["PATH_INFO"] = "/member"
 
-          path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/member", "/admin"].)
+          path_message = %([auther]: Requested path "/member" found in excluded paths: ["/member", "/admin"].)
           account_message = "[auther]: Account unknown."
 
           expect(subject.logger).to receive(:info).with(path_message).once
@@ -227,7 +227,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["rack.session"]["auther_member_password"] = "bogus"
           env["PATH_INFO"] = "/member"
 
-          path_message = %([auther]: Requested path "/member" found in blacklisted paths: ["/member", "/admin"].)
+          path_message = %([auther]: Requested path "/member" found in excluded paths: ["/member", "/admin"].)
           account_message = "[auther]: Account found."
           authentication_message = %([auther]: Authentication failed! Invalid credential(s) for "member" account.)
 
@@ -243,10 +243,10 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["rack.session"]["auther_member_password"] = member_password
           env["PATH_INFO"] = "/admin"
 
-          path_message = %([auther]: Requested path "/admin" found in blacklisted paths: ["/member", "/admin"].)
+          path_message = %([auther]: Requested path "/admin" found in excluded paths: ["/member", "/admin"].)
           account_message = "[auther]: Account found."
           authentication_message = %([auther]: Authentication passed. Account: "member".)
-          authorization_message = %([auther]: Authorization failed! Account: "member". Blacklist: ["/member", "/admin"]. Request Path: "/admin".)
+          authorization_message = %([auther]: Authorization failed! Account: "member". Excludes: ["/member", "/admin"]. Request Path: "/admin".)
 
           expect(subject.logger).to receive(:info).with(path_message).once
           expect(subject.logger).to receive(:info).with(account_message).once

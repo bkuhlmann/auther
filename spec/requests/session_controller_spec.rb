@@ -54,7 +54,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.location).to eq("http://www.example.com/portal/dashboard")
       end
 
-      it "requires blacklisted path authorization and redirects to requested path" do
+      it "requires excluded path authorization and redirects to requested path" do
         get "/portal"
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -65,7 +65,7 @@ RSpec.describe Auther::SessionController, type: :request do
       end
 
       # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined.
-      it "requires blacklisted (trailing slash) path auth and redirects to requested path" do
+      it "requires excluded (trailing slash) path auth and redirects to requested path" do
         get "/trailer"
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -73,7 +73,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.location).to eq("http://www.example.com/trailer")
       end
 
-      it "requires blacklisted path authorization and redirects to root path" do
+      it "requires excluded path authorization and redirects to root path" do
         # Save and clear the authorized URL for the purposes of this test only.
         authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
         Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ""
@@ -124,7 +124,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(session.key?(:auther_test_password)).to be(false)
       end
 
-      it "requires blacklisted path authorization and remembers request path" do
+      it "requires excluded path authorization and remembers request path" do
         get "/portal"
         post "/auther/session", params: {account: {name: "test", login: login, password: "bogus"}}
 
