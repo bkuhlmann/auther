@@ -4,15 +4,15 @@ $LOAD_PATH.append File.expand_path("../lib", __FILE__)
 require "auther/identity"
 
 Gem::Specification.new do |spec|
-  spec.name        = Auther::Identity.name
-  spec.version     = Auther::Identity.version
-  spec.platform    = Gem::Platform::RUBY
-  spec.authors     = ["Brooke Kuhlmann"]
-  spec.email       = ["brooke@alchemists.io"]
-  spec.homepage    = "https://github.com/bkuhlmann/auther"
-  spec.summary     = "Enhances Rails with multi-account, " \
-                     "form-based, database-less, application-wide authentication."
-  spec.license     = "MIT"
+  spec.name = Auther::Identity.name
+  spec.version = Auther::Identity.version
+  spec.platform = Gem::Platform::RUBY
+  spec.authors = ["Brooke Kuhlmann"]
+  spec.email = ["brooke@alchemists.io"]
+  spec.homepage = "https://github.com/bkuhlmann/auther"
+  spec.summary = "Enhances Rails with multi-account, " \
+                 "form-based, database-less, application-wide authentication."
+  spec.license = "Apache-2.0"
 
   if File.exist?(Gem.default_key_path) && File.exist?(Gem.default_cert_path)
     spec.signing_key = Gem.default_key_path
@@ -28,8 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bond", "~> 0.5"
   spec.add_development_dependency "bundler-audit", "~> 0.6"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
-  spec.add_development_dependency "gemsmith", "~> 10.4"
-  spec.add_development_dependency "git-cop", "~> 1.7"
+  spec.add_development_dependency "gemsmith", "~> 11.0"
+  spec.add_development_dependency "git-cop", "~> 2.0"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "hirb", "~> 0.7"
   spec.add_development_dependency "pg", "~> 0.21"
