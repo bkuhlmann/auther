@@ -5,7 +5,6 @@
 [![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/3172d51796930fcdfad8/test_coverage)](https://codeclimate.com/github/bkuhlmann/auther/test_coverage)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/auther.svg)](https://gemnasium.com/bkuhlmann/auther)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/auther.svg?style=svg)](https://circleci.com/gh/bkuhlmann/auther)
-[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with
 the clunky UI of HTTP Basic Authentication or something as heavyweight as
