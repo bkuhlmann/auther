@@ -3,22 +3,22 @@
 module Auther
   # The default logger which purposefully does nothing at all.
   class NullLogger
-    def initialize _
+    def initialize _parameters
     end
 
-    def info _
+    def info _message
     end
 
-    def warn _
+    def warn _message
     end
 
-    def error _
+    def error _message
     end
 
-    def fatal _
+    def fatal _message
     end
 
-    def debug _
+    def debug _message
     end
   end
 end

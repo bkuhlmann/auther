@@ -4,9 +4,9 @@ require "rails_helper"
 require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 
 RSpec.describe Auther::InstallGenerator, type: :generator do
-  destination File.expand_path("../../tmp", __FILE__)
+  destination Bundler.root.join("tmp")
 
-  let(:temp_path) { File.expand_path "../../tmp", __FILE__ }
+  let(:temp_path) { Bundler.root.join("tmp") }
   let(:initializer) { File.join temp_path, "config", "initializers", "auther.rb" }
   let(:routes_template) { File.join Dir.pwd, "spec", "support", "config", "routes.rb" }
   let(:routes_test) { File.join temp_path, "config", "routes.rb" }
