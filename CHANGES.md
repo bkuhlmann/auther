@@ -1,4 +1,4 @@
-# v9.1.0 (2018-04-01)
+# 9.1.0 (2018-04-01)
 
 - Fixed Rubocop Style/MissingElse issues.
 - Fixed gemspec issues with missing gem signing key/certificate.
@@ -16,7 +16,7 @@
 - Removed Patreon badge from README.
 - Refactored temp dir shared context as a pathname.
 
-# v9.0.0 (2018-01-01)
+# 9.0.0 (2018-01-01)
 
 - Updated Code Climate badges.
 - Updated Code Climate configuration to Version 2.0.0.
@@ -30,12 +30,12 @@
 - Refactored code to use Ruby 2.5.0 `Array#append` syntax.
 - Refactored code to use Ruby 2.5.0 `Array#prepend` syntax.
 
-# v8.1.1 (2017-11-19)
+# 8.1.1 (2017-11-19)
 
 - Updated to Git Cop 1.7.0.
 - Updated to Rake 12.3.0.
 
-# v8.1.0 (2017-10-29)
+# 8.1.0 (2017-10-29)
 
 - Fixed README layout issues.
 - Added Bundler Audit gem.
@@ -44,7 +44,7 @@
 - Updated to Ruby 2.4.2.
 - Removed Pry State gem.
 
-# v8.0.0 (2017-08-19)
+# 8.0.0 (2017-08-19)
 
 - Fixed Rubocop Style/MixinGrouping issues.
 - Fixed generator template to convert secret to bytes.
@@ -66,7 +66,7 @@
 - Removed Neat and Bourbon gems.
 - Removed Travis CI support.
 
-# v7.1.0 (2017-02-26)
+# 7.1.0 (2017-02-26)
 
 - Fixed Cross-Site Request Forgery (CSRF) issue.
 - Fixed Rubocop Style/AutoResourceCleanup issues.
@@ -84,7 +84,7 @@
 - Removed Code Climate code comment checks.
 - Removed `.bundle` directory from `.gitignore`.
 
-# v7.0.0 (2017-01-22)
+# 7.0.0 (2017-01-22)
 
 - Updated Rubocop Metrics/LineLength to 100 characters.
 - Updated Rubocop Metrics/ParameterLists max to three.
@@ -95,7 +95,7 @@
 - Removed Rubocop Style/Documentation check.
 - Refactored test credentials to credentials context for specs.
 
-# v6.1.0 (2016-12-18)
+# 6.1.0 (2016-12-18)
 
 - Fixed Rakefile support for RSpec, Reek, Rubocop, and SCSS Lint.
 - Updated Travis CI configuration to use defaults.
@@ -104,7 +104,7 @@
 - Updated to Ruby 2.3.2.
 - Updated to Ruby 2.3.3.
 
-# v6.0.0 (2016-11-14)
+# 6.0.0 (2016-11-14)
 
 - Fixed ActionDispatch::IntegrationTest deprecation warnings.
 - Fixed README URLs to use HTTPS schemes where possible.
@@ -157,11 +157,11 @@
 - Refactored gemspec to use default security keys.
 - Refactored version label method name.
 
-# v5.0.1 (2015-11-11)
+# 5.0.1 (2015-11-11)
 
 - Fixed issue with Bourbon/Neat not loading for apps that don't require them.
 
-# v5.0.0 (2015-11-11)
+# 5.0.0 (2015-11-11)
 
 - Added Bourbon, Neat, and Bitters support.
 - Added Gemsmith development support.
@@ -192,7 +192,7 @@
 - Refactored base controller account presenter instance variable.
 - Refactored settings class to initialize by keyword arguments.
 
-# v4.1.0 (2015-07-05)
+# 4.1.0 (2015-07-05)
 
 - Removed JRuby support (no longer officially supported).
 - Removed duplicate `#info` method in NullLogger.
@@ -200,7 +200,7 @@
 - Added code of conduct documentation.
 - Updated to Ruby 2.2.2.
 
-# v4.0.0 (2014-12-26)
+# 4.0.0 (2014-12-26)
 
 - Removed Ruby 2.0.0 support.
 - Removed Rubinius support.
@@ -210,12 +210,12 @@
 - Updated gemspec to use RUBY_GEM_SECURITY env var for gem certs.
 - Updated to Zurb Foundation 5.5.x.
 
-# v3.2.0 (2014-10-12)
+# 3.2.0 (2014-10-12)
 
 * Updated to [Foundation 5.4.x](https://github.com/zurb/foundation/releases/tag/v5.4.6) now that SASS issues are
   resolved.
 
-# v3.1.0 (2014-09-20)
+# 3.1.0 (2014-09-20)
 
 - Added the Guard Terminal Notifier gem.
 - Updated to Ruby 2.1.3.
@@ -224,23 +224,23 @@
 - Updated and locked to Foundation Rails 5.3.3 (See [Issue 5811](https://github.com/zurb/foundation/issues/5811)).
 - Refactored RSpec setup and support files.
 
-# v3.0.0 (2014-07-17)
+# 3.0.0 (2014-07-17)
 
 - Removed Rails 4.0.x support.
 - Added secure defaults for initializer.
 
-# v2.2.0 (2014-07-06)
+# 2.2.0 (2014-07-06)
 
 - Updated gem-public.pem for gem install certificate chain.
 - Fixed engine asset pipeline issues.
 
-# v2.1.0 (2014-06-17)
+# 2.1.0 (2014-06-17)
 
 - Fixed bug where a second account (not defining the same blacklisted path as another account) could access the
   other account's blacklisted path.
 - Fixed bug with incorrect logging of an authorized account.
 
-# v2.0.0 (2014-06-11)
+# 2.0.0 (2014-06-11)
 
 - Removed account success_url (has been renamed to authorized_url).
 - Updated account settings to use encrypted_login and encrypted_password instead of login and password keys.
@@ -251,14 +251,14 @@
 - Added an account authenticator.
 - Added Code Climate test coverage support.
 
-# v1.4.0 (2014-05-28)
+# 1.4.0 (2014-05-28)
 
 - Fixed missing highlighting of errors for login and password form fields.
 - Added the success URL account setting.
 - Updated logging message output.
 - Updated documentation to use auther.rb initializer.
 
-# v1.3.0 (2014-05-26)
+# 1.3.0 (2014-05-26)
 
 - Fixed bug where defining a blacklisted path with a trailing slash would not be blacklisted.
 - Fixed tilt gem warning related to loading SASS in a non thread-safe way.
@@ -274,7 +274,7 @@
 - Added RSpec randomized testing and metadata filtering.
 - Added pass/fail logging for requested path, account, account authentication, and path authorization.
 
-# v1.2.0 (2014-04-07)
+# 1.2.0 (2014-04-07)
 
 - Fixed bug with engine assets not being loaded properly within engine initializer.
 - Updated to MRI 2.1.1.
@@ -283,18 +283,18 @@
 - Added Gemnasium support.
 - Added Coveralls support.
 
-# v1.1.0 (2014-02-16)
+# 1.1.0 (2014-02-16)
 
 - Updated gemspec homepage URL to use GitHub project URL.
 - Added JRuby and Rubinius VM support.
 
-# v1.0.0 (2014-01-23)
+# 1.0.0 (2014-01-23)
 
 - Added vertical alignment and title spacing to authorization view template.
 - Added error messages to form fields when invalid.
 - Updated gemspec summary and description text.
 
-# v0.3.0 (2014-01-19)
+# 0.3.0 (2014-01-19)
 
 - Refactored the session controller so that it can be easily customized.
 - Added Zurb Foundation support.
@@ -303,11 +303,11 @@
 - Updated the account object to be able to validate session credentials.
 - Added login and password log filter parameters.
 
-# v0.2.0 (2014-01-12)
+# 0.2.0 (2014-01-12)
 
 - Added session encryption/decryption support.
 - Added an account model for easier validation of account information.
 
-# v0.1.0 (2014-01-09)
+# 0.1.0 (2014-01-09)
 
 - Initial version.
