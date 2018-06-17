@@ -3,15 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Auther::Account, :credentials do
-  let(:parameters) do
-    {
-      name: "test",
-      encrypted_login: encrypted_login,
-      encrypted_password: encrypted_password
-    }
+  subject do
+    Auther::Account.new name: "test",
+                        encrypted_login: encrypted_login,
+                        encrypted_password: encrypted_password
   end
-
-  subject { Auther::Account.new parameters }
 
   describe "#valid?" do
     it "answers true when name, encrypted login, and encrypted password are present" do

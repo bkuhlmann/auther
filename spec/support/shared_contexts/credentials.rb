@@ -3,8 +3,11 @@
 require "securerandom"
 
 RSpec.shared_context "Credentials", :credentials do
-  let(:secret) { SecureRandom.random_bytes 32 }
+  let(:login) { "tester" }
+  let(:password) { "nevermore" }
+  let(:credentials) { Auther::Cipher.generate login, password }
+  let(:secret) { credentials.fetch :secret }
   let(:cipher) { Auther::Cipher.new secret }
-  let(:encrypted_login) { cipher.encrypt "tester" }
-  let(:encrypted_password) { cipher.encrypt "nevermore" }
+  let(:encrypted_login) { credentials.fetch :login }
+  let(:encrypted_password) { credentials.fetch :password }
 end
