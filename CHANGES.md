@@ -1,3 +1,13 @@
+# 9.2.0 (2018-06-17)
+
+- Added Rails credentials generator.
+- Added cipher credentials generator.
+- Updated project changes to use semantic versions.
+- Removed packing of secret from initializer.
+- Refactored RSpec credentials shared context.
+- Refactored account model as struct.
+- Refactored application specs.
+
 # 9.1.0 (2018-04-01)
 
 - Fixed Rubocop Style/MissingElse issues.

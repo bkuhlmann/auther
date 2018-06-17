@@ -42,8 +42,8 @@ user experience.
 - Supports form-based authentication compatible with password managers like
   [1Password](https://agilebits.com/onepassword).
 
-[![Screenshot - Form Without Errors](doc/screenshots/form-without_errors.png)](https://github.com/bkuhlmann/auther)
-[![Screenshot - For With Errors](doc/screenshots/form-with_errors.png)](https://github.com/bkuhlmann/auther)
+![Form Without Errors Screenshot](doc/screenshots/form-without_errors.png)
+![Form With Errors Screenshot](doc/screenshots/form-with_errors.png)
 
 - Uses CSS Flexbox for lightweight styling.
 - Uses encrypted account credentials to keep sensitive information secure.
@@ -54,8 +54,8 @@ user experience.
 
 ## Requirements
 
-0. [Ruby 2.5.x](https://www.ruby-lang.org).
-0. [Ruby on Rails 5.x.x](http://rubyonrails.org).
+1. [Ruby 2.5.x](https://www.ruby-lang.org).
+1. [Ruby on Rails 5.x.x](http://rubyonrails.org).
 
 ## Setup
 
@@ -67,29 +67,27 @@ Add the following to your Gemfile:
 
     gem "auther"
 
-Run the generator to configure and initialize your application:
+Run the install generator to configure and initialize your application:
 
     rails generate auther:install
 
+Run the credentials generator to generate credentials for your application:
+
+    rails generate auther:credentials
+
+If using [direnv](https://direnv.net), for example, you can copy and paste the generated credentials
+into your `.envrc` file. Example:
+
+![Credentials Generator Screenshot](doc/screenshots/credentials_generator.png)
+
 ## Usage
-
-Assuming you are using something like [direnv](https://direnv.net), add the following to your
-`.envrc` file:
-
-    AUTHER_SECRET=281047a438dcd3f1f1401954d779025e496dc938ba79703bcf6ca0605ca350e7
-    AUTHER_ADMIN_LOGIN=V0lMaDFBK2o3SngvSHUySUZOYVJ3dC82QmlQaDRWcUhKOEFkUjFsYkF3ND0tLXpMZDBhdCtJaHVsVnpWNkFWVWUxVVE9PQ==--d8595331720f8475090763d5a3a3103b3f6a9259
-    AUTHER_ADMIN_PASSWORD=Tk05VzlWNTdoQW5sbEtzWlA5T25VVHRFb3FkS0xGbjA2ZVU5bjVqN3RHST0tLVBOaVcyWnp3ZFY5ais0eWtrNXhobXc9PQ==--a83d6d7644085a972d847181b5f486bf245fd16b
 
 Launch your Rails application and visit the following:
 
     http://localhost:3000/login
 
-Use these credentials to login:
-
-- Login: test@test.com
-- Password: nevermore
-
-That's it, you'll be logged in at this point.
+Enter your login and password as used for the `rails generate auther:credentials` generator and
+you'll be logged in.
 
 ### Initializer
 
@@ -109,20 +107,19 @@ The initializer comes installed with the following settings:
       secret: ENV["AUTHER_SECRET"]
     }
 
-**IMPORTANT**: The encrypted secret, login, and password used in the `.envrc` setup above must be
-unique and re-encrypted before deploying to production (don't use the provided examples)! To
-encrypt/decrypt account credentials, launch a rails console and run the following:
+To encrypt/decrypt account credentials, launch a rails console and run the following:
 
-    # Best if generated via `SecureRandom.hex 32`. Exactly `32` bytes is required or you'll
-    # get a `ArgumentError: key must be 32 bytes`. Must be equal to the secret as defined in
-    # `auther_settings`.
-    cipher = Auther::Cipher.new "f106a7169a5cfb90f016105b31b595282011a1090d843b7868103c770e35e38e"
+    # The secret as defined in `auther_settings` and/or produced by the credentials generator.
+    secret = SecureRandom.hex 16 # "426a7f46548a1a4518676a8e246517d8"
+
+    # The cipher for encrypting/decrypting values.
+    cipher = Auther::Cipher.new secret
 
     # Use the following to encrypt an unecrypted value.
     cipher.encrypt "test@test.com"
 
     # Use the following to decrypt an encrypted value.
-    cipher.decrypt "cEgyd2hHSit6NkpwN000aUNiU3BkNThxcjRRd1AyT1RmbFFqaGJRR0FjVT0tLWR6Mm1sUmxscHlxQU1leHF2d3ZoZ2c9PQ==--6d4b8bfadc54bfba6a41164675b14980caf01445"
+    cipher.decrypt "hWToltdpl+uZJBPELKNC7Ij++jPkTuo=--nEdbOYL9fIRh14hY--fU+VSCd4+DDOhOmG1gzRfQ=="
 
 The initializer can be customized as follows:
 
@@ -160,10 +157,10 @@ The routes can be customized as follows (installed, by default, via the install 
 
 ### Model
 
-The [Auther::Account](app/models/auther/account.rb) is a plain old Ruby object that uses ActiveModel
-validations to aid in attribute validation. This model could potentially be replaced with a
-database-backed object (would require controller customization)...but you should question if you
-have outgrown the use of this gem and need a different solution altogether if it comes to that.
+The [Auther::Account](app/models/auther/account.rb) is a struct that uses ActiveModel validations to
+aid in attribute validation. This model could potentially be replaced with a database-backed object
+(would require controller customization)...but you should question if you have outgrown the use of
+this gem and need a different solution altogether if it comes to that.
 
 ### Presenter
 
