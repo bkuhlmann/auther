@@ -7,5 +7,5 @@ Rails.application.config.auther_settings = {
     encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
     paths: ["/admin"]
   ],
-  secret: [ENV["AUTHER_SECRET"]].pack("H*")
+  secret: ENV["AUTHER_SECRET"]
 }

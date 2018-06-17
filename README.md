@@ -106,7 +106,7 @@ The initializer comes installed with the following settings:
         encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
         paths: ["/admin"]
       ],
-      secret: [ENV["AUTHER_SECRET"]].pack("H*")
+      secret: ENV["AUTHER_SECRET"]
     }
 
 **IMPORTANT**: The encrypted secret, login, and password used in the `.envrc` setup above must be

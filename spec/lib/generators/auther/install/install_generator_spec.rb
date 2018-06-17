@@ -23,7 +23,19 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
     it "installs initializer" do
       run_generator
 
-      expect(File.exist?(initializer)).to be(true)
+      expect(File.read(initializer)).to eq(
+        "# frozen_string_literal: true\n" \
+        "\n" \
+        "Rails.application.config.auther_settings = {\n" \
+        "  accounts: [\n" \
+        "    name: \"admin\",\n" \
+        "    encrypted_login: ENV[\"AUTHER_ADMIN_LOGIN\"],\n" \
+        "    encrypted_password: ENV[\"AUTHER_ADMIN_PASSWORD\"],\n" \
+        "    paths: [\"/admin\"]\n" \
+        "  ],\n" \
+        "  secret: ENV[\"AUTHER_SECRET\"]\n" \
+        "}\n"
+      )
     end
 
     it "adds custom routes", :aggregate_failures do
