@@ -4,9 +4,52 @@ require "rails_helper"
 
 RSpec.describe Auther::Account, :credentials do
   subject do
-    Auther::Account.new name: "test",
+    described_class.new name: "test",
                         encrypted_login: encrypted_login,
                         encrypted_password: encrypted_password
+  end
+
+  describe "#name" do
+    it "answers name" do
+      expect(subject.name).to eq("test")
+    end
+  end
+
+  describe "#encrypted_login" do
+    it "answers encrypted login" do
+      expect(subject.encrypted_login).to eq(encrypted_login)
+    end
+  end
+
+  describe "#encrypted_password" do
+    it "answers encrypted password" do
+      expect(subject.encrypted_password).to eq(encrypted_password)
+    end
+  end
+
+  describe "#paths" do
+    it "answers default paths" do
+      expect(subject.paths).to eq([])
+    end
+
+    it "answers custom paths" do
+      subject = described_class.new paths: %w[a b c]
+      expect(subject.paths).to contain_exactly("a", "b", "c")
+    end
+  end
+
+  describe "#authorized_url" do
+    it "answers custom URL" do
+      subject = described_class.new authorized_url: "/test"
+      expect(subject.authorized_url).to eq("/test")
+    end
+  end
+
+  describe "#deauthorized_url" do
+    it "answers custom URL" do
+      subject = described_class.new deauthorized_url: "/test"
+      expect(subject.deauthorized_url).to eq("/test")
+    end
   end
 
   describe "#valid?" do
@@ -37,7 +80,7 @@ RSpec.describe Auther::Account, :credentials do
     end
 
     it "answers true when paths is not an array" do
-      subject.paths = nil
+      subject.paths = "bogus"
 
       expect(subject.invalid?).to be(true)
       expect(subject.errors.full_messages).to include("Paths must be an array")
