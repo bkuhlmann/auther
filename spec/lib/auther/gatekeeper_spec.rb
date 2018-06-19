@@ -25,21 +25,24 @@ RSpec.describe Auther::Gatekeeper, :credentials do
   describe "#call" do
     describe "single account" do
       subject do
-        Auther::Gatekeeper.new app, accounts: [
-          {
-            name: "admin",
-            encrypted_login: encrypted_login,
-            encrypted_password: encrypted_password,
-            paths: [
-              "/admin",
-              "/member",
-              "/trailing_slash/"
-            ],
-            authorized_url: "/admin/dashboard"
-          }
-        ],
-                                    secret: secret,
-                                    auth_url: auth_url
+        Auther::Gatekeeper.new(
+          app,
+          accounts: [
+            {
+              name: "admin",
+              encrypted_login: encrypted_login,
+              encrypted_password: encrypted_password,
+              paths: [
+                "/admin",
+                "/member",
+                "/trailing_slash/"
+              ],
+              authorized_url: "/admin/dashboard"
+            }
+          ],
+          secret: secret,
+          auth_url: auth_url
+        )
       end
 
       context "non-excluded path" do
@@ -141,27 +144,30 @@ RSpec.describe Auther::Gatekeeper, :credentials do
       let(:admin_password) { cipher.encrypt "for-your-eyes-only" }
 
       subject do
-        Auther::Gatekeeper.new app, accounts: [
-          {
-            name: "member",
-            encrypted_login: member_login,
-            encrypted_password: member_password,
-            paths: [
-              "/member"
-            ]
-          },
-          {
-            name: "admin",
-            encrypted_login: admin_login,
-            encrypted_password: admin_password,
-            paths: [
-              "/admin",
-              "/member"
-            ]
-          }
-        ],
-                                    secret: secret,
-                                    auth_url: auth_url
+        Auther::Gatekeeper.new(
+          app,
+          accounts: [
+            {
+              name: "member",
+              encrypted_login: member_login,
+              encrypted_password: member_password,
+              paths: [
+                "/member"
+              ]
+            },
+            {
+              name: "admin",
+              encrypted_login: admin_login,
+              encrypted_password: admin_password,
+              paths: [
+                "/admin",
+                "/member"
+              ]
+            }
+          ],
+          secret: secret,
+          auth_url: auth_url
+        )
       end
 
       context "non-excluded path" do
