@@ -14,9 +14,9 @@ module Auther
 
       puts "\n\nHere are your credentials:\n"
 
-      say "  AUTHER_SECRET: #{credentials.fetch :secret}\n" \
-          "  AUTHER_ADMIN_LOGIN: #{credentials.fetch :login}\n" \
-          "  AUTHER_ADMIN_PASSWORD: #{credentials.fetch :password}",
+      say "  AUTHER_SECRET=#{credentials.fetch :secret}\n" \
+          "  AUTHER_ADMIN_LOGIN=#{credentials.fetch :login}\n" \
+          "  AUTHER_ADMIN_PASSWORD=#{credentials.fetch :password}",
           :green
 
       say "\nReminder: Do not add these credentials to source control.", :yellow

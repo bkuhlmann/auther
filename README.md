@@ -78,7 +78,7 @@ Run the credentials generator to generate credentials for your application:
 If using [direnv](https://direnv.net), for example, you can copy and paste the generated credentials
 into your `.envrc` file. Example:
 
-![Credentials Generator Screenshot](doc/screenshots/credentials_generator.png)
+![Credentials Generator Screenshot](doc/screenshots/credentials_generator.jpg)
 
 ## Usage
 

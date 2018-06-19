@@ -12,9 +12,9 @@ RSpec.describe Auther::CredentialsGenerator, type: :generator do
         /
           \s{2}Enter\sadmin\slogin\:\s.+
           \s{2}Enter\sadmin\spassword\:\s.+
-          \s{2}AUTHER_SECRET\:\s[0-9a-f]{#{Auther::Cipher.key_length}}.+
-          \s{2}AUTHER_ADMIN_LOGIN\:\s.+
-          \s{2}AUTHER_ADMIN_PASSWORD\:\s.+
+          \s{2}AUTHER_SECRET\=[0-9a-f]{#{Auther::Cipher.key_length}}.+
+          \s{2}AUTHER_ADMIN_LOGIN\=.+
+          \s{2}AUTHER_ADMIN_PASSWORD\=.+
         /xm
       )
     end
