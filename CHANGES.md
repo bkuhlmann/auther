@@ -1,3 +1,11 @@
+# 9.3.0 (2018-07-01)
+
+- Updated Semantic Versioning links to be HTTPS.
+- Updated credentials generate outputted key format.
+- Updated to Reek 5.0.
+- Updated to Rubocop 0.57.0.
+- Refactored gatekeeper spec hash alignment.
+
 # 9.2.0 (2018-06-17)
 
 - Added Rails credentials generator.
