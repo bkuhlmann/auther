@@ -24,6 +24,7 @@ module Auther
 
       def error_message key
         return "" unless error?(key)
+
         "#{key.capitalize} #{errors.messages[key].first}"
       end
     end
