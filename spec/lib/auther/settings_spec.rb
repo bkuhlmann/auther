@@ -3,7 +3,9 @@
 require "rails_helper"
 
 RSpec.describe Auther::Settings, :credentials do
-  let :settings do
+  subject(:settings) { described_class.new data }
+
+  let :data do
     {
       secret: secret,
       accounts: [
@@ -29,29 +31,29 @@ RSpec.describe Auther::Settings, :credentials do
     }
   end
 
-  subject { Auther::Settings.new settings }
-
   describe "#initialize" do
     context "defaults" do
       it "sets title" do
-        expect(subject.title).to eq("Authorization")
+        expect(settings.title).to eq("Authorization")
       end
 
       it "sets label" do
-        expect(subject.title).to eq("Authorization")
+        expect(settings.title).to eq("Authorization")
       end
 
       it "sets auth URL" do
-        expect(subject.auth_url).to eq("/login")
+        expect(settings.auth_url).to eq("/login")
       end
 
       it "sets logger" do
-        expect(subject.logger).to be_a(Auther::NullLogger)
+        expect(settings.logger).to be_a(Auther::NullLogger)
       end
     end
 
     context "custom" do
-      let :settings do
+      subject(:settings) { described_class.new data }
+
+      let :data do
         {
           title: "Test",
           label: "Test",
@@ -62,22 +64,20 @@ RSpec.describe Auther::Settings, :credentials do
         }
       end
 
-      subject { Auther::Settings.new settings }
-
       it "sets title" do
-        expect(subject.title).to eq("Test")
+        expect(settings.title).to eq("Test")
       end
 
       it "sets label" do
-        expect(subject.title).to eq("Test")
+        expect(settings.title).to eq("Test")
       end
 
       it "sets auth URL" do
-        expect(subject.auth_url).to eq("/test")
+        expect(settings.auth_url).to eq("/test")
       end
 
       it "sets logger" do
-        expect(subject.logger).to be_a(Logger)
+        expect(settings.logger).to be_a(Logger)
       end
     end
   end
@@ -85,14 +85,14 @@ RSpec.describe Auther::Settings, :credentials do
   describe "#find_account" do
     it "answers account for given name" do
       name = "test-2"
-      account = subject.find_account name
+      account = settings.find_account name
 
       expect(account.fetch(:name)).to eq(name)
     end
 
     it "answers nil for missing account" do
       name = "bogus"
-      account = subject.find_account name
+      account = settings.find_account name
 
       expect(account).to eq(nil)
     end

@@ -4,11 +4,12 @@ require "rails_helper"
 require "securerandom"
 
 RSpec.describe Auther::Cipher do
+  subject(:cipher) { described_class.new secret }
+
   let(:secret) { SecureRandom.random_bytes ActiveSupport::MessageEncryptor.key_len }
   let(:encryptor) { ActiveSupport::MessageEncryptor.new secret }
   let(:encrypted_data) { encryptor.encrypt_and_sign "password" }
   let(:decrypted_data) { "password" }
-  subject { Auther::Cipher.new secret }
 
   describe ".generate" do
     it "answers credentials" do
@@ -28,13 +29,13 @@ RSpec.describe Auther::Cipher do
 
   describe "#encrypt" do
     it "encrypts data" do
-      expect(subject.encrypt(decrypted_data)).to match(/[a-zA-Z0-9]{94}\=\=\-\-[a-z0-9]{40}/)
+      expect(cipher.encrypt(decrypted_data)).to match(/[a-zA-Z0-9]{94}\=\=\-\-[a-z0-9]{40}/)
     end
   end
 
   describe "#decrypt" do
     it "decrypts data" do
-      expect(subject.decrypt(encrypted_data)).to eq(decrypted_data)
+      expect(cipher.decrypt(encrypted_data)).to eq(decrypted_data)
     end
   end
 end
