@@ -37,12 +37,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "hirb", "~> 0.7"
   spec.add_development_dependency "pg", "~> 1.0"
-  spec.add_development_dependency "pry", "~> 0.10"
+  spec.add_development_dependency "pry", "~> 0.12"
   spec.add_development_dependency "pry-byebug", "~> 3.5"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "reek", "~> 5.0"
   spec.add_development_dependency "rspec-rails", "~> 3.8"
   spec.add_development_dependency "rubocop", "~> 0.60"
+  spec.add_development_dependency "rubocop-rspec", "~> 1.30"
   spec.add_development_dependency "wirb", "~> 2.1"
 
   spec.files            = Dir["app/**/*", "config/**/*", "lib/**/*"]
