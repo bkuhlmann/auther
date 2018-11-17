@@ -9,6 +9,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
   let(:app) { ->(env) { [200, env, ["OK"]] } }
   let(:auth_url) { "/login" }
+  let(:logger) { instance_spy Logger }
 
   describe "#initialize" do
     subject(:gatekeeper) { described_class.new app, secret: secret, accounts: [] }
@@ -161,7 +162,8 @@ RSpec.describe Auther::Gatekeeper, :credentials do
             }
           ],
           secret: secret,
-          auth_url: auth_url
+          auth_url: auth_url,
+          logger: logger
         )
       end
 
@@ -177,6 +179,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/public"
 
           result = gatekeeper.call env
+
           expect(result[1].key?("Location")).to be(false)
         end
 
@@ -190,20 +193,20 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           authentication_message = %([auther]: Authentication passed. Account: "member".)
           authorization_message = %([auther]: Authorization passed. Account: "member". Excludes: ["/member", "/admin"]. Request Path: "/member".)
 
-          expect(gatekeeper.logger).to receive(:info).with(path_message).once
-          expect(gatekeeper.logger).to receive(:info).with(account_message).once
-          expect(gatekeeper.logger).to receive(:info).with(authentication_message).once
-          expect(gatekeeper.logger).to receive(:info).with(authorization_message).once
-
           gatekeeper.call env
+
+          expect(logger).to have_received(:info).with(path_message).once
+          expect(logger).to have_received(:info).with(account_message).once
+          expect(logger).to have_received(:info).with(authentication_message).once
+          expect(logger).to have_received(:info).with(authorization_message).once
         end
       end
 
       context "excluded path" do
         it "fails authorization with unauthenticated account" do
           env["PATH_INFO"] = "/member"
-
           result = gatekeeper.call env
+
           expect(result[1]["Location"]).to eq(auth_url)
         end
 
@@ -213,6 +216,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
+
           expect(result[1]["Location"]).to eq(auth_url)
         end
 
@@ -222,10 +226,10 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           path_message = %([auther]: Requested path "/member" found in excluded paths: ["/member", "/admin"].)
           account_message = "[auther]: Account unknown."
 
-          expect(gatekeeper.logger).to receive(:info).with(path_message).once
-          expect(gatekeeper.logger).to receive(:info).with(account_message).once
-
           gatekeeper.call env
+
+          expect(logger).to have_received(:info).with(path_message).once
+          expect(logger).to have_received(:info).with(account_message).once
         end
 
         it "logs requested path, account found, and authentication failed." do
@@ -237,11 +241,11 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           account_message = "[auther]: Account found."
           authentication_message = %([auther]: Authentication failed! Invalid credential(s) for "member" account.)
 
-          expect(gatekeeper.logger).to receive(:info).with(path_message).once
-          expect(gatekeeper.logger).to receive(:info).with(account_message).once
-          expect(gatekeeper.logger).to receive(:info).with(authentication_message).once
-
           gatekeeper.call env
+
+          expect(logger).to have_received(:info).with(path_message).once
+          expect(logger).to have_received(:info).with(account_message).once
+          expect(logger).to have_received(:info).with(authentication_message).once
         end
 
         it "logs requested path, account found, authentication passed, and authorization failed" do
@@ -254,12 +258,12 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           authentication_message = %([auther]: Authentication passed. Account: "member".)
           authorization_message = %([auther]: Authorization failed! Account: "member". Excludes: ["/member", "/admin"]. Request Path: "/admin".)
 
-          expect(gatekeeper.logger).to receive(:info).with(path_message).once
-          expect(gatekeeper.logger).to receive(:info).with(account_message).once
-          expect(gatekeeper.logger).to receive(:info).with(authentication_message).once
-          expect(gatekeeper.logger).to receive(:info).with(authorization_message).once
-
           gatekeeper.call env
+
+          expect(logger).to have_received(:info).with(path_message).once
+          expect(logger).to have_received(:info).with(account_message).once
+          expect(logger).to have_received(:info).with(authentication_message).once
+          expect(logger).to have_received(:info).with(authorization_message).once
         end
       end
     end
