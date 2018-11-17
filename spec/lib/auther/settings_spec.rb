@@ -38,7 +38,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
 
       it "sets label" do
-        expect(settings.title).to eq("Authorization")
+        expect(settings.label).to eq("Authorization")
       end
 
       it "sets auth URL" do
@@ -69,7 +69,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
 
       it "sets label" do
-        expect(settings.title).to eq("Test")
+        expect(settings.label).to eq("Test")
       end
 
       it "sets auth URL" do
