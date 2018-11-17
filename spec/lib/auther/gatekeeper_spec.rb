@@ -46,8 +46,8 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         )
       end
 
-      context "non-excluded path" do
-        context "unauthenticated account" do
+      context "with non-excluded path" do
+        context "with unauthenticated account" do
           it "passes authorization with random path" do
             env["PATH_INFO"] = "/some/random/path"
 
@@ -73,7 +73,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           end
         end
 
-        context "authenticated account" do
+        context "with authenticated account" do
           it "passes authorization with random path" do
             env["rack.session"]["auther_public_login"] = encrypted_login
             env["rack.session"]["auther_public_password"] = encrypted_password
@@ -85,7 +85,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         end
       end
 
-      context "excluded path" do
+      context "with excluded path" do
         it "fails authorization with unknown account" do
           env["PATH_INFO"] = "/admin"
 
@@ -172,7 +172,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
       let(:admin_login) { cipher.encrypt "admin" }
       let(:admin_password) { cipher.encrypt "for-your-eyes-only" }
 
-      context "non-excluded path" do
+      context "with non-excluded path" do
         it "passes authorization with authenticated account" do
           env["rack.session"]["auther_member_login"] = member_login
           env["rack.session"]["auther_member_password"] = member_password
@@ -202,7 +202,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         end
       end
 
-      context "excluded path" do
+      context "with excluded path" do
         it "fails authorization with unauthenticated account" do
           env["PATH_INFO"] = "/member"
           result = gatekeeper.call env

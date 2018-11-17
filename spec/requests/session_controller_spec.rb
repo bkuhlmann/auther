@@ -44,7 +44,7 @@ RSpec.describe Auther::SessionController, type: :request do
 
     let(:cipher) { Auther::Cipher.new secret }
 
-    context "valid credentials" do
+    context "with valid credentials" do
       it "redirects to authorized URL", :aggregate_failures do
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -88,7 +88,7 @@ RSpec.describe Auther::SessionController, type: :request do
       end
     end
 
-    context "invalid credentials" do
+    context "with invalid credentials" do
       it "renders errors with missing login and password", :aggregate_failures do
         post "/auther/session", params: {account: {name: "test", login: nil, password: nil}}
 

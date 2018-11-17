@@ -32,7 +32,7 @@ RSpec.describe Auther::Settings, :credentials do
   end
 
   describe "#initialize" do
-    context "defaults" do
+    context "with defaults" do
       it "sets title" do
         expect(settings.title).to eq("Authorization")
       end
@@ -50,7 +50,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
     end
 
-    context "custom" do
+    context "with customization" do
       subject(:settings) { described_class.new data }
 
       let :data do
