@@ -81,8 +81,13 @@ RSpec.describe Auther::Account, :credentials do
 
     it "answers true when paths is not an array" do
       account.paths = "bogus"
-
       expect(account.invalid?).to be(true)
+    end
+
+    it "answers error when paths is not an array" do
+      account.paths = "bogus"
+      account.invalid?
+
       expect(account.errors.full_messages).to include("Paths must be an array")
     end
   end

@@ -183,7 +183,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           expect(result[1].key?("Location")).to be(false)
         end
 
-        it "logs requested path, account found, authentication passed, and authorization passed." do
+        it "logs requested path, account found, authentication passed, and authorization passed.", :aggregate_failures do
           env["rack.session"]["auther_member_login"] = member_login
           env["rack.session"]["auther_member_password"] = member_password
           env["PATH_INFO"] = "/member"
@@ -220,7 +220,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           expect(result[1]["Location"]).to eq(auth_url)
         end
 
-        it "logs requested path and account unknown" do
+        it "logs requested path and account unknown", :aggregate_failures do
           env["PATH_INFO"] = "/member"
 
           path_message = %([auther]: Requested path "/member" found in excluded paths: ["/member", "/admin"].)
@@ -232,7 +232,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           expect(logger).to have_received(:info).with(account_message).once
         end
 
-        it "logs requested path, account found, and authentication failed." do
+        it "logs requested path, account found, and authentication failed.", :aggregate_failures do
           env["rack.session"]["auther_member_login"] = member_login
           env["rack.session"]["auther_member_password"] = "bogus"
           env["PATH_INFO"] = "/member"
@@ -248,7 +248,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           expect(logger).to have_received(:info).with(authentication_message).once
         end
 
-        it "logs requested path, account found, authentication passed, and authorization failed" do
+        it "logs requested path, account found, authentication passed, and authorization failed", :aggregate_failures do
           env["rack.session"]["auther_member_login"] = member_login
           env["rack.session"]["auther_member_password"] = member_password
           env["PATH_INFO"] = "/admin"

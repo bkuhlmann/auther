@@ -11,7 +11,7 @@ RSpec.describe Auther::SessionController, type: :request do
   end
 
   describe "#new" do
-    it "renders login form" do
+    it "renders login form", :aggregate_failures do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
@@ -19,14 +19,14 @@ RSpec.describe Auther::SessionController, type: :request do
       expect(response.body).to include("Password")
     end
 
-    it "renders page title" do
+    it "renders page title", :aggregate_failures do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
       expect(response.body).to include("<title>Authorization</title>")
     end
 
-    it "renders default label" do
+    it "renders default label", :aggregate_failures do
       get "/auther/session/new"
 
       expect(response.status).to eq 200
@@ -45,7 +45,7 @@ RSpec.describe Auther::SessionController, type: :request do
     let(:cipher) { Auther::Cipher.new secret }
 
     context "valid credentials" do
-      it "redirects to authorized URL" do
+      it "redirects to authorized URL", :aggregate_failures do
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
         expect(response.status).to eq 302
@@ -54,7 +54,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.location).to eq("http://www.example.com/portal/dashboard")
       end
 
-      it "requires excluded path authorization and redirects to requested path" do
+      it "requires excluded path authorization and redirects to requested path", :aggregate_failures do
         get "/portal"
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -65,7 +65,7 @@ RSpec.describe Auther::SessionController, type: :request do
       end
 
       # NOTE: See Dummy application.rb Auther settings where trailing slash path is defined.
-      it "requires excluded (trailing slash) path auth and redirects to requested path" do
+      it "requires excluded (trailing slash) path auth and redirects to requested path", :aggregate_failures do
         get "/trailer"
         post "/auther/session", params: {account: {name: "test", login: login, password: password}}
 
@@ -73,7 +73,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.location).to eq("http://www.example.com/trailer")
       end
 
-      it "requires excluded path authorization and redirects to root path" do
+      it "requires excluded path authorization and redirects to root path", :aggregate_failures do
         # Save and clear the authorized URL for the purposes of this test only.
         authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
         Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ""
@@ -89,14 +89,14 @@ RSpec.describe Auther::SessionController, type: :request do
     end
 
     context "invalid credentials" do
-      it "renders errors with missing login and password" do
+      it "renders errors with missing login and password", :aggregate_failures do
         post "/auther/session", params: {account: {name: "test", login: nil, password: nil}}
 
         expect(response.status).to eq 200
         expect(response.body).to include("auther-error")
       end
 
-      it "renders errors with invalid login and password" do
+      it "renders errors with invalid login and password", :aggregate_failures do
         post "/auther/session", params: {
           account: {
             name: "test",
@@ -110,7 +110,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(response.body).to include(%(value="bogus@test.com"))
       end
 
-      it "removes session credentials" do
+      it "removes session credentials", :aggregate_failures do
         post "/auther/session", params: {
           account: {
             name: "test",
@@ -124,7 +124,7 @@ RSpec.describe Auther::SessionController, type: :request do
         expect(session.key?(:auther_test_password)).to be(false)
       end
 
-      it "requires excluded path authorization and remembers request path" do
+      it "requires excluded path authorization and remembers request path", :aggregate_failures do
         get "/portal"
         post "/auther/session", params: {account: {name: "test", login: login, password: "bogus"}}
 
@@ -137,7 +137,7 @@ RSpec.describe Auther::SessionController, type: :request do
   end
 
   describe "#destroy" do
-    it "destroys credentials" do
+    it "destroys credentials", :aggregate_failures do
       post "/auther/session", params: {
         account: {
           name: "test",
@@ -152,7 +152,7 @@ RSpec.describe Auther::SessionController, type: :request do
       expect(session.key?(:auther_test_password)).to be(false)
     end
 
-    it "redirects to default deauthorized URL" do
+    it "redirects to default deauthorized URL", :aggregate_failures do
       # Save and clear the authorized URL for the purposes of this test only.
       deauthorized_url = Rails.application
                               .config
@@ -180,7 +180,7 @@ RSpec.describe Auther::SessionController, type: :request do
       expect(response.location).to eq("http://www.example.com/login")
     end
 
-    it "redirects to account deauthorized URL" do
+    it "redirects to account deauthorized URL", :aggregate_failures do
       post "/auther/session", params: {
         account: {
           name: "test",
