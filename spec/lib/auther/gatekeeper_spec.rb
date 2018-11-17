@@ -23,8 +23,9 @@ RSpec.describe Auther::Gatekeeper, :credentials do
     end
   end
 
+  # rubocop:disable RSpec/NestedGroups
   describe "#call" do
-    describe "single account" do
+    context "with single account" do
       subject(:gatekeeper) do
         described_class.new(
           app,
@@ -138,7 +139,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
       end
     end
 
-    describe "multiple accounts" do
+    context "with multiple accounts" do
       subject(:gatekeeper) do
         described_class.new(
           app,
@@ -268,5 +269,6 @@ RSpec.describe Auther::Gatekeeper, :credentials do
       end
     end
   end
+  # rubocop:enable RSpec/NestedGroups
 end
 # rubocop:enable Metrics/LineLength
