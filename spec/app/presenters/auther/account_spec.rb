@@ -2,7 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe Auther::Presenter::Account, type: :model do
+# rubocop:disable RSpec/FilePath
+RSpec.describe Auther::Presenter::Account do
   subject :account do
     described_class.new name: "test", login: "test@test.com", password: "nevermore"
   end
@@ -66,3 +67,4 @@ RSpec.describe Auther::Presenter::Account, type: :model do
     end
   end
 end
+# rubocop:enable RSpec/FilePath

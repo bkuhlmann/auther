@@ -3,6 +3,7 @@
 require "rails_helper"
 require File.join(Dir.pwd, "lib/generators/auther/credentials/credentials_generator")
 
+# rubocop:disable RSpec/FilePath
 RSpec.describe Auther::CredentialsGenerator, type: :generator do
   describe "#credentials" do
     before { allow($stdin).to receive(:gets).and_return("test").twice }
@@ -20,3 +21,4 @@ RSpec.describe Auther::CredentialsGenerator, type: :generator do
     end
   end
 end
+# rubocop:enable RSpec/FilePath

@@ -2,7 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe Auther::SessionController, type: :request do
+# rubocop:disable RSpec/FilePath
+RSpec.describe Auther::SessionController do
   describe "#show" do
     it "redirects to new action" do
       get "/auther/session"
@@ -204,3 +205,4 @@ RSpec.describe Auther::SessionController, type: :request do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
