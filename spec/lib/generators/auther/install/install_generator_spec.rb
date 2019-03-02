@@ -7,7 +7,7 @@ require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 RSpec.describe Auther::InstallGenerator, type: :generator do
   destination Bundler.root.join("tmp")
 
-  let(:temp_path) { Bundler.root.join("tmp") }
+  let(:temp_path) { Bundler.root.join "tmp" }
   let(:initializer) { File.join temp_path, "config", "initializers", "auther.rb" }
   let(:routes_template) { File.join Dir.pwd, "spec", "support", "config", "routes.rb" }
   let(:routes_test) { File.join temp_path, "config", "routes.rb" }
@@ -43,7 +43,7 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
     it "adds custom routes", :aggregate_failures do
       run_generator
 
-      File.open(routes_test, "r") do |file|
+      File.open routes_test, "r" do |file|
         lines = file.readlines
 
         expect(lines[3]).to eq(%(  mount Auther::Engine => "/auther"\n))

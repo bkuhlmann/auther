@@ -16,7 +16,7 @@ module Auther
     def call environment
       @environment = environment
 
-      if authorized?(request.path)
+      if authorized? request.path
         application.call environment
       else
         session[Auther::Keymaster.redirect_url_key] = request.path

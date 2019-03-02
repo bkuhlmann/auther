@@ -6,7 +6,7 @@ RSpec.describe Auther::Keymaster do
   describe ".get_account_name" do
     subject(:keymaster) { described_class }
 
-    let(:session) do
+    let :session do
       {
         "auther_test_login" => "testy",
         "auther_test_password" => "tester"

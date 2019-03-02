@@ -26,7 +26,7 @@ module Auther
     private
 
     def paths_type
-      errors.add(:paths, "must be an array") unless paths.is_a?(Array)
+      errors.add :paths, "must be an array" unless paths.is_a? Array
     end
   end
 end
