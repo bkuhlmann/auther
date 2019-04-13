@@ -96,63 +96,82 @@ RSpec.describe Auther::SessionController do
     end
 
     context "with invalid credentials" do
-      it "renders errors with missing login and password", :aggregate_failures do
-        post "/auther/session", params: {account: {name: "test", login: nil, password: nil}}
-
-        expect(response.status).to eq 200
-        expect(response.body).to include("auther-error")
-      end
-
-      it "renders errors with invalid login and password", :aggregate_failures do
-        post "/auther/session", params: {
+      let :parameters do
+        {
           account: {
             name: "test",
-            login: "bogus@test.com",
-            password: "bogus-password"
+            login: login,
+            password: password
           }
         }
-
-        expect(response.status).to eq 200
-        expect(response.body).to include("auther-error")
-        expect(response.body).to include(%(value="bogus@test.com"))
       end
 
-      it "removes session credentials", :aggregate_failures do
-        post "/auther/session", params: {
-          account: {
-            name: "test",
-            login: "bogus@test.com",
-            password: nil
-          }
-        }
+      let(:login) { "invalid@example.com" }
+      let(:password) { "bogus" }
 
-        expect(response.status).to eq 200
+      it "renders errors", :aggregate_failures do
+        post "/auther/session", params: parameters
+
+        expect(response.body).to include("auther-error")
+        expect(response.body).to include(%(value="invalid@example.com"))
+      end
+
+      it "removes login session credential" do
+        post "/auther/session", params: parameters
         expect(session.key?(:auther_test_login)).to be(false)
+      end
+
+      it "removes password session credential" do
+        post "/auther/session", params: parameters
         expect(session.key?(:auther_test_password)).to be(false)
       end
 
-      it "requires excluded path authorization and remembers request path", :aggregate_failures do
-        get "/portal"
-        post "/auther/session", params: {account: {name: "test", login: login, password: "bogus"}}
-
+      it "answers OK status" do
+        post "/auther/session", params: parameters
         expect(response.status).to eq 200
+      end
+
+      it "requires excluded path authorization and remembers request path" do
+        get "/portal"
+        post "/auther/session", params: parameters
+
         expect(session[:auther_redirect_url]).to eq("/portal")
+      end
+    end
+
+    context "with nil credentials" do
+      let :parameters do
+        {
+          account: {
+            name: "test",
+            login: nil,
+            password: nil
+          }
+        }
+      end
+
+      it "renders errors", :aggregate_failures do
+        post "/auther/session", params: parameters
+
         expect(response.body).to include("auther-error")
-        expect(response.body).to include(%(value="#{login}"))
+        expect(response.status).to eq 200
       end
     end
   end
 
   describe "#destroy" do
-    it "destroys credentials", :aggregate_failures do
-      post "/auther/session", params: {
+    let :parameters do
+      {
         account: {
           name: "test",
           login: "test@test.com",
           password: "itsasecret"
         }
       }
+    end
 
+    it "destroys credentials", :aggregate_failures do
+      post "/auther/session", params: parameters
       delete "/auther/session", params: {name: "test"}
 
       expect(session.key?(:auther_test_login)).to be(false)
@@ -168,14 +187,7 @@ RSpec.describe Auther::SessionController do
                               .first[:deauthorized_url]
       Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = nil
 
-      post "/auther/session", params: {
-        account: {
-          name: "test",
-          login: "test@test.com",
-          password: "itsasecret"
-        }
-      }
-
+      post "/auther/session", params: parameters
       delete "/auther/session", params: {name: "test"}
 
       # Restore authorized URL so other tests are not affected by the modified configuration.
@@ -190,14 +202,7 @@ RSpec.describe Auther::SessionController do
     # rubocop:enable RSpec/ExampleLength
 
     it "redirects to account deauthorized URL", :aggregate_failures do
-      post "/auther/session", params: {
-        account: {
-          name: "test",
-          login: "test@test.com",
-          password: "itsasecret"
-        }
-      }
-
+      post "/auther/session", params: parameters
       delete "/auther/session", params: {name: "test"}
 
       expect(response.status).to eq 302
