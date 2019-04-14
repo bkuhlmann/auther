@@ -13,16 +13,14 @@ end
 
 RSpec.configure do |config|
   config.color = true
-  config.order = "random"
-  config.formatter = ENV["CI"] == "true" ? :progress : :documentation
   config.disable_monkey_patching!
-  config.filter_run_when_matching :focus
   config.example_status_persistence_file_path = "./tmp/rspec-status.txt"
+  config.filter_run_when_matching :focus
+  config.formatter = ENV["CI"] == "true" ? :progress : :documentation
+  config.mock_with(:rspec) { |mocks| mocks.verify_partial_doubles = true }
+  config.order = "random"
   config.shared_context_metadata_behavior = :apply_to_host_groups
-
-  config.mock_with :rspec do |mocks|
-    mocks.verify_partial_doubles = true
-  end
+  config.warnings = true
 
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
