@@ -19,8 +19,9 @@ module Auther
     validates :name, :encrypted_login, :encrypted_password, presence: true
     validate :paths_type
 
-    def paths
-      self[:paths] || []
+    def initialize *arguments
+      super
+      self[:paths] ||= []
     end
 
     private
