@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="auther.png" alt="Auther Icon"/>
+</p>
+
 # Auther
 
 [![Gem Version](https://badge.fury.io/rb/auther.svg)](http://badge.fury.io/rb/auther)
