@@ -25,10 +25,7 @@ detectors:
     - Auther::Presenter::Account#name
     - Auther::Presenter::Account#password
   IrresponsibleModule:
-    exclude:
-    - ApplicationCable::Channel
-    - ApplicationCable::Connection
-    - ApplicationJob
+    enabled: false
   ControlParameter:
     exclude:
     - Auther::Authenticator#authentic?
