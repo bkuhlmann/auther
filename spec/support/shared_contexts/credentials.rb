@@ -2,7 +2,7 @@
 
 require "securerandom"
 
-RSpec.shared_context "Credentials", :credentials do
+RSpec.shared_context "with credentials", :credentials do
   let(:login) { "tester" }
   let(:password) { "nevermore" }
   let(:credentials) { Auther::Cipher.generate login, password }
