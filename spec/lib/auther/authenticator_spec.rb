@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Auther::Authenticator, :credentials do
   subject :authenticator do
-    Auther::Authenticator.new secret, account_model, account_presenter, logger: logger
+    described_class.new secret, account_model, account_presenter, logger: logger
   end
 
   let :account_model do
