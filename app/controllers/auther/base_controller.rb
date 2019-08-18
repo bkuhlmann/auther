@@ -16,7 +16,7 @@ module Auther
     # rubocop:disable Metrics/AbcSize
     def create
       @account = Auther::Presenter::Account.new account_params.to_h.symbolize_keys
-      account = Auther::Account.new settings.find_account(@account.name)
+      account = Auther::Account[settings.find_account(@account.name)]
       authenticator = Auther::Authenticator.new settings.secret, account, @account
 
       if authenticator.authenticated?
@@ -30,7 +30,7 @@ module Auther
     # rubocop:enable Metrics/AbcSize
 
     def destroy
-      account = Auther::Account.new settings.find_account(params[:name])
+      account = Auther::Account[settings.find_account(params[:name])]
       remove_credentials account
       redirect_to deauthorized_url(account)
     end

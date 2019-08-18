@@ -8,9 +8,11 @@ RSpec.describe Auther::Authenticator, :credentials do
   end
 
   let :account_model do
-    Auther::Account.new name: "test",
-                        encrypted_login: encrypted_login,
-                        encrypted_password: encrypted_password
+    Auther::Account[
+      name: "test",
+      encrypted_login: encrypted_login,
+      encrypted_password: encrypted_password
+    ]
   end
 
   let :account_presenter do
