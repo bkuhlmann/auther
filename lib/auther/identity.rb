@@ -12,7 +12,7 @@ module Auther
     end
 
     def self.version
-      "10.2.1"
+      "10.2.2"
     end
 
     def self.version_label
