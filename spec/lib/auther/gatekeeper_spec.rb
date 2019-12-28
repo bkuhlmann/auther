@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 RSpec.describe Auther::Gatekeeper, :credentials do
   include Rack::Test::Methods
 
@@ -309,4 +309,4 @@ RSpec.describe Auther::Gatekeeper, :credentials do
   end
   # rubocop:enable RSpec/NestedGroups
 end
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength

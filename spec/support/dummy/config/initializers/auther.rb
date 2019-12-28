@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 Rails.application.config.auther_settings = {
   secret: "e751140a9dc94ffc8667e1c44d915ab2",
   accounts: [
@@ -14,4 +14,4 @@ Rails.application.config.auther_settings = {
     }
   ]
 }
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength
