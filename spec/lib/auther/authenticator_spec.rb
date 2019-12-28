@@ -42,12 +42,12 @@ RSpec.describe Auther::Authenticator, :credentials do
     end
 
     it "answers false when model encrypted login is invalid" do
-      account_model.encrypted_login = "bogus"
+      account_model.encrypted_login = cipher.encrypt "bogus"
       expect(authenticator.authenticated?).to be(false)
     end
 
     it "answers false when model encrypted password is invalid" do
-      account_model.encrypted_password = "bogus"
+      account_model.encrypted_password = cipher.encrypt "bogus"
       expect(authenticator.authenticated?).to be(false)
     end
 

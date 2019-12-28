@@ -38,11 +38,7 @@ RSpec.describe Auther::SessionController do
   describe "#create" do
     let(:login) { "admin" }
     let(:password) { "nevermore" }
-
-    let :secret do
-      "\xE4]c\xE8ȿOh%\xB5\xF4\xD5\u0012\xB0\u000F\xF0\xF8Í\xFCKZ\u0000R~9\u0019\xE3\u0011xk\xB2"
-    end
-
+    let(:secret) { "e751140a9dc94ffc8667e1c44d915ab2" }
     let(:cipher) { Auther::Cipher.new secret }
 
     context "with valid credentials" do

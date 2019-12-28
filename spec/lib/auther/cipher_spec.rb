@@ -14,9 +14,9 @@ RSpec.describe Auther::Cipher do
   describe ".generate" do
     it "answers credentials" do
       expect(described_class.generate("test", "password")).to match(
-        secret: match(/\A[0-9a-f]{#{described_class.key_length}}\Z/),
-        login: match(%r(\A[0-9a-zA-Z\=\-\+\/]{110}\Z)),
-        password: match(%r(\A[0-9a-zA-Z\=\-\+\/]{138}\Z))
+        secret: match(/\A[0-9a-f]{32}\Z/),
+        login: match(%r(\A[0-9a-zA-Z\=\-\+\/]{64}\Z)),
+        password: match(%r(\A[0-9a-zA-Z\=\-\+\/]{68}\Z))
       )
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe Auther::Cipher do
 
   describe "#encrypt" do
     it "encrypts data" do
-      expect(cipher.encrypt(decrypted_data)).to match(/[a-zA-Z0-9]{94}\=\=\-\-[a-z0-9]{40}/)
+      expect(cipher.encrypt(decrypted_data)).to match(%r(\A[0-9a-zA-Z\=\-\+\/]{68}\Z))
     end
   end
 

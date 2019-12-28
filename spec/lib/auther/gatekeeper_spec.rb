@@ -254,7 +254,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
 
         it "logs requested path" do
           env["rack.session"]["auther_member_login"] = member_login
-          env["rack.session"]["auther_member_password"] = "bogus"
+          env["rack.session"]["auther_member_password"] = cipher.encrypt "bogus"
           env["PATH_INFO"] = "/member"
           gatekeeper.call env
 
@@ -265,7 +265,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
 
         it "logs account found" do
           env["rack.session"]["auther_member_login"] = member_login
-          env["rack.session"]["auther_member_password"] = "bogus"
+          env["rack.session"]["auther_member_password"] = cipher.encrypt "bogus"
           env["PATH_INFO"] = "/member"
           gatekeeper.call env
 

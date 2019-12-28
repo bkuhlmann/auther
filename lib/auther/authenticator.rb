@@ -36,7 +36,7 @@ module Auther
         account_presenter.errors.add error_name, "is invalid"
         false
       end
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage
       log_info %(Authentication failed! Invalid credential(s) for "#{account_model.name}" account.)
       false
     end

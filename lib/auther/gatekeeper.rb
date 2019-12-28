@@ -108,7 +108,7 @@ module Auther
       authenticated = account_authenticated? account
       log_authentication authenticated, account.fetch(:name)
       authenticated
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage
       log_info %(Authentication failed! Invalid credential(s) for "#{account.fetch :name}" account.)
       false
     end
