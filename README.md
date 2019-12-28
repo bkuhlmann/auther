@@ -145,7 +145,7 @@ The initializer can be customized as follows:
     logout). Deauthorized redirections works as follows (in the order defined):
     - The deauthorized URL (if defined).
     - The auth URL.
-- *auth_url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
+- *url* - Optional. The URL to redirect to when enforcing authentication. Default: “/login”.
 - *logger* - Optional. The logger used to log path/account authorization messages. Default:
   `Auther::NullLogger`.
 

@@ -2,25 +2,17 @@
 
 module Auther
   # Represents Auther settings.
-  class Settings
-    attr_reader :title, :label, :secret, :accounts, :auth_url, :logger
+  Settings = Struct.new :title, :label, :secret, :accounts, :url, :logger, keyword_init: true do
+    def initialize *arguments
+      super
 
-    # rubocop:disable Metrics/ParameterLists
-    def initialize title: "Authorization",
-                   label: "Authorization",
-                   secret: "",
-                   accounts: [],
-                   auth_url: "/login",
-                   logger: Auther::NullLogger.new(STDOUT)
-
-      @title = title
-      @label = label
-      @secret = secret
-      @accounts = accounts
-      @auth_url = auth_url
-      @logger = logger
+      self[:title] ||= "Authorization"
+      self[:label] ||= "Authorization"
+      self[:secret] ||= ""
+      self[:accounts] ||= []
+      self[:url] ||= "/login"
+      self[:logger] ||= Auther::NullLogger.new STDOUT
     end
-    # rubocop:enable Metrics/ParameterLists
 
     def find_account name
       accounts.find { |account| account.fetch(:name) == name }

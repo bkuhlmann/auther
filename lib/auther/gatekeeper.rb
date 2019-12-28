@@ -21,7 +21,7 @@ module Auther
       else
         session[Auther::Keymaster.redirect_url_key] = request.path
         denied_response = response
-        denied_response.redirect settings.auth_url
+        denied_response.redirect settings.url
         denied_response.finish
       end
     end

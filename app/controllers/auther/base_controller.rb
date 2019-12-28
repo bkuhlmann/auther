@@ -6,7 +6,7 @@ module Auther
     protect_from_forgery with: :exception
 
     def show
-      redirect_to settings.auth_url
+      redirect_to settings.url
     end
 
     def new
@@ -69,7 +69,7 @@ module Auther
     end
 
     def deauthorized_url account
-      account.deauthorized_url || settings.auth_url
+      account.deauthorized_url || settings.url
     end
 
     def store_credentials account

@@ -8,7 +8,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
   let(:app) { ->(env) { [200, env, ["OK"]] } }
-  let(:auth_url) { "/login" }
+  let(:url) { "/login" }
   let(:logger) { instance_spy Logger }
 
   describe "#initialize" do
@@ -43,7 +43,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
             }
           ],
           secret: secret,
-          auth_url: auth_url
+          url: url
         )
       end
 
@@ -91,7 +91,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with encrypted, invalid login" do
@@ -100,7 +100,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with encrypted, invalid password" do
@@ -109,7 +109,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with unencrypted login" do
@@ -118,7 +118,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with unencrypted password" do
@@ -127,14 +127,14 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/admin"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with nested path" do
           env["PATH_INFO"] = "/admin/nested/path"
 
           result = gatekeeper.call env
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
             }
           ],
           secret: secret,
-          auth_url: auth_url,
+          url: url,
           logger: logger
         )
       end
@@ -232,7 +232,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           env["PATH_INFO"] = "/member"
           result = gatekeeper.call env
 
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "fails authorization with authenticated account" do
@@ -242,7 +242,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
 
           result = gatekeeper.call env
 
-          expect(result[1]["Location"]).to eq(auth_url)
+          expect(result[1]["Location"]).to eq(url)
         end
 
         it "logs account unknown" do

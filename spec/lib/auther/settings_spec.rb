@@ -42,7 +42,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
 
       it "sets auth URL" do
-        expect(settings.auth_url).to eq("/login")
+        expect(settings.url).to eq("/login")
       end
 
       it "sets logger" do
@@ -59,7 +59,7 @@ RSpec.describe Auther::Settings, :credentials do
           label: "Test",
           secret: secret,
           accounts: [],
-          auth_url: "/test",
+          url: "/test",
           logger: Logger.new(STDOUT)
         }
       end
@@ -73,7 +73,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
 
       it "sets auth URL" do
-        expect(settings.auth_url).to eq("/test")
+        expect(settings.url).to eq("/test")
       end
 
       it "sets logger" do
