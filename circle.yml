@@ -11,7 +11,7 @@ jobs:
           PGHOST: localhost
           PGUSER: test
           RAILS_ENV: test
-      - image: postgres:9.5
+      - image: postgres:12.1
         environment:
           POSTGRES_USER: test
           POSTGRES_DB: dummy_test
