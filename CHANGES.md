@@ -1,3 +1,11 @@
+# 11.0.1 (2020-02-01)
+
+- Fixed action view error when loading console
+- Updated README project requirements
+- Updated to Reek 5.6.0
+- Updated to Rubocop 0.79.0
+- Updated to SimpleCov 0.18.0
+
 # 11.0.0 (2020-01-01)
 
 - Fixed Rubocop Metrics/LineLength namespace issues
