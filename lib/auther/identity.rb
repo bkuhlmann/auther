@@ -3,20 +3,9 @@
 module Auther
   # Gem identity information.
   module Identity
-    def self.name
-      "auther"
-    end
-
-    def self.label
-      "Auther"
-    end
-
-    def self.version
-      "11.0.1"
-    end
-
-    def self.version_label
-      "#{label} #{version}"
-    end
+    NAME = "auther"
+    LABEL = "Auther"
+    VERSION = "11.0.1"
+    VERSION_LABEL = "#{LABEL} #{VERSION}"
   end
 end

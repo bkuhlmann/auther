@@ -3,8 +3,8 @@
 require_relative "lib/auther/identity"
 
 Gem::Specification.new do |spec|
-  spec.name = Auther::Identity.name
-  spec.version = Auther::Identity.version
+  spec.name = Auther::Identity::NAME
+  spec.version = Auther::Identity::VERSION
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
