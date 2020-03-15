@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="auther.png" alt="Auther Icon"/>
+  <img src="https://www.alchemists.io/images/projects/auther/icon.png" alt="Auther Icon"/>
 </p>
 
 # Auther
@@ -46,8 +46,8 @@ user experience.
 - Supports form-based authentication compatible with password managers like
   [1Password](https://agilebits.com/onepassword).
 
-![Form Without Errors Screenshot](doc/screenshots/form-without_errors.png)
-![Form With Errors Screenshot](doc/screenshots/form-with_errors.png)
+![Form Without Errors Screenshot](https://www.alchemists.io/images/projects/auther/screenshots/form-without_errors.png)
+![Form With Errors Screenshot](https://www.alchemists.io/images/projects/auther/screenshots/form-with_errors.png)
 
 - Uses CSS Flexbox for lightweight styling.
 - Uses encrypted account credentials to keep sensitive information secure.
@@ -84,7 +84,7 @@ Run the credentials generator to generate credentials for your application:
 If using [direnv](https://direnv.net), for example, you can copy and paste the generated credentials
 into your `.envrc` file. Example:
 
-![Credentials Generator Screenshot](doc/screenshots/credentials_generator.jpg)
+![Credentials Generator Screenshot](https://www.alchemists.io/images/projects/auther/screenshots/credentials_generator.jpg)
 
 ### Development
 
