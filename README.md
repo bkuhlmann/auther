@@ -20,6 +20,8 @@ user experience.
   - [Features](#features)
   - [Requirements](#requirements)
   - [Setup](#setup)
+    - [Production](#production)
+    - [Development](#development)
   - [Usage](#usage)
     - [Initializer](#initializer)
     - [Routes](#routes)
@@ -61,7 +63,9 @@ user experience.
 
 ## Setup
 
-Type the following to install:
+### Production
+
+To install, run:
 
     gem install auther
 
@@ -81,6 +85,18 @@ If using [direnv](https://direnv.net), for example, you can copy and paste the g
 into your `.envrc` file. Example:
 
 ![Credentials Generator Screenshot](doc/screenshots/credentials_generator.jpg)
+
+### Development
+
+To contribute, run:
+
+    git clone https://github.com/bkuhlmann/auther.git
+    cd auther
+    bin/setup
+
+You can also use the IRB console for direct access to all objects:
+
+    bin/console
 
 ## Usage
 
