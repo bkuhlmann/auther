@@ -5,8 +5,6 @@
 # Auther
 
 [![Gem Version](https://badge.fury.io/rb/auther.svg)](http://badge.fury.io/rb/auther)
-[![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/3172d51796930fcdfad8/maintainability)](https://codeclimate.com/github/bkuhlmann/auther/maintainability)
-[![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/3172d51796930fcdfad8/test_coverage)](https://codeclimate.com/github/bkuhlmann/auther/test_coverage)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/auther.svg?style=svg)](https://circleci.com/gh/bkuhlmann/auther)
 
 Provides simple, form-based authentication for apps that need security but don't want to deal with
