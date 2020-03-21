@@ -1,0 +1,285 @@
+:toc: macro
+:toclevels: 5
+:figure-caption!:
+
+= Auther
+
+[link=http://badge.fury.io/rb/auther]
+image::https://badge.fury.io/rb/auther.svg[Gem Version]
+[link=https://circleci.com/gh/bkuhlmann/auther]
+image::https://circleci.com/gh/bkuhlmann/auther.svg?style=svg[Circle CI Status]
+
+Provides simple, form-based authentication for apps that need security but don't want to deal with
+the clunky UI of HTTP Basic Authentication or something as heavyweight as
+link:https://github.com/plataformatec/devise[Devise]. It doesn't require a database and is
+compatible with password managers like link:https://agilebits.com/onepassword[1Password] making for
+a pleasant user experience.
+
+toc::[]
+
+== Features
+
+* Supports form-based authentication compatible with password managers like
+  link:https://agilebits.com/onepassword[1Password].
+
+image::https://www.alchemists.io/images/projects/auther/screenshots/form-without_errors.png[Form Without Errors Screenshot]
+image::https://www.alchemists.io/images/projects/auther/screenshots/form-with_errors.png[Form With Errors Screenshot]
+
+* Uses CSS Flexbox for lightweight styling.
+* Uses encrypted account credentials to keep sensitive information secure.
+* Supports multiple accounts with optional path exclude lists.
+* Supports customizable routes, models, presenters, views, controllers, and loggers.
+* Provides a generator for easy install and setup within an existing project.
+* Provides auto-redirection to requested path for verified credentials.
+
+== Requirements
+
+. link:https://www.ruby-lang.org[Ruby 2.7.x].
+. link:http://rubyonrails.org[Ruby on Rails 6.0.x].
+
+== Setup
+
+=== Production
+
+To install, run:
+
+[source,bash]
+----
+gem install auther
+----
+
+Add the following to your Gemfile:
+
+[source,ruby]
+----
+gem "auther"
+----
+
+Run the install generator to configure and initialize your application:
+
+[source,bash]
+----
+rails generate auther:install
+----
+
+Run the credentials generator to generate credentials for your application:
+
+[source,bash]
+----
+rails generate auther:credentials
+----
+
+If using link:https://direnv.net[direnv], for example, you can copy and paste the generated
+credentials into your `.envrc` file. Example:
+
+image::https://www.alchemists.io/images/projects/auther/screenshots/credentials_generator.jpg[Credentials Generator Screenshot]
+
+=== Development
+
+To contribute, run:
+
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/auther.git
+cd auther
+bin/setup
+----
+
+You can also use the IRB console for direct access to all objects:
+
+[source,bash]
+----
+bin/console
+----
+
+== Usage
+
+Launch your Rails application and visit the following: `http://localhost:3000/login`. Enter your
+login and password as used for the `rails generate auther:credentials` generator and you'll be
+logged in.
+
+=== Initializer
+
+The initializer (installed during setup) can be found here: `config/initializers/auther.rb`. The
+initializer comes installed with the following settings:
+
+[source,ruby]
+----
+Rails.application.config.auther_settings = {
+  accounts: [
+    name: "admin",
+    encrypted_login: ENV["AUTHER_ADMIN_LOGIN"],
+    encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
+    paths: ["/admin"]
+  ],
+  secret: ENV["AUTHER_SECRET"]
+}
+----
+
+To encrypt/decrypt account credentials, launch a rails console and run the following:
+
+[source,ruby]
+----
+# The secret as defined in `auther_settings` and/or produced by the credentials generator.
+secret = SecureRandom.hex 16 # "426a7f46548a1a4518676a8e246517d8"
+
+# The cipher for encrypting/decrypting values.
+cipher = Auther::Cipher.new secret
+
+# Use the following to encrypt an unecrypted value.
+cipher.encrypt "test@test.com"
+
+# Use the following to decrypt an encrypted value.
+cipher.decrypt "hWToltdpl+uZJBPELKNC7Ij++jPkTuo=--nEdbOYL9fIRh14hY--fU+VSCd4+DDOhOmG1gzRfQ=="
+----
+
+The initializer can be customized as follows:
+
+* `title` - Optional. The HTML page title (as rendered within a browser tab). Default:
+  `"Authorization"`.
+* `label` - Optional. The page label (what would appear above the form). Default: `"Authorization"`.
+* `secret` - Required. The secret passphrase used to encrypt/decrypt account credentials.
+* `accounts` - Required. The array of accounts with different or similar access to the application.
+** `name` - Required. The account name that uniquely identifies the account.
+** `encrypted_login` - Required. The encrypted account login.
+** `encrypted_password` - Required. The encrypted account password.
+** `paths` - Required. The array of excluded paths for which only this account has access to.
+** `authorized_url` - Optional. The URL to redirect to upon successful authorization. Authorized
+    redirection works in the order defined:
+*** The excluded path (if requested prior to authorization but now authorized).
+*** The authorized URL (if defined and the excluded path wasn't requested).
+*** The root path (if none of the above).
+** `deauthorized_url` - Optional. The URL to redirect to upon successful deauthorization (i.e.
+    logout). Deauthorized redirections works as follows (in the order defined):
+*** The deauthorized URL (if defined).
+*** The auth URL.
+* `url` - Optional. The URL to redirect to when enforcing authentication. Default: `"/login"`.
+* `logger` - Optional. The logger used to log path/account authorization messages. Default:
+  `Auther::NullLogger`.
+
+=== Routes
+
+The routes can be customized as follows (installed, by default, via the install generator):
+
+[source,ruby]
+----
+Rails.application.routes.draw do
+  mount Auther::Engine => "/auther"
+  get "/login", to: "auther/session#new", as: "login"
+  delete "/logout", to: "auther/session#destroy", as: "logout"
+end
+----
+
+=== Model
+
+The `Auther::Account` is a struct that uses ActiveModel validations to aid in attribute validation.
+This model could potentially be replaced with a database-backed object (would require controller
+customization)...but you should question if you have outgrown the use of this gem and need a
+different solution altogether if it comes to that.
+
+=== Presenter
+
+The `Auther::Presenter::Account` is a plain old Ruby object that uses ActiveModel validations to aid
+in form validation. This presenter makes it easy to construct form data for input and validation.
+
+=== View
+
+The view can be customized by creating the following file within your Rails application (assumes
+that the default `Auther::SessionController` implementation is sufficient):
+`app/views/auther/session/new.html`.
+
+The form uses the `@account` instance variable which is an instance of the
+`Auther::Presenter::Account` presenter (as mentioned above). The form can be stylized by modifying
+the styles found in the `auther.scss` stylesheet.
+
+=== Controller
+
+The `Auther::SessionController` inherits from the `Auther::BaseController`. To customize, it is
+recommended that you add a controller to your app that inherits from the `Auther::BaseController`.
+Example:
+
+[source,ruby]
+----
+# Example Path:  app/controllers/session_controller.rb
+class SessionController < Auther::BaseController
+  layout "example"
+end
+----
+
+This allows customization of session controller behavior to serve any special business needs. See
+the `Auther::BaseController` for additional details or the `Auther::SessionController` for default
+implementation.
+
+=== Logging
+
+As mentioned in the setup above, the logger can be customized as follows:
+
+[source,ruby]
+----
+# This is the default logger silences all logging attempts.
+Auther::NullLogger.new
+
+# Can be used to log to the environment log.
+ActiveSupport::Logger.new "log/#{Rails.env}.log"
+
+# Can be used to log to standard output.
+Logger.new STDOUT
+----
+
+When logging is enabled, you'll be able to see the following information in the server logs to help
+debug custom Auther settings:
+
+* Requested path and excluded path detection.
+* Finding (or not finding) of account.
+* Account authentication pass/fail.
+* Account and path authorization pass/fail.
+
+=== Troubleshooting
+
+* If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc.
+  this might cause Auther authentication to fail. Make sure to clear your browser cookies in this
+  situation or use Google Chrome (incognito mode) to verify.
+* If the authentication view/form looks broken (stylewise) this could be due to custom
+  `ActionView::Base.field_error_proc` settings defined by your app (usually via an initializer).
+  Auther uses this configuration `ActionView::Base.field_error_proc = proc { |html_tag, _|
+  html_tag.html_safe }` so that no additional markup is added to the DOM when errors are raised. If
+  you have customized this to something else, you might want to read the usage documentation
+  (mentioned above) to rebuild the authentication view/form for your specific business needs.
+
+== Tests
+
+To test, run:
+
+[source,bash]
+----
+bundle exec rake
+----
+
+== Versioning
+
+Read link:https://semver.org[Semantic Versioning] for details. Briefly, it means:
+
+* Major (X.y.z) - Incremented for any backwards incompatible public API changes.
+* Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
+* Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
+
+== Code of Conduct
+
+Please note that this project is released with a link:CODE_OF_CONDUCT.adoc[CODE OF CONDUCT]. By
+participating in this project you agree to abide by its terms.
+
+== Contributions
+
+Read link:CONTRIBUTING.adoc[CONTRIBUTING] for details.
+
+== License
+
+Read link:LICENSE.adoc[LICENSE] for details.
+
+== History
+
+Read link:CHANGES.adoc[CHANGES] for details.
+
+== Credits
+
+Engineered by link:https://www.alchemists.io/team/brooke_kuhlmann.html[Brooke Kuhlmann].
