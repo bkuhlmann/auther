@@ -8,15 +8,16 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://github.com/bkuhlmann/auther"
+  spec.homepage = "https://www.alchemists.io/projects/auther"
   spec.summary = "Enhances Rails with multi-account, " \
                  "form-based, database-less, application-wide authentication."
   spec.license = "Apache-2.0"
 
   spec.metadata = {
-    "source_code_uri" => "https://github.com/bkuhlmann/auther",
-    "changelog_uri" => "https://github.com/bkuhlmann/auther/blob/master/CHANGES.md",
-    "bug_tracker_uri" => "https://github.com/bkuhlmann/auther/issues"
+    "bug_tracker_uri" => "https://github.com/bkuhlmann/auther/issues",
+    "changelog_uri" => "https://www.alchemists.io/projects/auther/changes.html",
+    "documentation_uri" => "https://www.alchemists.io/projects/auther",
+    "source_code_uri" => "https://github.com/bkuhlmann/auther"
   }
 
   spec.signing_key = Gem.default_key_path
