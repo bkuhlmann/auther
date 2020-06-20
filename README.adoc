@@ -34,8 +34,8 @@ image::https://www.alchemists.io/images/projects/auther/screenshots/form-with_er
 
 == Requirements
 
-. link:https://www.ruby-lang.org[Ruby 2.7.x].
-. link:http://rubyonrails.org[Ruby on Rails 6.0.x].
+. link:https://www.ruby-lang.org[Ruby]
+. link:https://rubyonrails.org[Ruby on Rails]
 
 == Setup
 
