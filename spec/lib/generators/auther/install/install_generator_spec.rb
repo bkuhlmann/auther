@@ -26,10 +26,12 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
       "\n" \
       "Rails.application.config.auther_settings = {\n" \
       "  accounts: [\n" \
-      "    name: \"admin\",\n" \
-      "    encrypted_login: ENV[\"AUTHER_ADMIN_LOGIN\"],\n" \
-      "    encrypted_password: ENV[\"AUTHER_ADMIN_PASSWORD\"],\n" \
-      "    paths: [\"/admin\"]\n" \
+      "    {\n" \
+      "      name: \"admin\",\n" \
+      "      encrypted_login: ENV[\"AUTHER_ADMIN_LOGIN\"],\n" \
+      "      encrypted_password: ENV[\"AUTHER_ADMIN_PASSWORD\"],\n" \
+      "      paths: [\"/admin\"]\n" \
+      "    }\n" \
       "  ],\n" \
       "  secret: ENV[\"AUTHER_SECRET\"]\n" \
       "}\n"
