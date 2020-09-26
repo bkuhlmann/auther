@@ -2,6 +2,7 @@
 
 require "securerandom"
 
+# rubocop:disable RSpec/MultipleMemoizedHelpers
 RSpec.shared_context "with credentials", :credentials do
   let(:login) { "tester" }
   let(:password) { "nevermore" }
@@ -11,3 +12,4 @@ RSpec.shared_context "with credentials", :credentials do
   let(:encrypted_login) { credentials.fetch :login }
   let(:encrypted_password) { credentials.fetch :password }
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers

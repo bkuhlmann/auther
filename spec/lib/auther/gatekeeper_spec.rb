@@ -139,6 +139,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
       end
     end
 
+    # rubocop:disable RSpec/MultipleMemoizedHelpers
     context "with multiple accounts" do
       subject :gatekeeper do
         described_class.new(
@@ -306,6 +307,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
         end
       end
     end
+    # rubocop:enable RSpec/MultipleMemoizedHelpers
   end
   # rubocop:enable RSpec/NestedGroups
 end
