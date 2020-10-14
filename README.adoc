@@ -39,8 +39,6 @@ image::https://www.alchemists.io/images/projects/auther/screenshots/form-with_er
 
 == Setup
 
-=== Production
-
 To install, run:
 
 [source,bash]
@@ -73,24 +71,6 @@ If using link:https://direnv.net[direnv], for example, you can copy and paste th
 credentials into your `.envrc` file. Example:
 
 image::https://www.alchemists.io/images/projects/auther/screenshots/credentials_generator.jpg[Credentials Generator Screenshot]
-
-=== Development
-
-To contribute, run:
-
-[source,bash]
-----
-git clone https://github.com/bkuhlmann/auther.git
-cd auther
-bin/setup
-----
-
-You can also use the IRB console for direct access to all objects:
-
-[source,bash]
-----
-bin/console
-----
 
 == Usage
 
@@ -247,6 +227,24 @@ debug custom Auther settings:
   html_tag.html_safe }` so that no additional markup is added to the DOM when errors are raised. If
   you have customized this to something else, you might want to read the usage documentation
   (mentioned above) to rebuild the authentication view/form for your specific business needs.
+
+== Development
+
+To contribute, run:
+
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/auther.git
+cd auther
+bin/setup
+----
+
+You can also use the IRB console for direct access to all objects:
+
+[source,bash]
+----
+bin/console
+----
 
 == Tests
 
