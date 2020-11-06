@@ -6,6 +6,8 @@
 
 [link=http://badge.fury.io/rb/auther]
 image::https://badge.fury.io/rb/auther.svg[Gem Version]
+[link=https://www.alchemists.io/projects/code_quality]
+image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchemists Style Guide]
 [link=https://circleci.com/gh/bkuhlmann/auther]
 image::https://circleci.com/gh/bkuhlmann/auther.svg?style=svg[Circle CI Status]
 
