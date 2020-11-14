@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sass-rails", "~> 6.0"
   spec.add_dependency "slim-rails", "~> 3.2"
   spec.add_development_dependency "ammeter", "~> 1.1"
-  spec.add_development_dependency "bundler-audit", "~> 0.6"
+  spec.add_development_dependency "bundler-audit", "~> 0.7"
   spec.add_development_dependency "bundler-leak", "~> 0.2"
   # spec.add_development_dependency "gemsmith", "~> 14.2"
   # spec.add_development_dependency "git-lint", "~> 1.0"
