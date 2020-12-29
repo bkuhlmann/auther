@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = "~> 3.0"
   spec.add_dependency "rails", "~> 6.0"
-  spec.add_dependency "refinements", "~> 7.18"
+  spec.add_dependency "refinements", "~> 8.0"
   spec.add_dependency "sass-rails", "~> 6.0"
   spec.add_dependency "slim-rails", "~> 3.2"
 
