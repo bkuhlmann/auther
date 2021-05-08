@@ -4,6 +4,10 @@ inherit_from:
   - https://raw.githubusercontent.com/bkuhlmann/code_quality/main/configurations/rubocop/performance.yml
   - https://raw.githubusercontent.com/bkuhlmann/code_quality/main/configurations/rubocop/rspec.yml
 
+Layout/RedundantLineBreak:
+  Exclude:
+    - "spec/support/config/routes.rb"
+
 Lint/EmptyBlock:
   Exclude:
     - "spec/support/config/routes.rb"
