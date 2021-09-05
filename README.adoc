@@ -11,11 +11,14 @@ image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchem
 [link=https://circleci.com/gh/bkuhlmann/auther]
 image::https://circleci.com/gh/bkuhlmann/auther.svg?style=svg[Circle CI Status]
 
-Provides simple, form-based authentication for apps that need security but don't want to deal with
-the clunky UI of HTTP Basic Authentication or something as heavyweight as
-link:https://github.com/plataformatec/devise[Devise]. It doesn't require a database and is
-compatible with password managers like link:https://agilebits.com/onepassword[1Password] making for
-a pleasant user experience.
+Auther provides simple, form-based authentication for apps that need security but don't want to deal
+with the clunky HTTP Basic Authentication user interface or as heavyweight as
+link:https://github.com/plataformatec/devise[Devise]. Auther doesn't require a database and is
+compatible with password managers which makes for a pleasant user experience.
+
+Auther is useful in situations -- like minimal viable products or applications with a small user
+base -- where you need to a security layer up and running quickly before adding more robust user
+management.
 
 toc::[]
 
@@ -110,7 +113,7 @@ secret = SecureRandom.hex 16 # "426a7f46548a1a4518676a8e246517d8"
 # The cipher for encrypting/decrypting values.
 cipher = Auther::Cipher.new secret
 
-# Use the following to encrypt an unecrypted value.
+# Use the following to encrypt an unencrypted value.
 cipher.encrypt "test@test.com"
 
 # Use the following to decrypt an encrypted value.
