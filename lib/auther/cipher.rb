@@ -9,11 +9,7 @@ module Auther
       secret = SecureRandom.hex key_length / BYTE_DIVISOR
       cipher = new secret
 
-      {
-        secret: secret,
-        login: cipher.encrypt(login),
-        password: cipher.encrypt(password)
-      }
+      {secret:, login: cipher.encrypt(login), password: cipher.encrypt(password)}
     end
 
     def self.key_length

@@ -4,15 +4,11 @@ require "rails_helper"
 
 RSpec.describe Auther::Authenticator, :credentials do
   subject :authenticator do
-    described_class.new secret, account_model, account_presenter, logger: logger
+    described_class.new secret, account_model, account_presenter, logger:
   end
 
   let :account_model do
-    Auther::Account[
-      name: "test",
-      encrypted_login: encrypted_login,
-      encrypted_password: encrypted_password
-    ]
+    Auther::Account[name: "test", encrypted_login:, encrypted_password:]
   end
 
   let :account_presenter do

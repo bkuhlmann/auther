@@ -4,9 +4,7 @@ require "rails_helper"
 
 RSpec.describe Auther::Account, :credentials do
   subject :account do
-    described_class.new name: "test",
-                        encrypted_login: encrypted_login,
-                        encrypted_password: encrypted_password
+    described_class.new name: "test", encrypted_login:, encrypted_password:
   end
 
   describe "#name" do

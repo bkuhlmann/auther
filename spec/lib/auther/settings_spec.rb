@@ -7,11 +7,11 @@ RSpec.describe Auther::Settings, :credentials do
 
   let :data do
     {
-      secret: secret,
+      secret:,
       accounts: [
         {
           name: "test-1",
-          secret: secret,
+          secret:,
           login: "test-1@test.com",
           secure_login: cipher.encrypt("test-1@test.com"),
           password: "nevermore",
@@ -20,7 +20,7 @@ RSpec.describe Auther::Settings, :credentials do
         },
         {
           name: "test-2",
-          secret: secret,
+          secret:,
           login: "test-2@test.com",
           secure_login: cipher.encrypt("test-2@test.com"),
           password: "evergreen",
@@ -57,7 +57,7 @@ RSpec.describe Auther::Settings, :credentials do
         {
           title: "Test",
           label: "Test",
-          secret: secret,
+          secret:,
           accounts: [],
           url: "/test",
           logger: Logger.new(STDOUT)

@@ -12,7 +12,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
   let(:logger) { instance_spy Logger }
 
   describe "#initialize" do
-    subject(:gatekeeper) { described_class.new app, secret: secret, accounts: [] }
+    subject(:gatekeeper) { described_class.new app, secret:, accounts: [] }
 
     it "sets application" do
       expect(gatekeeper.application).to eq(app)
@@ -32,8 +32,8 @@ RSpec.describe Auther::Gatekeeper, :credentials do
           accounts: [
             {
               name: "admin",
-              encrypted_login: encrypted_login,
-              encrypted_password: encrypted_password,
+              encrypted_login:,
+              encrypted_password:,
               paths: [
                 "/admin",
                 "/member",
@@ -42,8 +42,8 @@ RSpec.describe Auther::Gatekeeper, :credentials do
               authorized_url: "/admin/dashboard"
             }
           ],
-          secret: secret,
-          url: url
+          secret:,
+          url:
         )
       end
 
@@ -163,9 +163,9 @@ RSpec.describe Auther::Gatekeeper, :credentials do
               ]
             }
           ],
-          secret: secret,
-          url: url,
-          logger: logger
+          secret:,
+          url:,
+          logger:
         )
       end
 
