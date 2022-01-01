@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/auther/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/auther/changes.html",
+    "changelog_uri" => "https://www.alchemists.io/projects/auther/versions",
     "documentation_uri" => "https://www.alchemists.io/projects/auther",
     "rubygems_mfa_required" => "true",
     "source_code_uri" => "https://github.com/bkuhlmann/auther"
