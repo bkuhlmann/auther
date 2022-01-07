@@ -5,7 +5,7 @@ module Auther
   module Identity
     NAME = "auther"
     LABEL = "Auther"
-    VERSION = "12.2.0"
+    VERSION = "13.0.0"
     VERSION_LABEL = "#{LABEL} #{VERSION}".freeze
   end
 end
