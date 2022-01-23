@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "lib/auther/identity"
-
 Gem::Specification.new do |spec|
-  spec.name = Auther::Identity::NAME
-  spec.version = Auther::Identity::VERSION
+  spec.name = "auther"
+  spec.version = "13.0.0"
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
@@ -17,6 +15,7 @@ Gem::Specification.new do |spec|
     "bug_tracker_uri" => "https://github.com/bkuhlmann/auther/issues",
     "changelog_uri" => "https://www.alchemists.io/projects/auther/versions",
     "documentation_uri" => "https://www.alchemists.io/projects/auther",
+    "label" => "Auther",
     "rubygems_mfa_required" => "true",
     "source_code_uri" => "https://github.com/bkuhlmann/auther"
   }
@@ -30,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sass-rails", "~> 6.0"
   spec.add_dependency "slim-rails", "~> 3.3"
 
-  spec.files            = Dir["app/**/*", "config/**/*", "lib/**/*"]
+  spec.files = Dir["*.gemspec", "app/**/*", "config/**/*", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
-  spec.require_paths    = ["lib"]
+  spec.require_paths = ["lib"]
 end

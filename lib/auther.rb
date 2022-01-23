@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "slim-rails"
-require "auther/identity"
 require "auther/settings"
 require "auther/null_logger"
 require "auther/cipher"
