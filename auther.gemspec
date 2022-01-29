@@ -3,7 +3,6 @@
 Gem::Specification.new do |spec|
   spec.name = "auther"
   spec.version = "13.1.0"
-  spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://www.alchemists.io/projects/auther"
@@ -31,5 +30,4 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["*.gemspec", "app/**/*", "config/**/*", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
-  spec.require_paths = ["lib"]
 end
