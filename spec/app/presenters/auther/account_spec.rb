@@ -36,7 +36,7 @@ RSpec.describe Auther::Presenter::Account do
 
     context "when attributes exist" do
       it "answers false" do
-        expect(account.error?(:login)).to eq(false)
+        expect(account.error?(:login)).to be(false)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe Auther::Presenter::Account do
       subject(:account) { described_class.new name: "test", login: "test@test.com" }
 
       it "answers true" do
-        expect(account.error?(:password)).to eq(true)
+        expect(account.error?(:password)).to be(true)
       end
     end
   end
