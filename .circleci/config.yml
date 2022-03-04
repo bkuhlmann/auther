@@ -19,7 +19,7 @@ jobs:
       - restore_cache:
           name: Bundler Restore
           keys:
-            - gem-cache-{{.Branch}}-{{checksum "auther.gemspec"}}
+            - gem-cache-{{.Branch}}-{{checksum "Gemfile"}}-{{checksum "auther.gemspec"}}
             - gem-cache-
 
       - run:
@@ -31,7 +31,7 @@ jobs:
 
       - save_cache:
           name: Bundler Store
-          key: gem-cache-{{.Branch}}-{{checksum "auther.gemspec"}}
+          key: gem-cache-{{.Branch}}-{{checksum "Gemfile"}}-{{checksum "auther.gemspec"}}
           paths:
             - vendor/bundle
 
