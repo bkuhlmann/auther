@@ -3,8 +3,10 @@
 module Auther
   # The default logger which purposefully does nothing at all.
   class NullLogger
+    # rubocop:disable Style/RedundantInitialize
     def initialize _parameters
     end
+    # rubocop:enable Style/RedundantInitialize
 
     def info _message
     end
