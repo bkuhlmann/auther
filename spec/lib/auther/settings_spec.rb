@@ -94,7 +94,7 @@ RSpec.describe Auther::Settings, :credentials do
       name = "bogus"
       account = settings.find_account name
 
-      expect(account).to be_nil
+      expect(account).to be(nil)
     end
   end
 end
