@@ -22,19 +22,21 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
 
   describe "#install" do
     let :initialize_contents do
-      "# frozen_string_literal: true\n" \
-      "\n" \
-      "Rails.application.config.auther_settings = {\n" \
-      "  accounts: [\n" \
-      "    {\n" \
-      "      name: \"admin\",\n" \
-      "      encrypted_login: ENV[\"AUTHER_ADMIN_LOGIN\"],\n" \
-      "      encrypted_password: ENV[\"AUTHER_ADMIN_PASSWORD\"],\n" \
-      "      paths: [\"/admin\"]\n" \
-      "    }\n" \
-      "  ],\n" \
-      "  secret: ENV[\"AUTHER_SECRET\"]\n" \
-      "}\n"
+      <<~CONTENT
+        # frozen_string_literal: true
+
+        Rails.application.config.auther_settings = {
+          accounts: [
+            {
+              name: "admin",
+              encrypted_login: ENV.fetch("AUTHER_ADMIN_LOGIN"),
+              encrypted_password: ENV.fetch("AUTHER_ADMIN_PASSWORD"),
+              paths: ["/admin"]
+            }
+          ],
+          secret: ENV.fetch("AUTHER_SECRET")
+        }
+      CONTENT
     end
 
     it "installs initializer" do

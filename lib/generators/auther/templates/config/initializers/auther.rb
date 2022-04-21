@@ -4,10 +4,10 @@ Rails.application.config.auther_settings = {
   accounts: [
     {
       name: "admin",
-      encrypted_login: ENV["AUTHER_ADMIN_LOGIN"],
-      encrypted_password: ENV["AUTHER_ADMIN_PASSWORD"],
+      encrypted_login: ENV.fetch("AUTHER_ADMIN_LOGIN"),
+      encrypted_password: ENV.fetch("AUTHER_ADMIN_PASSWORD"),
       paths: ["/admin"]
     }
   ],
-  secret: ENV["AUTHER_SECRET"]
+  secret: ENV.fetch("AUTHER_SECRET")
 }
