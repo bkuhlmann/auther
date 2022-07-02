@@ -7,7 +7,7 @@ RSpec.describe Auther::SessionController do
   describe "#show" do
     it "redirects to new action" do
       get "/auther/session"
-      expect(response.status).to eq 302
+      expect(response).to have_http_status(:found)
     end
   end
 
@@ -15,22 +15,17 @@ RSpec.describe Auther::SessionController do
     it "renders login form", :aggregate_failures do
       get "/auther/session/new"
 
-      expect(response.status).to eq 200
       expect(response.body).to include("Login")
       expect(response.body).to include("Password")
     end
 
-    it "renders page title", :aggregate_failures do
+    it "renders page title" do
       get "/auther/session/new"
-
-      expect(response.status).to eq 200
       expect(response.body).to include("<title>Authorization</title>")
     end
 
-    it "renders default label", :aggregate_failures do
+    it "renders default label" do
       get "/auther/session/new"
-
-      expect(response.status).to eq 200
       expect(response.body).to include(">Authorization</h1>")
     end
   end
@@ -45,7 +40,6 @@ RSpec.describe Auther::SessionController do
       it "redirects to authorized URL", :aggregate_failures do
         post "/auther/session", params: {account: {name: "test", login:, password:}}
 
-        expect(response.status).to eq 302
         expect(cipher.decrypt(session[:auther_test_login])).to eq(login)
         expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
         expect(response.location).to eq("http://www.example.com/portal/dashboard")
@@ -59,24 +53,22 @@ RSpec.describe Auther::SessionController do
         expect(cipher.decrypt(session[:auther_test_password])).to eq(password)
       end
 
-      it "redirects to requested path for excluded path", :aggregate_failures do
+      it "redirects to requested path for excluded path" do
         get "/portal"
         post "/auther/session", params: {account: {name: "test", login:, password:}}
 
-        expect(response.status).to eq 302
         expect(response.location).to eq("http://www.example.com/portal")
       end
 
       # See Dummy application.rb Auther settings where trailing slash path is defined.
-      it "redirects to requested path for excluded (trailing slash) path", :aggregate_failures do
+      it "redirects to requested path for excluded (trailing slash) path" do
         get "/trailer"
         post "/auther/session", params: {account: {name: "test", login:, password:}}
 
-        expect(response.status).to eq 302
         expect(response.location).to eq("http://www.example.com/trailer")
       end
 
-      it "requires excluded path authorization and redirects to root path", :aggregate_failures do
+      it "requires excluded path authorization and redirects to root path" do
         # Save and clear the authorized URL for the purposes of this test only.
         authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
         Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ""
@@ -86,7 +78,6 @@ RSpec.describe Auther::SessionController do
         # Restore the authorized URL so that other tests are not affected by modified configuration.
         Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
 
-        expect(response.status).to eq 302
         expect(response.location).to eq("http://www.example.com")
       end
     end
@@ -124,7 +115,7 @@ RSpec.describe Auther::SessionController do
 
       it "answers OK status" do
         post "/auther/session", params: parameters
-        expect(response.status).to eq 200
+        expect(response).to have_http_status(:ok)
       end
 
       it "requires excluded path authorization and remembers request path" do
@@ -146,11 +137,9 @@ RSpec.describe Auther::SessionController do
         }
       end
 
-      it "renders errors", :aggregate_failures do
+      it "renders errors" do
         post "/auther/session", params: parameters
-
         expect(response.body).to include("auther-error")
-        expect(response.status).to eq 200
       end
     end
   end
@@ -175,7 +164,7 @@ RSpec.describe Auther::SessionController do
     end
 
     # rubocop:disable RSpec/ExampleLength
-    it "redirects to default deauthorized URL", :aggregate_failures do
+    it "redirects to default deauthorized URL" do
       # Save and clear the authorized URL for the purposes of this test only.
       deauthorized_url = Rails.application
                               .config
@@ -192,16 +181,14 @@ RSpec.describe Auther::SessionController do
            .auther_settings[:accounts]
            .first[:deauthorized_url] = deauthorized_url
 
-      expect(response.status).to eq 302
       expect(response.location).to eq("http://www.example.com/login")
     end
     # rubocop:enable RSpec/ExampleLength
 
-    it "redirects to account deauthorized URL", :aggregate_failures do
+    it "redirects to account deauthorized URL" do
       post "/auther/session", params: parameters
       delete "/auther/session", params: {name: "test"}
 
-      expect(response.status).to eq 302
       expect(response.location).to eq("http://www.example.com/deauthorized")
     end
   end
