@@ -1,5 +1,10 @@
 = Versions
 
+== 13.5.0 (2022-07-17)
+
+* Updated to Debug 1.6.0 - Brooke Kuhlmann
+* Updated to Refinements 9.6.0 - Brooke Kuhlmann
+
 == 13.4.0 (2022-07-02)
 
 * Fixed RuboCop Layout/LineContinuationLeadingSpace - Brooke Kuhlmann
