@@ -7,7 +7,7 @@ RSpec.describe Auther::Gatekeeper, :credentials do
   include Rack::Test::Methods
 
   let(:env) { {"rack.session" => {}, "PATH_INFO" => "/"} }
-  let(:app) { ->(env) { [200, env, ["OK"]] } }
+  let(:app) { -> env { [200, env, ["OK"]] } }
   let(:url) { "/login" }
   let(:logger) { instance_spy Logger }
 
