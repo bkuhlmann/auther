@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 7.0"
   spec.add_dependency "refinements", "~> 9.7"
   spec.add_dependency "sass-rails", "~> 6.0"
-  spec.add_dependency "slim-rails", "~> 3.3"
+  spec.add_dependency "slim-rails", "~> 3.5"
 
   spec.files = Dir["*.gemspec", "app/**/*", "config/**/*", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
