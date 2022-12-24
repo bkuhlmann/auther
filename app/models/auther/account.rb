@@ -3,17 +3,16 @@
 require "active_model"
 
 module Auther
-  ACCOUNT_ATTRIBUTES = %i[
-    name
-    encrypted_login
-    encrypted_password
-    paths
-    authorized_url
-    deauthorized_url
-  ].freeze
-
   # Represents an authenticatable account.
-  Account = Struct.new(*ACCOUNT_ATTRIBUTES, keyword_init: true) do
+  Account = Struct.new(
+    :name,
+    :encrypted_login,
+    :encrypted_password,
+    :paths,
+    :authorized_url,
+    :deauthorized_url,
+    keyword_init: true
+  ) do
     include ActiveModel::Validations
 
     validates :name, :encrypted_login, :encrypted_password, presence: true
