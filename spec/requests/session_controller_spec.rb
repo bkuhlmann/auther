@@ -19,6 +19,11 @@ RSpec.describe Auther::SessionController do
       expect(response.body).to include("Password")
     end
 
+    it "renders login form with out errors" do
+      get "/auther/session/new"
+      expect(response.body).not_to include(%("auther-error"))
+    end
+
     it "renders page title" do
       get "/auther/session/new"
       expect(response.body).to include("<title>Authorization</title>")
