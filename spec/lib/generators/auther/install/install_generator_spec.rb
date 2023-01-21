@@ -9,7 +9,7 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
 
   let(:temp_path) { Bundler.root.join "tmp" }
   let(:initializer) { temp_path.join "config/initializers/auther.rb" }
-  let(:routes_template) { Bundler.root.join "spec/support/fixtures/config/routes.rb" }
+  let(:routes_template) { SPEC_ROOT.join "support/fixtures/config/routes.rb" }
   let(:routes_test) { temp_path.join "config/routes.rb" }
 
   before do
