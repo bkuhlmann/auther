@@ -5,15 +5,15 @@ Gem::Specification.new do |spec|
   spec.version = "14.0.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://www.alchemists.io/projects/auther"
+  spec.homepage = "https://alchemists.io/projects/auther"
   spec.summary = "Enhances Rails with multi-account, " \
                  "form-based, database-less, application-wide authentication."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/auther/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/auther/versions",
-    "documentation_uri" => "https://www.alchemists.io/projects/auther",
+    "changelog_uri" => "https://alchemists.io/projects/auther/versions",
+    "documentation_uri" => "https://alchemists.io/projects/auther",
     "funding_uri" => "https://github.com/sponsors/bkuhlmann",
     "label" => "Auther",
     "rubygems_mfa_required" => "true",
