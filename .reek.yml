@@ -1,5 +1,20 @@
 ---
 detectors:
+  Attribute:
+    exclude:
+    - Auther::Presenter::Account#login
+    - Auther::Presenter::Account#name
+    - Auther::Presenter::Account#password
+  ControlParameter:
+    exclude:
+    - Auther::Authenticator#authentic?
+    - Auther::Gatekeeper#log_authentication
+    - Auther::Gatekeeper#log_authorization
+  DuplicateMethodCall:
+    exclude:
+    - Auther::Gatekeeper#authenticated?
+    - Auther::Gatekeeper#call
+    - Auther::InstallGenerator#install_initializer
   FeatureEnvy:
     exclude:
     - Auther::BaseController#store_credentials
@@ -7,6 +22,16 @@ detectors:
   InstanceVariableAssumption:
     exclude:
     - Auther::BaseController
+  IrresponsibleModule:
+    enabled: false
+  LongParameterList:
+    enabled: false
+  TooManyInstanceVariables:
+    exclude:
+    - Auther::Settings
+  TooManyMethods:
+    exclude:
+    - Auther::Gatekeeper
   TooManyStatements:
     exclude:
     - initialize
@@ -19,28 +44,3 @@ detectors:
     exclude:
     - Auther::BaseController#settings
     - Auther::Gatekeeper#clean_paths
-  Attribute:
-    exclude:
-    - Auther::Presenter::Account#login
-    - Auther::Presenter::Account#name
-    - Auther::Presenter::Account#password
-  IrresponsibleModule:
-    enabled: false
-  ControlParameter:
-    exclude:
-    - Auther::Authenticator#authentic?
-    - Auther::Gatekeeper#log_authentication
-    - Auther::Gatekeeper#log_authorization
-  DuplicateMethodCall:
-    exclude:
-    - Auther::Gatekeeper#authenticated?
-    - Auther::Gatekeeper#call
-    - Auther::InstallGenerator#install_initializer
-  LongParameterList:
-    enabled: false
-  TooManyMethods:
-    exclude:
-    - Auther::Gatekeeper
-  TooManyInstanceVariables:
-    exclude:
-    - Auther::Settings
