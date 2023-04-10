@@ -37,9 +37,7 @@ detectors:
     - Auther::Gatekeeper#call
     - Auther::InstallGenerator#install_initializer
   LongParameterList:
-    exclude:
-    - Auther::Gatekeeper#log_authorization
-    - Auther::Settings#initialize
+    enabled: false
   TooManyMethods:
     exclude:
     - Auther::Gatekeeper
