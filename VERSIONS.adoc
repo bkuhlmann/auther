@@ -1,5 +1,12 @@
 = Versions
 
+== 15.0.1 (2023-08-08)
+
+* Fixed RuboCop Packaging/BundlerSetupInTests issues - Brooke Kuhlmann
+* Fixed missing precompiled stylesheet engine asset - Brooke Kuhlmann
+* Added version release notes - Brooke Kuhlmann
+* Updated Rake RSpec task configuration to not be verbose - Brooke Kuhlmann
+
 == 15.0.0 (2023-06-19)
 
 * Updated to Caliber 0.35.0 - Brooke Kuhlmann

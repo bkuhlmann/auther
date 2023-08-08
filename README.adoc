@@ -4,31 +4,26 @@
 
 = Auther
 
-Auther provides simple, form-based authentication for apps that need security but don't want to deal
-with the clunky HTTP Basic Authentication user interface or as heavyweight as
-link:https://github.com/plataformatec/devise[Devise]. Auther doesn't require a database and is
-compatible with password managers which makes for a pleasant user experience.
+Auther provides simple, form-based authentication for apps that need security but don't want to deal with the clunky HTTP Basic Authentication user interface or as heavyweight as link:https://github.com/plataformatec/devise[Devise]. Auther doesn't require a database and is compatible with password managers which makes for a pleasant user experience.
 
-Auther is useful in situations -- like minimal viable products or applications with a small user
-base -- where you need to a security layer up and running quickly before adding more robust user
-management.
+Auther is useful in situations -- like minimal viable products or applications with a small user base -- where you need to a security layer up and running quickly before adding more robust user management.
 
 toc::[]
 
 == Features
 
-* Supports form-based authentication compatible with password managers like
-  link:https://agilebits.com/onepassword[1Password].
-
-image::https://alchemists.io/images/projects/auther/screenshots/form-without_errors.png[Form Without Errors Screenshot]
-image::https://alchemists.io/images/projects/auther/screenshots/form-with_errors.png[Form With Errors Screenshot]
-
+* Supports form-based authentication compatible with password managers like link:https://bitwarden.com[Bitwarden].
 * Uses CSS Flexbox for lightweight styling.
 * Uses encrypted account credentials to keep sensitive information secure.
 * Supports multiple accounts with optional path exclude lists.
 * Supports customizable routes, models, presenters, views, controllers, and loggers.
 * Provides a generator for easy install and setup within an existing project.
 * Provides auto-redirection to requested path for verified credentials.
+
+== Screenshots
+
+image::https://alchemists.io/images/projects/auther/screenshots/form-without_errors.png[Form Without Errors Screenshot,width=347,height=394,role=focal_point]
+image::https://alchemists.io/images/projects/auther/screenshots/form-with_errors.png[Form With Errors Screenshot,width=386,height=456,role=focal_point]
 
 == Requirements
 
@@ -67,13 +62,6 @@ Once the gem is installed, you only need to require it:
 require "auther"
 ----
 
-Run the install generator to configure and initialize your application:
-
-[source,bash]
-----
-rails generate auther:install
-----
-
 Run the credentials generator to generate credentials for your application:
 
 [source,bash]
@@ -81,10 +69,17 @@ Run the credentials generator to generate credentials for your application:
 rails generate auther:credentials
 ----
 
-If using link:https://direnv.net[direnv], for example, you can copy and paste the generated
+Run the install generator to configure and initialize your application:
+
+[source,bash]
+----
+rails generate auther:install
+----
+
+If using link:https://direnv.net[direnv], you can copy and paste the generated
 credentials into your `.envrc` file. Example:
 
-image::https://alchemists.io/images/projects/auther/screenshots/credentials_generator.jpg[Credentials Generator Screenshot]
+image::https://alchemists.io/images/projects/auther/screenshots/credentials_generator.png[Credentials Generator Screenshot,width=768,height=288,role=focal_point]
 
 == Usage
 
@@ -235,7 +230,7 @@ debug custom Auther settings:
 * If upgrading Rails, changing the cookie/session settings, generating a new secret base key, etc.
   this might cause Auther authentication to fail. Make sure to clear your browser cookies in this
   situation or use Google Chrome (incognito mode) to verify.
-* If the authentication view/form looks broken (stylewise) this could be due to custom
+* If the authentication view/form looks broken (style wise) this could be due to custom
   `ActionView::Base.field_error_proc` settings defined by your app (usually via an initializer).
   Auther uses this configuration `ActionView::Base.field_error_proc = proc { |html_tag, _|
   html_tag.html_safe }` so that no additional markup is added to the DOM when errors are raised. If
