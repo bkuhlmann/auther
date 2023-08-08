@@ -15,6 +15,7 @@ module Auther
     end
 
     initializer "auther.initialize" do |app|
+      app.config.assets.precompile.append "auther/application.css" unless Rails.env.test?
       app.config.app_middleware.use Gatekeeper, app.config.auther_settings
       app.config.filter_parameters += %i[login password]
     end
