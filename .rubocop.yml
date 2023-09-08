@@ -4,7 +4,12 @@ inherit_gem:
 Layout/RedundantLineBreak:
   Exclude:
     - "spec/support/fixtures/config/routes.rb"
-
 Lint/EmptyBlock:
   Exclude:
     - "spec/support/fixtures/config/routes.rb"
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - "spec/app/presenters/auther/account_spec.rb"
+    - "spec/lib/generators/auther/credentials/credentials_generator_spec.rb"
+    - "spec/lib/generators/auther/install/install_generator_spec.rb"
+    - "spec/requests/session_controller_spec.rb"

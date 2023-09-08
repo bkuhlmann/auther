@@ -3,7 +3,6 @@
 require "rails_helper"
 require File.join(Dir.pwd, "lib/generators/auther/install/install_generator")
 
-# rubocop:disable RSpec/FilePath
 RSpec.describe Auther::InstallGenerator, type: :generator do
   destination Bundler.root.join("tmp")
 
@@ -57,4 +56,3 @@ RSpec.describe Auther::InstallGenerator, type: :generator do
     end
   end
 end
-# rubocop:enable RSpec/FilePath
