@@ -103,7 +103,7 @@ RSpec.describe Auther::SessionController do
       it "renders errors", :aggregate_failures do
         post "/auther/session", params: parameters
 
-        expect(response.body).to include("auther-error")
+        expect(response.body).to include("error")
         expect(response.body).to include(%(value="invalid@example.com"))
       end
 
@@ -143,7 +143,7 @@ RSpec.describe Auther::SessionController do
 
       it "renders errors" do
         post "/auther/session", params: parameters
-        expect(response.body).to include("auther-error")
+        expect(response.body).to include("error")
       end
     end
   end

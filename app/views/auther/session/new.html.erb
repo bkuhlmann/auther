@@ -1,0 +1,29 @@
+<% content_for(:title) { @title } %>
+
+<div class="auther">
+  <div class="body">
+    <h1 class="label">Authorization</h1>
+
+    <%= form_for @account, as: :account, url: "/auther/session", html: {class: :form} do |form| %>
+      <%= content_tag :div, class: %(section #{"error" if @account.error?(:login)}) do %>
+        <div class="group">
+          <%= form.text_field :login, class: "input", placeholder: "Login" %>
+          <small class="message"><%= @account.error_message(:login) %></small>
+        </div>
+      <% end %>
+
+      <%= content_tag :div, class: %(section #{"error" if @account.error?(:password)}) do %>
+        <div class="group">
+          <%= form.password_field :password, class: "input", placeholder: "Password" %>
+          <small class="message"><%= @account.error_message(:password) %></small>
+        </div>
+      <% end %>
+
+      <div class="section">
+        <%= form.select :name, @account_options, {}, class: "select" %>
+      </div>
+
+      <%= form.submit "Login", class: "button" %>
+    <% end %>
+  </div>
+</div>

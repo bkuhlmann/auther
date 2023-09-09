@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+    <title><%= yield :title %></title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="A demo site.">
+    <meta name="author" content="Alchemists">
+
+    <%= stylesheet_link_tag "auther/application", media: "all" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
