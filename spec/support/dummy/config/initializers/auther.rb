@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Layout/LineLength
-Rails.application.config.auther_settings = {
+Rails.application.config.auther = {
   secret: "e751140a9dc94ffc8667e1c44d915ab2",
   accounts: [
     {

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.config.auther_settings = {
+Rails.application.config.auther = {
   accounts: [
     {
       name: "admin",

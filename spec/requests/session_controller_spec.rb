@@ -74,13 +74,13 @@ RSpec.describe Auther::SessionController do
 
       it "requires excluded path authorization and redirects to root path" do
         # Save and clear the authorized URL for the purposes of this test only.
-        authorized_url = Rails.application.config.auther_settings[:accounts].first[:authorized_url]
-        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = ""
+        authorized_url = Rails.application.config.auther[:accounts].first[:authorized_url]
+        Rails.application.config.auther[:accounts].first[:authorized_url] = ""
 
         post "/auther/session", params: {account: {name: "test", login:, password:}}
 
         # Restore the authorized URL so that other tests are not affected by modified configuration.
-        Rails.application.config.auther_settings[:accounts].first[:authorized_url] = authorized_url
+        Rails.application.config.auther[:accounts].first[:authorized_url] = authorized_url
 
         expect(response.location).to eq("http://www.example.com")
       end
@@ -167,27 +167,19 @@ RSpec.describe Auther::SessionController do
       expect(session.key?(:auther_test_password)).to be(false)
     end
 
-    # rubocop:disable RSpec/ExampleLength
     it "redirects to default deauthorized URL" do
       # Save and clear the authorized URL for the purposes of this test only.
-      deauthorized_url = Rails.application
-                              .config
-                              .auther_settings[:accounts]
-                              .first[:deauthorized_url]
-      Rails.application.config.auther_settings[:accounts].first[:deauthorized_url] = nil
+      deauthorized_url = Rails.application.config.auther[:accounts].first[:deauthorized_url]
+      Rails.application.config.auther[:accounts].first[:deauthorized_url] = nil
 
       post "/auther/session", params: parameters
       delete "/auther/session", params: {name: "test"}
 
       # Restore authorized URL so other tests are not affected by the modified configuration.
-      Rails.application
-           .config
-           .auther_settings[:accounts]
-           .first[:deauthorized_url] = deauthorized_url
+      Rails.application.config.auther[:accounts].first[:deauthorized_url] = deauthorized_url
 
       expect(response.location).to eq("http://www.example.com/login")
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it "redirects to account deauthorized URL" do
       post "/auther/session", params: parameters

@@ -5,7 +5,7 @@ module Auther
   class Engine < ::Rails::Engine
     isolate_namespace Auther
 
-    config.auther_settings = {}
+    config.auther = {}
     config.action_view.field_error_proc = proc { |html_tag, _| html_tag.html_safe }
 
     config.to_prepare do
@@ -16,7 +16,7 @@ module Auther
 
     initializer "auther.initialize" do |app|
       app.config.assets.precompile.append "auther/application.css" unless Rails.env.test?
-      app.config.app_middleware.use Gatekeeper, app.config.auther_settings
+      app.config.app_middleware.use Gatekeeper, app.config.auther
       app.config.filter_parameters += %i[login password]
     end
   end

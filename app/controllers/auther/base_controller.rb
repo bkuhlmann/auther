@@ -41,9 +41,7 @@ module Auther
       params.require(:account).permit(:name, :login, :password)
     end
 
-    def settings
-      Auther::Settings.new Rails.application.config.auther_settings
-    end
+    def settings = Auther::Settings.new Rails.application.config.auther
 
     def load_title
       @title = settings.title
