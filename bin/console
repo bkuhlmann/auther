@@ -1,6 +1,8 @@
 #! /usr/bin/env ruby
 # frozen_string_literal: true
 
+require "bundler/setup"
+
 ENV["RAILS_ENV"] ||= "development"
 require File.expand_path "../spec/support/dummy/config/environment", __dir__
 ENV["RAILS_ROOT"] ||= File.dirname(__FILE__) + "/dummy"
