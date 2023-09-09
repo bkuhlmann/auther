@@ -4,7 +4,7 @@ module Auther
   # Manages account authentication.
   class Authenticator
     # rubocop:disable Metrics/ParameterLists
-    def initialize secret, account_model, account_presenter, logger: Auther::NullLogger.new(STDOUT)
+    def initialize secret, account_model, account_presenter, logger: LOGGER
       @cipher = Auther::Cipher.new secret
       @account_model = account_model
       @account_presenter = account_presenter

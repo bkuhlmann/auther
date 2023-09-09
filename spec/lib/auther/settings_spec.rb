@@ -46,7 +46,7 @@ RSpec.describe Auther::Settings, :credentials do
       end
 
       it "sets logger" do
-        expect(settings.logger).to be_a(Auther::NullLogger)
+        expect(settings.logger).to be_a(Logger)
       end
     end
 

@@ -3,7 +3,7 @@
 module Auther
   # Represents Auther settings.
   Settings = Struct.new :title, :label, :secret, :accounts, :url, :logger, keyword_init: true do
-    def initialize *arguments
+    def initialize(*)
       super
 
       self[:title] ||= "Authorization"
@@ -11,7 +11,7 @@ module Auther
       self[:secret] ||= ""
       self[:accounts] ||= []
       self[:url] ||= "/login"
-      self[:logger] ||= Auther::NullLogger.new STDOUT
+      self[:logger] ||= LOGGER
     end
 
     def find_account name

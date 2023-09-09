@@ -15,7 +15,7 @@ RSpec.describe Auther::Authenticator, :credentials do
     Auther::Presenter::Account.new name: "test", login: "tester", password: "nevermore"
   end
 
-  let(:logger) { instance_spy Auther::NullLogger }
+  let(:logger) { instance_spy Logger }
 
   describe "#authenticated?" do
     it "answers true when model/presenter are valid and names, logins, and passwords match" do
