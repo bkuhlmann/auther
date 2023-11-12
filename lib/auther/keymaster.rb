@@ -5,13 +5,9 @@ module Auther
   class Keymaster
     attr_reader :account_name
 
-    def self.namespace
-      "auther"
-    end
+    def self.namespace = "auther"
 
-    def self.redirect_url_key delimiter: "_"
-      [namespace, "redirect", "url"] * delimiter
-    end
+    def self.redirect_url_key(delimiter: "_") = [namespace, "redirect", "url"] * delimiter
 
     def self.get_account_name session = {}
       matching_keys = session.keys.select { |key| key.to_s =~ /auther.+login/ }
@@ -28,13 +24,9 @@ module Auther
       @account_name = account_name
     end
 
-    def login_key
-      build_key "login"
-    end
+    def login_key = build_key "login"
 
-    def password_key
-      build_key "password"
-    end
+    def password_key = build_key "password"
 
     private
 

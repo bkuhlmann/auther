@@ -12,21 +12,15 @@ module Auther
       {secret:, login: cipher.encrypt(login), password: cipher.encrypt(password)}
     end
 
-    def self.key_length
-      ActiveSupport::MessageEncryptor.key_len
-    end
+    def self.key_length = ActiveSupport::MessageEncryptor.key_len
 
     def initialize secret
       @encryptor = ActiveSupport::MessageEncryptor.new secret
     end
 
-    def encrypt data
-      encryptor.encrypt_and_sign data
-    end
+    def encrypt(data) = encryptor.encrypt_and_sign data
 
-    def decrypt data
-      encryptor.decrypt_and_verify data
-    end
+    def decrypt(data) = encryptor.decrypt_and_verify data
 
     private
 

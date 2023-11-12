@@ -5,9 +5,7 @@ module Auther
   class BaseController < ActionController::Base
     protect_from_forgery with: :exception
 
-    def show
-      redirect_to settings.url
-    end
+    def show = redirect_to settings.url
 
     def new
       @account = Auther::Presenter::Account.new
@@ -37,9 +35,7 @@ module Auther
 
     private
 
-    def account_params
-      params.require(:account).permit(:name, :login, :password)
-    end
+    def account_params = params.require(:account).permit(:name, :login, :password)
 
     def settings = Auther::Settings.new Rails.application.config.auther
 
@@ -62,13 +58,9 @@ module Auther
       fail NotImplementedError, "The method, #new_template_path, is not implemented."
     end
 
-    def authorized_url account
-      session["auther_redirect_url"] || account.authorized_url || "/"
-    end
+    def authorized_url(account) = session["auther_redirect_url"] || account.authorized_url || "/"
 
-    def deauthorized_url account
-      account.deauthorized_url || settings.url
-    end
+    def deauthorized_url(account) = account.deauthorized_url || settings.url
 
     def store_credentials account
       keymaster = Auther::Keymaster.new account.name

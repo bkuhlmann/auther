@@ -2,7 +2,6 @@
 
 module Auther
   # Rack middleware that guards access to sensitive routes.
-  # rubocop:disable Metrics/ClassLength
   class Gatekeeper
     attr_reader :application, :environment, :settings
 
@@ -28,13 +27,9 @@ module Auther
 
     private
 
-    def session
-      environment.fetch "rack.session"
-    end
+    def session = environment.fetch "rack.session"
 
-    def request
-      Rack::Request.new environment
-    end
+    def request = Rack::Request.new environment
 
     def response
       status, headers, body = application.call environment
@@ -77,9 +72,7 @@ module Auther
       account
     end
 
-    def clean_paths paths
-      paths.map { |path| path.chomp "/" }
-    end
+    def clean_paths(paths) = paths.map { |path| path.chomp "/" }
 
     def excluded_paths
       paths = settings.accounts.map { |account| clean_paths account.fetch(:paths) }
@@ -134,5 +127,4 @@ module Auther
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

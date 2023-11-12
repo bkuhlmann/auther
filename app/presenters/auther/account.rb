@@ -18,9 +18,7 @@ module Auther
         @password = password
       end
 
-      def error? key
-        errors.key? key
-      end
+      def error?(key) = errors.key? key
 
       def error_message key
         return "" unless error? key

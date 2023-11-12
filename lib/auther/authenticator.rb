@@ -41,9 +41,7 @@ module Auther
       false
     end
 
-    def authentic_name?
-      account_presenter.name == account_model.name
-    end
+    def authentic_name? = account_presenter.name == account_model.name
 
     def authentic_login?
       authentic? account_model.encrypted_login, account_presenter.login, "login"

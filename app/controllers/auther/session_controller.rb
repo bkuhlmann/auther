@@ -9,8 +9,6 @@ module Auther
 
     private
 
-    def new_template_path
-      "auther/session/new"
-    end
+    def new_template_path = "auther/session/new"
   end
 end

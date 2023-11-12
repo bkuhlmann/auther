@@ -14,8 +14,6 @@ module Auther
       self[:logger] ||= LOGGER
     end
 
-    def find_account name
-      accounts.find { |account| account.fetch(:name) == name }
-    end
+    def find_account(name) = accounts.find { |account| account.fetch(:name) == name }
   end
 end
