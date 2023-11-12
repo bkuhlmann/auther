@@ -13,7 +13,7 @@ toc::[]
 == Features
 
 * Supports form-based authentication compatible with password managers like link:https://bitwarden.com[Bitwarden].
-* Uses CSS Flexbox for lightweight styling.
+* Uses pure CSS for styling.
 * Uses encrypted account credentials to keep sensitive information secure.
 * Supports multiple accounts with optional path exclude lists.
 * Supports customizable routes, models, presenters, views, controllers, and loggers.
@@ -69,17 +69,18 @@ Run the credentials generator to generate credentials for your application:
 rails generate auther:credentials
 ----
 
-Run the install generator to configure and initialize your application:
+Example:
+
+image::https://alchemists.io/images/projects/auther/screenshots/credentials_generator.png[Credentials Generator Screenshot,width=768,height=288,role=focal_point]
+
+If using link:https://direnv.net[direnv], copy and paste the generated credentials -- as shown above -- into your `.envrc` file (💡 don't forget to add `export` before each key). Ensure you've applied these credentials to your environment and then run the install generator to configure and initialize your application:
 
 [source,bash]
 ----
 rails generate auther:install
 ----
 
-If using link:https://direnv.net[direnv], you can copy and paste the generated
-credentials into your `.envrc` file. Example:
-
-image::https://alchemists.io/images/projects/auther/screenshots/credentials_generator.png[Credentials Generator Screenshot,width=768,height=288,role=focal_point]
+💡 If you ran the generator before applying your credentials to the environment, you can re-run the generator to fix.
 
 == Usage
 
@@ -94,7 +95,7 @@ initializer comes installed with the following settings:
 
 [source,ruby]
 ----
-Rails.application.config.auther_settings = {
+Rails.application.config.auther = {
   accounts: [
     {
       name: "admin",
@@ -111,7 +112,7 @@ To encrypt/decrypt account credentials, launch a rails console and run the follo
 
 [source,ruby]
 ----
-# The secret as defined in `auther_settings` and/or produced by the credentials generator.
+# The secret as defined in `Rails.application.config.auther` and/or produced by the credentials generator.
 secret = SecureRandom.hex 16 # "426a7f46548a1a4518676a8e246517d8"
 
 # The cipher for encrypting/decrypting values.
@@ -146,7 +147,7 @@ The initializer can be customized as follows:
 *** The auth URL.
 * `url` - Optional. The URL to redirect to when enforcing authentication. Default: `"/login"`.
 * `logger` - Optional. The logger used to log path/account authorization messages. Default:
-  `Auther::NullLogger`.
+  `Logger.new nil`.
 
 === Routes
 
@@ -208,7 +209,7 @@ As mentioned in the setup above, the logger can be customized as follows:
 [source,ruby]
 ----
 # This is the default logger silences all logging attempts.
-Auther::NullLogger.new
+Logger.new nil
 
 # Can be used to log to the environment log.
 ActiveSupport::Logger.new "log/#{Rails.env}.log"

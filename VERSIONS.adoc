@@ -1,5 +1,23 @@
 = Versions
 
+== 16.0.0 (2024-01-01)
+
+* Fixed console launch - Brooke Kuhlmann
+* Added version release notes - Brooke Kuhlmann
+* Updated Circle CI step names - Brooke Kuhlmann
+* Updated gem dependencies - Brooke Kuhlmann
+* Updated to Rails 7.1.0 - Brooke Kuhlmann
+* Updated to Ruby 3.3.0 - Brooke Kuhlmann
+* Removed Gemfile code prefix from quality group - Brooke Kuhlmann
+* Removed Rakefile code prefix from quality task - Brooke Kuhlmann
+* Removed SASS Rails gem - Brooke Kuhlmann
+* Removed Slim gem - Brooke Kuhlmann
+* Removed null logger in favor of using default logger - Brooke Kuhlmann
+* Removed settings suffix from engine configuration - Brooke Kuhlmann
+* Refactored SCSS stylesheet as plain CSS - Brooke Kuhlmann
+* Refactored implementation to use endless methods - Brooke Kuhlmann
+* Refactored templates as ERB instead of Slim - Brooke Kuhlmann
+
 == 15.0.2 (2023-11-14)
 
 * Fixed RuboCop RSpec/SpecFilePathFormat issues - Brooke Kuhlmann
