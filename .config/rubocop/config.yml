@@ -1,6 +1,8 @@
 inherit_gem:
   caliber: config/all.yml
 
+require: rubocop-rspec_rails
+
 Layout/RedundantLineBreak:
   Exclude:
     - "spec/support/fixtures/config/routes.rb"
