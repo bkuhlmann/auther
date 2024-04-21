@@ -1,5 +1,14 @@
 = Versions
 
+== 16.2.0 (2024-04-21)
+
+* ✅ Fixed not implemented errors to be no method errors instead - Brooke Kuhlmann
+* 🟢 Added RuboCop RSpec Rails requirement - Brooke Kuhlmann
+* 🔼 Updated setup script as a Ruby script - Brooke Kuhlmann
+* 🔼 Updated to Amazing Print 1.6.0 - Brooke Kuhlmann
+* 🔼 Updated to Git Lint 7.3.0 - Brooke Kuhlmann
+* 🔼 Updated to Rake 13.2.0 - Brooke Kuhlmann
+
 == 16.1.0 (2024-03-03)
 
 * 🟢 Added repl_type_completor gem - Brooke Kuhlmann
