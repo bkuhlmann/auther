@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |spec|
   spec.name = "auther"
-  spec.version = "16.2.0"
+  spec.version = "16.2.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://alchemists.io/projects/auther"
-  spec.summary = "Enhances Rails with multi-account, " \
-                 "form-based, database-less, application-wide authentication."
+  spec.summary = "A multi-account, form-based, database-less, application-wide, " \
+                 "Rails authenticator."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
