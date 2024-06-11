@@ -9,9 +9,22 @@ Layout/RedundantLineBreak:
 Lint/EmptyBlock:
   Exclude:
     - "spec/support/fixtures/config/routes.rb"
+RSpecRails/AvoidSetupHook:
+  Enabled: true
+RSpecRails/HaveHttpStatus:
+  Enabled: true
+RSpecRails/InferredSpecType:
+  Enabled: true
+RSpecRails/MinitestAssertions:
+  Enabled: true
+RSpecRails/NegationBeValid:
+  Enabled: true
+  EnforcedStyle: be_invalid
 RSpec/SpecFilePathFormat:
   Exclude:
     - "spec/app/presenters/auther/account_spec.rb"
     - "spec/lib/generators/auther/credentials/credentials_generator_spec.rb"
     - "spec/lib/generators/auther/install/install_generator_spec.rb"
     - "spec/requests/session_controller_spec.rb"
+RSpecRails/TravelAround:
+  Enabled: true
