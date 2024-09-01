@@ -54,10 +54,6 @@ module Auther
       end
     end
 
-    def new_template_path
-      fail NoMethodError, "The method, #new_template_path, is not implemented."
-    end
-
     def authorized_url(account) = session["auther_redirect_url"] || account.authorized_url || "/"
 
     def deauthorized_url(account) = account.deauthorized_url || settings.url
