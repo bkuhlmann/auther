@@ -7,7 +7,7 @@ module Auther
     before_action :load_title, :load_label
     before_action :load_account_options, only: %i[new create]
 
-    private
+    protected
 
     def new_template_path = "auther/session/new"
   end
