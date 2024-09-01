@@ -1,5 +1,14 @@
 = Versions
 
+== 16.6.0 (2024-09-01)
+
+* 🟢 Added README Developer Certificate of Origin documentation - Brooke Kuhlmann
+* 🔼 Updated gem specification documentation URI as homepage URI - Brooke Kuhlmann
+* 🔼 Updated gem specification to support Ruby 3.4.0 - Brooke Kuhlmann
+* 🔼 Updated session controller to make new template path protected - Brooke Kuhlmann
+* 🔼 Updated to Refinements 12.8.0 - Brooke Kuhlmann
+* ⛔️ Removed base controller new template path method - Brooke Kuhlmann
+
 == 16.5.0 (2024-08-17)
 
 * 🔼 Updated to Refinements 12.7.0 - Brooke Kuhlmann
