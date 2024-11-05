@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.cert_chain = [Gem.default_cert_path]
 
   spec.required_ruby_version = ">= 3.3", "<= 3.4"
+  spec.add_dependency "logger", "~> 1.6"
   spec.add_dependency "rails", "~> 7.1"
   spec.add_dependency "refinements", "~> 12.10"
 
