@@ -1,5 +1,10 @@
 = Versions
 
+== 16.8.0 (2024-11-05)
+
+* 🟢 Added logger gem - Brooke Kuhlmann
+* 🔼 Updated to Refinements 12.10.0 - Brooke Kuhlmann
+
 == 16.7.0 (2024-10-07)
 
 * 🔼 Updated to Refinements 12.9.0 - Brooke Kuhlmann
