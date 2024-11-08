@@ -1,5 +1,10 @@
 = Versions
 
+== 16.9.0 (2024-11-08)
+
+* 🔼 Updated to Rails 8.0.0 - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.6 - Brooke Kuhlmann
+
 == 16.8.0 (2024-11-05)
 
 * 🟢 Added logger gem - Brooke Kuhlmann
