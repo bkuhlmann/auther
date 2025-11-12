@@ -13,6 +13,8 @@ RSpecRails/AvoidSetupHook:
   Enabled: true
 RSpecRails/HaveHttpStatus:
   Enabled: true
+RSpecRails/HttpStatusNameConsistency:
+  Enabled: true
 RSpecRails/InferredSpecType:
   Enabled: true
 RSpecRails/MinitestAssertions:
