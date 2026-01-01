@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 4.0"
   spec.add_dependency "logger", "~> 1.7"
   spec.add_dependency "rails", "~> 8.1"
-  spec.add_dependency "refinements", "~> 13.6"
+  spec.add_dependency "refinements", "~> 14.0"
 
   spec.files = Dir["*.gemspec", "app/**/*", "config/**/*", "lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
