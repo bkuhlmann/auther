@@ -2,9 +2,7 @@
 
 require "simplecov"
 
-if ENV["COVERAGE"] == "no"
-  puts "SimpleCov skipped due to being disabled."
-else
+unless ENV["COVERAGE"] == "no"
   SimpleCov.start do
     add_filter %r(^/spec/)
     add_filter(/.+new.html.slim$/)
