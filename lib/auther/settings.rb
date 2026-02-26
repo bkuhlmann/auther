@@ -2,8 +2,8 @@
 
 module Auther
   # Represents Auther settings.
-  Settings = Struct.new :title, :label, :secret, :accounts, :url, :logger, keyword_init: true do
-    def initialize(*)
+  Settings = Struct.new :title, :label, :secret, :accounts, :url, :logger do
+    def initialize(**)
       super
 
       self[:title] ||= "Authorization"

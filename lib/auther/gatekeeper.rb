@@ -9,7 +9,7 @@ module Auther
 
     def initialize application, settings = {}
       @application = application
-      @settings = Auther::Settings.new settings
+      @settings = Auther::Settings[**settings]
     end
 
     def call environment

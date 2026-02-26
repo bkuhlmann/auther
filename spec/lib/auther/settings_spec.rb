@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Auther::Settings, :credentials do
-  subject(:settings) { described_class.new data }
+  subject(:settings) { described_class[**data] }
 
   let :data do
     {
@@ -51,8 +51,6 @@ RSpec.describe Auther::Settings, :credentials do
     end
 
     context "with customization" do
-      subject(:settings) { described_class.new data }
-
       let :data do
         {
           title: "Test",

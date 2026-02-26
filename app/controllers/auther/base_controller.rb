@@ -14,7 +14,7 @@ module Auther
     # rubocop:disable Metrics/AbcSize
     def create
       @account = Auther::Presenter::Account.new(**account_params.to_h.symbolize_keys)
-      account = Auther::Account[settings.find_account(@account.name)]
+      account = Auther::Account[**settings.find_account(@account.name)]
       authenticator = Auther::Authenticator.new settings.secret, account, @account
 
       if authenticator.authenticated?
@@ -37,7 +37,7 @@ module Auther
 
     def account_params = params.require(:account).permit(:name, :login, :password)
 
-    def settings = Auther::Settings.new Rails.application.config.auther
+    def settings = Auther::Settings[**Rails.application.config.auther]
 
     def load_title
       @title = settings.title

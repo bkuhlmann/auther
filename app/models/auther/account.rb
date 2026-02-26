@@ -10,15 +10,14 @@ module Auther
     :encrypted_password,
     :paths,
     :authorized_url,
-    :deauthorized_url,
-    keyword_init: true
+    :deauthorized_url
   ) do
     include ActiveModel::Validations
 
     validates :name, :encrypted_login, :encrypted_password, presence: true
     validate :paths_type
 
-    def initialize *arguments
+    def initialize(**)
       super
       self[:paths] ||= []
     end
