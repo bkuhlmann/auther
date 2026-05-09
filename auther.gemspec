@@ -20,6 +20,10 @@ Gem::Specification.new do |spec|
     "source_code_uri" => "https://github.com/bkuhlmann/auther"
   }
 
+  spec.post_install_message = <<~MESSAGE
+    DEPRECATION: The Auther gem is deprecated and will be fully destroyed on 2027-02-05.
+  MESSAGE
+
   spec.signing_key = Gem.default_key_path
   spec.cert_chain = [Gem.default_cert_path]
 

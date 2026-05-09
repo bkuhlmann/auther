@@ -4,6 +4,8 @@
 
 = Auther
 
+‼️ *This gem is deprecated and will be fully destroyed on 2027-02-05. There is no replacement. Please update accordingly.* ‼️
+
 Auther provides simple, form-based authentication for apps that need security but don't want to deal with the clunky HTTP Basic Authentication user interface or as heavyweight as link:https://github.com/plataformatec/devise[Devise]. Auther doesn't require a database and is compatible with password managers which makes for a pleasant user experience.
 
 Auther is useful in situations -- like minimal viable products or applications with a small user base -- where you need to a security layer up and running quickly before adding more robust user management.
